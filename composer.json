@@ -1,0 +1,49 @@
+{
+    "name": "eventmachinephp/guard",
+    "description": "EventMachinePHP Guard",
+    "keywords": [
+        "EventMachinePHP",
+        "guard"
+    ],
+    "homepage": "https://github.com/eventmachinephp/guard",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yunus Emre Deligöz",
+            "email": "ye@deligoz.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.2",
+        "pestphp/pest": "^1.20",
+        "symfony/var-dumper": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "EventMachinePHP\\Data\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EventMachinePHP\\Data\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "lint": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
