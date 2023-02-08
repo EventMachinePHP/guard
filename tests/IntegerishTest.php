@@ -17,9 +17,9 @@ test('Guard::integerish ❌', function ($value, $message): void {
     expect(fn () => Guard::integerish($value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    '(12.34)'  => [12.34, 'Expected an integerish value. Got: 12.34'],
-    '(true)'   => [true, 'Expected an integerish value. Got: true'],
-    '(null)'   => [null, 'Expected an integerish value. Got: null'],
-    '(array)'  => [[], 'Expected an integerish value. Got: array'],
-    '(object)' => [new stdClass(), 'Expected an integerish value. Got: stdClass'],
+    '(12.34)'  => [12.34, 'Expected an integerish value. Got: 12.34 (float)'],
+    '(true)'   => [true, 'Expected an integerish value. Got: true (bool)'],
+    '(null)'   => [null, 'Expected an integerish value. Got: null (null)'],
+    '(array)'  => [[], 'Expected an integerish value. Got: array (array)'],
+    '(object)' => [new stdClass(), 'Expected an integerish value. Got: stdClass (stdClass)'],
 ]);

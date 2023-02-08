@@ -1,5 +1,7 @@
 <?php
 
+namespace EventMachinePHP\Guard\Tests;
+
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 

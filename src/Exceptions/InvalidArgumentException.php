@@ -4,8 +4,8 @@ namespace EventMachinePHP\Guard\Exceptions;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {
-    public static function create(string $message): self
+    public static function create(?string $customMessage = null, ?string $defaultMessage = null, mixed ...$sprintfValues): self
     {
-        return new self($message);
+        return new self($customMessage ?: sprintf($defaultMessage, ...$sprintfValues));
     }
 }

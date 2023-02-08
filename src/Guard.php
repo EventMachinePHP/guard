@@ -17,16 +17,14 @@ class Guard
 {
     //region Strings
 
+    /**
+     * @see \StringTest::string
+     */
     public static function string(mixed $value, ?string $message = null): string
     {
-        if (!is_string($value)) {
-            throw InvalidArgumentException::create($message ?:
-                'Expected a string. '.
-                'Got: '.get_debug_type($value)
-            );
-        }
-
-        return $value;
+        return !is_string($value)
+            ? throw InvalidArgumentException::create($message, 'Expected a string. Got: %s', get_debug_type($value))
+            : $value;
     }
 
     public static function stringNotEmpty(mixed $value, ?string $message = null): string
@@ -56,7 +54,7 @@ class Guard
     {
         if (!is_numeric($value) || $value != (int) $value) {
             throw InvalidArgumentException::create($message ?:
-                'Expected an integerish value. Got: '.self::valueToString($value)
+                sprintf('Expected an integerish value. Got: %s (%s)', self::valueToString($value), get_debug_type($value))
             );
         }
 
