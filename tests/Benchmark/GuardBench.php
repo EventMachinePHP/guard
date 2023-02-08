@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EventMachinePHP\Guard\Tests\Benchmark;
 
 use EventMachinePHP\Guard\Guard;

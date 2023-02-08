@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
@@ -17,6 +19,6 @@ test('Guard::stringNotEmpty ❌', function ($value, $message): void {
     expect(fn () => Guard::stringNotEmpty($value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    "('')" => ['', 'Expected a value different from: "". Got: ""'],
-    '(1)'  => [1, 'Expected a string. Got: int'],
+    "('')" => ['', 'Expected a value different from: "" (string). Got: "" (string)'],
+    '(1)'  => [1, 'Expected a string. Got: 1 (int)'],
 ]);

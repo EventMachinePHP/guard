@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EventMachinePHP\Guard;
 
 use DateTime;
@@ -17,13 +19,14 @@ class Guard
 {
     //region Strings
 
-    /**
-     * @see \StringTest::string
-     */
     public static function string(mixed $value, ?string $message = null): string
     {
         return !is_string($value)
-            ? throw InvalidArgumentException::create($message, 'Expected a string. Got: %s', get_debug_type($value))
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a string. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
             : $value;
     }
 
@@ -38,27 +41,27 @@ class Guard
     //endregion
 
     //region Integers
+
     public static function integer(mixed $value, ?string $message = null): int
     {
-        if (!is_int($value)) {
-            throw InvalidArgumentException::create($message ?:
-                'Expected an integer. '.
-                'Got: '.get_debug_type($value)
-            );
-        }
-
-        return $value;
+        return !is_int($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected an integer. Got: %s',
+                values: [get_debug_type($value)],
+            )
+            : $value;
     }
 
     public static function integerish(mixed $value, ?string $message = null): string|int|float
     {
-        if (!is_numeric($value) || $value != (int) $value) {
-            throw InvalidArgumentException::create($message ?:
-                sprintf('Expected an integerish value. Got: %s (%s)', self::valueToString($value), get_debug_type($value))
-            );
-        }
-
-        return $value;
+        return !is_numeric($value) || $value != (int) $value
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected an integerish value. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
     }
 
     public static function positiveInteger(mixed $value, ?string $message = null): int
@@ -75,26 +78,24 @@ class Guard
 
     public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
     {
-        if ($value != $other) {
-            throw InvalidArgumentException::create($message ?:
-                'Expected a value equal to: '.self::valueToString($value).
-                '. Got: '.self::valueToString($other)
-            );
-        }
-
-        return $value;
+        return $value != $other
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+            )
+            : $value;
     }
 
     public static function notEqualTo(mixed $value, mixed $other, ?string $message = null): mixed
     {
-        if ($value == $other) {
-            throw InvalidArgumentException::create($message ?:
-                'Expected a value different from: '.self::valueToString($value).
-                '. Got: '.self::valueToString($other)
-            );
-        }
-
-        return $value;
+        return $value == $other
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+            )
+            : $value;
     }
 
     //endregion
@@ -103,14 +104,13 @@ class Guard
 
     public static function greaterThan(mixed $value, mixed $other, ?string $message = null): mixed
     {
-        if ($value <= $other) {
-            throw InvalidArgumentException::create($message ?:
-                'Expected a value greater than: '.self::valueToString($value).
-                '. Got: '.self::valueToString($other)
-            );
-        }
-
-        return $value;
+        return $value <= $other
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+            )
+            : $value;
     }
 
     //endregion
@@ -156,6 +156,11 @@ class Guard
         }
 
         return (string) $value;
+    }
+
+    protected static function valueToType(mixed $value): string
+    {
+        return get_debug_type($value);
     }
 
     //endregion

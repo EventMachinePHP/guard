@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
@@ -17,7 +19,7 @@ test('Guard::equalTo ❌', function ($value, $other, $message): void {
     expect(fn () => Guard::equalTo($value, $other))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    '(1, 2)'     => [1, 2, 'Expected a value equal to: 1. Got: 2'],
-    "(1, '2')"   => [1, '2', 'Expected a value equal to: 1. Got: "2'],
-    '(1, false)' => [1, false, 'Expected a value equal to: 1. Got: false'],
+    '(1, 2)'     => [1, 2, 'Expected a value equal to: 1 (int). Got: 2 (int)'],
+    "(1, '2')"   => [1, '2', 'Expected a value equal to: 1 (int). Got: "2" (string)'],
+    '(1, false)' => [1, false, 'Expected a value equal to: 1 (int). Got: false (bool)'],
 ]);
