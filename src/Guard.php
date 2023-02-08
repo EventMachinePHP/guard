@@ -90,6 +90,21 @@ class Guard
 
     // endregion
 
+    //region Numerics
+
+    public static function numeric(mixed $value, ?string $message = null): string|int|float
+    {
+        return !is_numeric($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a numeric value. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
+    //endregion
+
     //region Equality
 
     public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
