@@ -26,6 +26,17 @@ class Guard
         return $value;
     }
 
+    public static function integer(mixed $value, ?string $message = null): int
+    {
+        if (!is_int($value)) {
+            throw InvalidArgumentException::create($message ?:
+                'Expected an integer. Got: '.get_debug_type($value)
+            );
+        }
+
+        return $value;
+    }
+
     public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
     {
         if ($value != $other) {
