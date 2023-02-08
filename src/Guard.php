@@ -107,24 +107,24 @@ class Guard
 
     //region Equality
 
-    public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function equalTo(mixed $value, mixed $expect, ?string $message = null): mixed
     {
-        return $value != $other
+        return $value != $expect
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+                values: [self::valueToString($value), get_debug_type($value), self::valueToString($expect), get_debug_type($expect)],
             )
             : $value;
     }
 
-    public static function notEqualTo(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function notEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
     {
-        return $value == $other
+        return $value == $expect
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+                values: [self::valueToString($value), get_debug_type($value), self::valueToString($expect), get_debug_type($expect)],
             )
             : $value;
     }
@@ -133,49 +133,46 @@ class Guard
 
     //region Comparisons
 
-    /**
-     * @uses \EventMachinePHP\Guard\Tests\GreaterThanTest::class
-     */
-    public static function greaterThan(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function greaterThan(mixed $value, mixed $limit, ?string $message = null): mixed
     {
-        return $value <= $other
+        return $value <= $limit
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
             )
             : $value;
     }
 
-    public static function greaterThanOrEqual(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function greaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
     {
-        return $value < $other
+        return $value < $limit
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
             )
             : $value;
     }
 
-    public static function lessThan(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function lessThan(mixed $value, mixed $limit, ?string $message = null): mixed
     {
-        return $value >= $other
+        return $value >= $limit
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
             )
             : $value;
     }
 
-    public static function lessThanOrEqual(mixed $value, mixed $other, ?string $message = null): mixed
+    public static function lessThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
     {
-        return $value > $other
+        return $value > $limit
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
             )
             : $value;
     }

@@ -6,7 +6,7 @@ use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 test('Guard::numeric ✅', function ($value): void {
-    expect(Guard::numeric($value))
+    expect(Guard::numeric(value: $value))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
 })->with([
@@ -17,7 +17,8 @@ test('Guard::numeric ✅', function ($value): void {
 ]);
 
 test('Guard::float ❌', function ($value, $message): void {
-    expect(fn () => Guard::float($value))->toThrow(InvalidArgumentException::class, $message);
+    expect(fn () => Guard::float(value: $value))
+        ->toThrow(InvalidArgumentException::class, $message);
 })->with([
     "('foo')" => ['foo', 'Expected a float. Got: "foo" (string)'],
 ]);
