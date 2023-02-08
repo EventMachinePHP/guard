@@ -169,6 +169,17 @@ class Guard
             : $value;
     }
 
+    public static function lessThanOrEqual(mixed $value, mixed $other, ?string $message = null): mixed
+    {
+        return $value > $other
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value less than or equal to: %s (%s). Got: %s (%s)',
+                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
     //endregion
 
     //region Protected Methods
