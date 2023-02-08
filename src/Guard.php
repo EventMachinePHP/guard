@@ -7,6 +7,7 @@ namespace EventMachinePHP\Guard;
 use DateTime;
 use DateTimeImmutable;
 use function is_array;
+use function is_float;
 use function get_class;
 use function is_object;
 use function is_string;
@@ -73,6 +74,21 @@ class Guard
     }
 
     //endregion
+
+    // region Floats
+
+    public static function float(mixed $value, ?string $message = null): float
+    {
+        return !is_float($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a float. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
+    // endregion
 
     //region Equality
 
