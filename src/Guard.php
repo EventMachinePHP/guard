@@ -28,4 +28,16 @@ class Guard
 
         return $value;
     }
+
+    public static function notEqualTo(mixed $value, mixed $other, ?string $message = null): mixed
+    {
+        if ($value == $other) {
+            throw InvalidArgumentException::create($message ?:
+                'Expected a value different from: '.get_debug_type($value).
+                '. Got: '.get_debug_type($other)
+            );
+        }
+
+        return $value;
+    }
 }
