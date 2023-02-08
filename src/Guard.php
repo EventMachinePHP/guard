@@ -73,6 +73,14 @@ class Guard
         return $value;
     }
 
+    public static function naturalInteger(mixed $value, ?string $message = null): int
+    {
+        self::integer($value, $message);
+        self::greaterThanOrEqual($value, 0, $message);
+
+        return $value;
+    }
+
     //endregion
 
     // region Floats
