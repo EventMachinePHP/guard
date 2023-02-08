@@ -102,13 +102,16 @@ class Guard
 
     //region Comparisons
 
+    /**
+     * @uses \EventMachinePHP\Guard\Tests\GreaterThanTest::class
+     */
     public static function greaterThan(mixed $value, mixed $other, ?string $message = null): mixed
     {
         return $value <= $other
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value), self::valueToString($other), get_debug_type($other)],
+                values: [self::valueToString($other), get_debug_type($other), self::valueToString($value), get_debug_type($value)],
             )
             : $value;
     }
