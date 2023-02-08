@@ -11,6 +11,7 @@ use function is_array;
 use function is_float;
 use function get_class;
 use function is_object;
+use function is_scalar;
 use function is_string;
 use function is_numeric;
 use function is_resource;
@@ -122,6 +123,21 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a boolean value. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
+    //endregion
+
+    //region Scalars
+
+    public static function scalar(mixed $value, ?string $message = null): string|int|float|bool
+    {
+        return !is_scalar($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a scalar value. Got: %s (%s)',
                 values: [self::valueToString($value), get_debug_type($value)],
             )
             : $value;
