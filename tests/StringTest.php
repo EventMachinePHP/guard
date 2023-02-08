@@ -16,8 +16,7 @@ test('Guard::string ✅', function ($value): void {
 ]);
 
 test('Guard::string ❌', function ($value, $message): void {
-    expect(fn () => Guard::string($value))
-        ->toThrow(InvalidArgumentException::class, $message);
+    expect(fn () => Guard::string($value))->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(1234)'   => [1234, 'Expected a string. Got: 1234 (int)'],
     '(12.34)'  => [12.23, 'Expected a string. Got: 12.23 (float)'],

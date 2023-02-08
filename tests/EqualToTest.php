@@ -16,8 +16,7 @@ test('Guard::equalTo ✅', function ($value, $other): void {
 ]);
 
 test('Guard::equalTo ❌', function ($value, $other, $message): void {
-    expect(fn () => Guard::equalTo($value, $other))
-        ->toThrow(InvalidArgumentException::class, $message);
+    expect(fn () => Guard::equalTo($value, $other))->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(1, 2)'     => [1, 2, 'Expected a value equal to: 1 (int). Got: 2 (int)'],
     "(1, '2')"   => [1, '2', 'Expected a value equal to: 1 (int). Got: "2" (string)'],

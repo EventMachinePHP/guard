@@ -16,8 +16,7 @@ test('Guard::stringNotEmpty ✅', function ($value): void {
 ]);
 
 test('Guard::stringNotEmpty ❌', function ($value, $message): void {
-    expect(fn () => Guard::stringNotEmpty($value))
-        ->toThrow(InvalidArgumentException::class, $message);
+    expect(fn () => Guard::stringNotEmpty($value))->toThrow(InvalidArgumentException::class, $message);
 })->with([
     "('')" => ['', 'Expected a value different from: "" (string). Got: "" (string)'],
     '(1)'  => [1, 'Expected a string. Got: 1 (int)'],

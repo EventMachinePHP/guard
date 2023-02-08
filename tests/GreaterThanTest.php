@@ -14,8 +14,7 @@ test('Guard::greaterThan ✅', function ($value, $other): void {
 ]);
 
 test('Guard::greaterThan ❌', function ($value, $other, $message): void {
-    expect(fn () => Guard::greaterThan($value, $other))
-        ->toThrow(InvalidArgumentException::class, $message);
+    expect(fn () => Guard::greaterThan($value, $other))->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(0, 1)' => [0, 1, 'Expected a value greater than: 0 (int). Got: 1 (int)'],
     '(0, 0)' => [0, 0, 'Expected a value greater than: 0 (int). Got: 0 (int)'],
