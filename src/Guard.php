@@ -145,6 +145,21 @@ class Guard
 
     //endregion
 
+    //region Objects
+
+    public static function object(mixed $value, ?string $message = null): object
+    {
+        return !is_object($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected an object. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
+    //endregion
+
     //region Equality
 
     public static function equalTo(mixed $value, mixed $expect, ?string $message = null): mixed
