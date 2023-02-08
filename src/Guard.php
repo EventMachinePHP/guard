@@ -17,6 +17,15 @@ class Guard
 
         return $value;
     }
+
+    public static function stringNotEmpty(mixed $value, ?string $message = null): string
+    {
+        self::string($value, $message);
+        self::notEqualTo($value, '', $message);
+
+        return $value;
+    }
+
     public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
     {
         if ($value != $other) {
