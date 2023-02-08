@@ -1,6 +1,6 @@
 <?php
 
-namespace EventMachinePHP\Data\Exceptions;
+namespace EventMachinePHP\Guard\Exceptions;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

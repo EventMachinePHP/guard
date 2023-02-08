@@ -25,7 +25,7 @@ composer require eventmachinephp/guard
 ## Usage
 
 ```php
-$skeleton = new EventMachinePHP\Data();
+$skeleton = new EventMachinePHP\Guard();
 echo $skeleton->echoPhrase('Hello, EventMachinePHP!');
 ```
 

@@ -1,20 +1,22 @@
 <?php
 
-use EventMachinePHP\Data\Guard;
-use EventMachinePHP\Data\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('valid stringNotEmpty', function ($value): void {
+test('Guard::stringNotEmpty ✅', function ($value): void {
     expect(Guard::stringNotEmpty($value))
+        ->toBe($value)
         ->toBeString()
-        ->toBe($value);
+        ->not()->toThrow(InvalidArgumentException::class);
 })->with([
-    'non empty value I'    => 'value',
-    'non empty value I II' => '0',
+    "('value')" => ['value'],
+    "('0')"     => ['0'],
 ]);
 
-test('invalid stringNotEmpty', function ($value): void {
-    expect(Guard::stringNotEmpty($value));
+test('Guard::stringNotEmpty ❌', function ($value, $message): void {
+    expect(fn () => Guard::stringNotEmpty($value))
+        ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    'empty string' => '',
-    'integer'      => 1,
-])->throws(InvalidArgumentException::class);
+    "('')" => ['', 'Expected a value different from: "". Got: ""'],
+    '(1)'  => [1, 'Expected a string. Got: int'],
+]);

@@ -1,24 +1,26 @@
 <?php
 
-use EventMachinePHP\Data\Guard;
-use EventMachinePHP\Data\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('valid string', function ($value): void {
+test('Guard::string ✅', function ($value): void {
     expect(Guard::string($value))
+        ->toBe($value)
         ->toBeString()
-        ->toBe($value);
+        ->not()->toThrow(InvalidArgumentException::class);
 })->with([
-    'string value' => 'value',
-    'empty string' => '',
+    "('value')" => ['value'],
+    "('')"      => [''],
 ]);
 
-test('invalid string', function ($value): void {
-    expect(Guard::string($value));
+test('Guard::string ❌', function ($value, $message): void {
+    expect(fn () => Guard::string($value))
+        ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    'integer' => 1234,
-    'float'   => 12.34,
-    'boolean' => true,
-    'null'    => null,
-    'array'   => [[]],
-    'object'  => new stdClass(),
-])->throws(InvalidArgumentException::class);
+    '(1234)'   => [1234, 'Expected a string. Got: int'],
+    '(12.34)'  => [12.23, 'Expected a string. Got: float'],
+    '(true)'   => [true, 'Expected a string. Got: bool'],
+    '(null)'   => [null, 'Expected a string. Got: null'],
+    '(array)'  => [[], 'Expected a string. Got: array'],
+    '(object)' => [new stdClass(), 'Expected a string. Got: stdClass'],
+]);

@@ -1,23 +1,25 @@
 <?php
 
-use EventMachinePHP\Data\Guard;
-use EventMachinePHP\Data\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('valid integer', function ($value): void {
+test('Guard::integer ✅', function ($value): void {
     expect(Guard::integer($value))
+        ->toBe($value)
         ->toBeInt()
-        ->toBe($value);
+        ->not()->toThrow(InvalidArgumentException::class);
 })->with([
-    'integer value' => 123,
+    '(123)' => [123],
 ]);
 
-test('invalid integer', function ($value): void {
-    expect(Guard::integer($value));
+test('Guard::integer ❌', function ($value, $message): void {
+    expect(fn () => Guard::integer($value))
+        ->toThrow(InvalidArgumentException::class, $message);
 })->with([
-    'integer string' => '123',
-    'float'          => 12.34,
-    'boolean'        => true,
-    'null'           => null,
-    'array'          => [[]],
-    'object'         => new stdClass(),
-])->throws(InvalidArgumentException::class);
+    "('123')"  => ['123', 'Expected an integer. Got: string'],
+    '(12.34)'  => [12.34, 'Expected an integer. Got: float'],
+    '(true)'   => [true, 'Expected an integer. Got: bool'],
+    '(null)'   => [null, 'Expected an integer. Got: null'],
+    '(array)'  => [[], 'Expected an integer. Got: array'],
+    '(object)' => [new stdClass(), 'Expected an integer. Got: stdClass'],
+]);
