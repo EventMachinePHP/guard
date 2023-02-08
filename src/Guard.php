@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard;
 
 use DateTime;
+use function is_bool;
 use DateTimeImmutable;
 use function is_array;
 use function is_float;
@@ -106,6 +107,21 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a numeric value. Got: %s (%s)',
+                values: [self::valueToString($value), get_debug_type($value)],
+            )
+            : $value;
+    }
+
+    //endregion
+
+    //region Booleans
+
+    public static function boolean(mixed $value, ?string $message = null): bool
+    {
+        return !is_bool($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a boolean value. Got: %s (%s)',
                 values: [self::valueToString($value), get_debug_type($value)],
             )
             : $value;
