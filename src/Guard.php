@@ -17,4 +17,15 @@ class Guard
 
         return $value;
     }
+    public static function equalTo(mixed $value, mixed $other, ?string $message = null): mixed
+    {
+        if ($value != $other) {
+            throw InvalidArgumentException::create($message ?:
+                'Expected a value equalTo to: '.get_debug_type($value).
+                '. Got: '.get_debug_type($other)
+            );
+        }
+
+        return $value;
+    }
 }
