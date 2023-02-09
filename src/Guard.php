@@ -30,6 +30,7 @@ class Guard
     // TODO: standard_5: function is_ (Search)
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
+    // TODO: Update type tests using IntegerTest cases
 
     // region Strings
 
@@ -55,6 +56,7 @@ class Guard
      *
      * @param  mixed  $value The value to be validated.
      * @param  string|null  $message The custom error message to be used if the validation fails.
+     *
      * @return string The `$value` if it is of type string.
      *
      * @throws InvalidArgumentException If the `$value` passed is not of type string.
@@ -97,6 +99,7 @@ class Guard
      *
      * @param  mixed  $value The value to be validated.
      * @param  string|null  $message The custom error message to be used if the validation fails.
+     *
      * @return string The `$value` if it is of type string and is not equal to an empty string.
      *
      * @throws InvalidArgumentException If the `$value` passed is not of type string or is equal to an empty string.
@@ -113,6 +116,33 @@ class Guard
 
     // region Integers
 
+    /**
+     * Validate if the value passed is of type integer.
+     *
+     * This method takes two parameters: `$value` and `$message`. The `$value` parameter is of type mixed,
+     * which means it can accept any type of data. The `$message` parameter is of type string and is optional.
+     * If the `$value` passed is not of type integer, an `InvalidArgumentException` is thrown with the provided
+     * custom error message or a default error message. If the `$value` is of type integer, it is returned without
+     * modification.
+     *
+     * ```php
+     * // returns 123
+     * Guard::integer(123);
+     *
+     * // throws an InvalidArgumentException with default message
+     * Guard::integer('123');
+     *
+     * // throws an InvalidArgumentException with custom message
+     * Guard::integer('123', 'An integer is expected');
+     * ```
+     *
+     * @param  mixed  $value The value to be validated.
+     * @param  string|null  $message The custom error message to be used if the validation fails.
+     *
+     * @return int The `$value` if it is of type integer.
+     *
+     * @throws InvalidArgumentException If the `$value` passed is not of type integer.
+     */
     public static function integer(mixed $value, ?string $message = null): int
     {
         return !is_int($value)

@@ -11,9 +11,8 @@ test('Guard::isCallable ✅', function ($value): void {
         ->toBeCallable()
         ->not()->toThrow(InvalidArgumentException::class);
 })->with([
-    '(strlen)'         => ['strlen'],
-    '(function () {})' => [fn (): Closure => function (): void {
-    }],
+    '(strlen)'                                 => ['strlen'],
+    '(fn (): Closure => function (): void {})' => [fn (): Closure => function (): void {}],
 ]);
 
 test('Guard::isCallable ❌', function ($value, $message): void {
