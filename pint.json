@@ -15,6 +15,40 @@
     },
     "phpdoc_summary": true,
     "phpdoc_to_comment": true,
+    "phpdoc_separation": {
+      "groups": [
+        [
+          "deprecated",
+          "link",
+          "see",
+          "since"
+        ],
+        [
+          "author",
+          "copyright",
+          "license"
+        ],
+        [
+          "category",
+          "package",
+          "subpackage"
+        ],
+        [
+          "property",
+          "property-read",
+          "property-write"
+        ],
+        [
+          "param"
+        ],
+        [
+          "return"
+        ],
+        [
+          "throws"
+        ]
+      ]
+    },
     "no_superfluous_phpdoc_tags": true,
     "no_superfluous_phpdoc_tags": {
       "allow_mixed": true
