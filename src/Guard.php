@@ -6,6 +6,7 @@ namespace EventMachinePHP\Guard;
 
 use Countable;
 use ArrayAccess;
+use ReflectionClass;
 use function is_bool;
 use function is_array;
 use function is_float;
@@ -16,100 +17,21 @@ use function is_string;
 use function is_numeric;
 use function is_callable;
 use function is_resource;
+use BadMethodCallException;
 use function get_resource_type;
+use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
 {
-    // TODO: Method aliases
+    use StringGuards;
+
     // TODO: Core_c: Loop through interfaces, using instance of
     // TODO: Look for php aliases methods
     // TODO: standard_5: function is_ (Search)
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Strings
-
-    /**
-     * Validate if the value passed is of type string.
-     *
-     * This method takes two parameters: `$value` and `$message`. The `$value` parameter is of type mixed,
-     * which means it can accept any type of data. The `$message` parameter is of type string and is optional.
-     * If the `$value` passed is not of type string, an `InvalidArgumentException` is thrown with the provided
-     * custom error message or a default error message. If the `$value` is of type string, it is returned without
-     * modification.
-     *
-     * ```php
-     * // returns 'hello'
-     * Guard::string('hello');
-     *
-     * // throws an InvalidArgumentException with default message
-     * Guard::string(123);
-     *
-     * // throws an InvalidArgumentException with custom message
-     * Guard::string(123, 'A string is expected');
-     * ```
-     *
-     * @param  mixed  $value The value to be validated.
-     * @param  string|null  $message The custom error message to be used if the validation fails.
-     *
-     * @return string The `$value` if it is of type string.
-     *
-     * @throws InvalidArgumentException If the `$value` passed is not of type string.
-     */
-    public static function string(mixed $value, ?string $message = null): string
-    {
-        return !is_string($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a string. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
-            )
-            : $value;
-    }
-
-    /**
-     * Validate if the value passed is of type string and is not empty.
-     *
-     * This method takes two parameters: `$value` and `$message`. The `$value` parameter is of type mixed,
-     * which means it can accept any type of data. The `$message` parameter is of type string and is optional.
-     * The method first validates if the `$value` is of type string using the `string` method. If the `$value`
-     * is not of type string, an `InvalidArgumentException` is thrown with the provided custom error message or
-     * a default error message. Then, it validates if the `$value` is not equal to an empty string using the
-     * `notEqualTo` method. If the `$value` is equal to an empty string, an `InvalidArgumentException` is thrown
-     * with the provided custom error message or a default error message. If both validations pass, the `$value`
-     * is returned without modification.
-     *
-     * ```php
-     * // returns 'hello'
-     * Guard::stringNotEmpty('hello');
-     *
-     * // throws an InvalidArgumentException with default message
-     * Guard::stringNotEmpty(123);
-     * Guard::stringNotEmpty('');
-     *
-     * // throws an InvalidArgumentException with custom message
-     * Guard::stringNotEmpty(123, 'A non-empty string is expected');
-     * Guard::stringNotEmpty('', 'A non-empty string is expected');
-     * ```
-     *
-     * @param  mixed  $value The value to be validated.
-     * @param  string|null  $message The custom error message to be used if the validation fails.
-     *
-     * @return string The `$value` if it is of type string and is not equal to an empty string.
-     *
-     * @throws InvalidArgumentException If the `$value` passed is not of type string or is equal to an empty string.
-     */
-    public static function stringNotEmpty(mixed $value, ?string $message = null): string
-    {
-        self::string($value, $message);
-        self::notEqualTo($value, '', $message);
-
-        return $value;
-    }
-
-    // endregion
 
     // region Integers
 
@@ -146,18 +68,41 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an integer. Got: %s',
-                values: [get_debug_type($value)],
+                values: [self::valueToType($value)],
             )
             : $value;
     }
 
+    /**
+     * Ensure the given value is a numeric value that can be casted to an integer.
+     *
+     * This method asserts that the given value is a numeric value, and that it can be casted to an integer without losing
+     * information.
+     *
+     * ```php
+     * Guard::integerish(123);
+     * Guard::integerish(123.0);
+     * Guard::integerish('123');
+     *
+     * Guard::integerish(123.1, 'Value must be an integerish.');
+     * Guard::integerish([], 'Value must be an integerish.');
+     * Guard::integerish('not a number', 'Value must be an integerish.');
+     * ```
+     *
+     * @param  mixed  $value    The value to check.
+     * @param  null|string  $message  An optional custom error message.
+     *
+     * @return string|int|float The numeric value.
+     *
+     * @throws InvalidArgumentException if the value is not numeric or if it cannot be casted to an integer.
+     */
     public static function integerish(mixed $value, ?string $message = null): string|int|float
     {
         return !is_numeric($value) || $value != (int) $value
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an integerish value. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -188,7 +133,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a float. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -203,7 +148,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a numeric value. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -218,7 +163,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a boolean value. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -233,7 +178,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a scalar value. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -248,7 +193,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an object. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -263,7 +208,7 @@ class Guard
             return throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a resource. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             );
         }
 
@@ -288,7 +233,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a callable. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -303,7 +248,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -314,7 +259,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -329,7 +274,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a countable value. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -344,7 +289,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an iterable. Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -359,7 +304,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), get_debug_type($value)],
+                values: [$class, self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -370,7 +315,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value not being an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), get_debug_type($value)],
+                values: [$class, self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -386,7 +331,7 @@ class Guard
         return throw InvalidArgumentException::create(
             customMessage: $message,
             defaultMessage: 'Expected an instance of any of %s. Got: %s (%s)',
-            values: [implode(', ', $classes), self::valueToString($value), get_debug_type($value)],
+            values: [implode(', ', $classes), self::valueToString($value), self::valueToType($value)],
         );
     }
 
@@ -400,7 +345,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value), self::valueToString($expect), get_debug_type($expect)],
+                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
     }
@@ -411,7 +356,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), get_debug_type($value), self::valueToString($expect), get_debug_type($expect)],
+                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
     }
@@ -426,7 +371,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -437,7 +382,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -448,7 +393,7 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
@@ -459,9 +404,51 @@ class Guard
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), get_debug_type($limit), self::valueToString($value), get_debug_type($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
             )
             : $value;
+    }
+
+    // endregion
+
+    // region Aliases
+
+    /**
+     * Handle calls to static alias methods of the `Guard` class by
+     * resolving their corresponding defined method based on the
+     * method attributes.
+     *
+     * @param  string  $calledAlias  The name of the alias.
+     * @param  array  $arguments    The arguments passed to the alias.
+     *
+     * @return mixed The result of the corresponding defined method.
+     *
+     * @throws BadMethodCallException if the called alias does not have
+     * a corresponding defined method.
+     */
+    public static function __callStatic(string $calledAlias, array $arguments)
+    {
+        static $methodAliases = null;
+
+        if ($methodAliases === null) {
+            $methodAliases = [];
+            $class         = new ReflectionClass(__CLASS__);
+            foreach ($class->getMethods() as $method) {
+                foreach ($method->getAttributes() as $attribute) {
+                    $attributeArguments = $attribute->getArguments()[0];
+                    $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+                    foreach ($aliasMethodNames as $alias) {
+                        $methodAliases[$alias] = $method->getName();
+                    }
+                }
+            }
+        }
+
+        if (array_key_exists($calledAlias, $methodAliases)) {
+            return call_user_func([self::class, $methodAliases[$calledAlias]], ...$arguments);
+        }
+
+        throw new BadMethodCallException(sprintf('Method "%s" does not exist.', $calledAlias));
     }
 
     // endregion
