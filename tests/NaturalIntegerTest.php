@@ -5,8 +5,8 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::naturalInteger ✅', function ($value): void {
-    expect(Guard::naturalInteger(value: $value))
+test('Guard::isNaturalInteger ✅', function ($value): void {
+    expect(Guard::isNaturalInteger(value: $value))
         ->toBe($value)
         ->toBeInt()
         ->not()->toThrow(InvalidArgumentException::class);
@@ -15,8 +15,8 @@ test('Guard::naturalInteger ✅', function ($value): void {
     '(1)' => [1],
 ]);
 
-test('Guard::naturalInteger ❌', function ($value, $message): void {
-    expect(fn () => Guard::naturalInteger(value: $value))
+test('Guard::isNaturalInteger ❌', function ($value, $message): void {
+    expect(fn () => Guard::isNaturalInteger(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(-1)'   => [-1, 'Expected a value greater than or equal to: 0 (int). Got: -1 (int)'],

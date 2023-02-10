@@ -19,4 +19,28 @@ class GuardBench
     {
         Guard::equalTo(1, 1);
     }
+
+    /**
+     * @Revs(100000)
+     *
+     * @Iterations(5)
+     *
+     * @Warmup(3)
+     */
+    public function benchIsString(): void
+    {
+        Guard::isString('value');
+    }
+
+    /**
+     * @Revs(100000)
+     *
+     * @Iterations(5)
+     *
+     * @Warmup(3)
+     */
+    public function benchStr(): void
+    {
+        Guard::str('value');
+    }
 }

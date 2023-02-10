@@ -5,8 +5,8 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::positiveInteger ✅', function ($value): void {
-    expect(Guard::positiveInteger(value: $value))
+test('Guard::isPositiveInteger ✅', function ($value): void {
+    expect(Guard::isPositiveInteger(value: $value))
         ->toBe($value)
         ->toBeInt()
         ->toBeGreaterThan(0)
@@ -16,8 +16,8 @@ test('Guard::positiveInteger ✅', function ($value): void {
     '(1)'   => [1],
 ]);
 
-test('Guard::positiveInteger ❌', function ($value, $message): void {
-    expect(fn () => Guard::positiveInteger(value: $value))
+test('Guard::isPositiveInteger ❌', function ($value, $message): void {
+    expect(fn () => Guard::isPositiveInteger(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(-123)'   => [-123, 'Expected a value greater than: 0 (int). Got: -123 (int)'],

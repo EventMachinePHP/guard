@@ -20,11 +20,13 @@ use function is_resource;
 use BadMethodCallException;
 use function get_resource_type;
 use EventMachinePHP\Guard\Guards\StringGuards;
+use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
 {
     use StringGuards;
+    use IntegerGuards;
 
     // TODO: Core_c: Loop through interfaces, using instance of
     // TODO: Look for php aliases methods
@@ -32,98 +34,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Integers
-
-    /**
-     * Validate if the value passed is of type integer.
-     *
-     * This method takes two parameters: `$value` and `$message`. The `$value` parameter is of type mixed,
-     * which means it can accept any type of data. The `$message` parameter is of type string and is optional.
-     * If the `$value` passed is not of type integer, an `InvalidArgumentException` is thrown with the provided
-     * custom error message or a default error message. If the `$value` is of type integer, it is returned without
-     * modification.
-     *
-     * ```php
-     * // returns 123
-     * Guard::integer(123);
-     *
-     * // throws an InvalidArgumentException with default message
-     * Guard::integer('123');
-     *
-     * // throws an InvalidArgumentException with custom message
-     * Guard::integer('123', 'An integer is expected');
-     * ```
-     *
-     * @param  mixed  $value The value to be validated.
-     * @param  string|null  $message The custom error message to be used if the validation fails.
-     *
-     * @return int The `$value` if it is of type integer.
-     *
-     * @throws InvalidArgumentException If the `$value` passed is not of type integer.
-     */
-    public static function integer(mixed $value, ?string $message = null): int
-    {
-        return !is_int($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an integer. Got: %s',
-                values: [self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    /**
-     * Ensure the given value is a numeric value that can be casted to an integer.
-     *
-     * This method asserts that the given value is a numeric value, and that it can be casted to an integer without losing
-     * information.
-     *
-     * ```php
-     * Guard::integerish(123);
-     * Guard::integerish(123.0);
-     * Guard::integerish('123');
-     *
-     * Guard::integerish(123.1, 'Value must be an integerish.');
-     * Guard::integerish([], 'Value must be an integerish.');
-     * Guard::integerish('not a number', 'Value must be an integerish.');
-     * ```
-     *
-     * @param  mixed  $value    The value to check.
-     * @param  null|string  $message  An optional custom error message.
-     *
-     * @return string|int|float The numeric value.
-     *
-     * @throws InvalidArgumentException if the value is not numeric or if it cannot be casted to an integer.
-     */
-    public static function integerish(mixed $value, ?string $message = null): string|int|float
-    {
-        return !is_numeric($value) || $value != (int) $value
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an integerish value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    public static function positiveInteger(mixed $value, ?string $message = null): int
-    {
-        self::integer($value, $message);
-        self::greaterThan($value, 0, $message);
-
-        return $value;
-    }
-
-    public static function naturalInteger(mixed $value, ?string $message = null): int
-    {
-        self::integer($value, $message);
-        self::greaterThanOrEqual($value, 0, $message);
-
-        return $value;
-    }
-
-    // endregion
 
     // region Floats
 
