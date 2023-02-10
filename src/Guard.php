@@ -9,16 +9,15 @@ use ArrayAccess;
 use ReflectionClass;
 use function is_bool;
 use function is_array;
-use function is_float;
 use function get_class;
 use function is_object;
 use function is_scalar;
 use function is_string;
-use function is_numeric;
 use function is_callable;
 use function is_resource;
 use BadMethodCallException;
 use function get_resource_type;
+use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
@@ -27,6 +26,7 @@ class Guard
 {
     use StringGuards;
     use IntegerGuards;
+    use FloatGuards;
 
     // TODO: Core_c: Loop through interfaces, using instance of
     // TODO: Look for php aliases methods
@@ -34,36 +34,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Floats
-
-    public static function float(mixed $value, ?string $message = null): float
-    {
-        return !is_float($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a float. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
-
-    // region Numerics
-
-    public static function numeric(mixed $value, ?string $message = null): string|int|float
-    {
-        return !is_numeric($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a numeric value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Booleans
 

@@ -13,6 +13,8 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static int i (mixed $value, ?string $message = null) @see Guard::isInteger()
  * @method static int int (mixed $value, ?string $message = null) @see Guard::isInteger()
  * @method static int integer (mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static string|int|float n (mixed $value, ?string $message = null) @see Guard::isNumeric()
+ * @method static string|int|float numeric (mixed $value, ?string $message = null) @see Guard::isNumeric()
  * @method static string|int|float intVal (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
  * @method static string|int|float integerish (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
  * @method static string|int|float integerValue (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
@@ -49,6 +51,32 @@ trait IntegerGuards
                 customMessage: $message,
                 defaultMessage: 'Expected an integer. Got: %s',
                 values: [self::valueToType($value)],
+            )
+            : $value;
+    }
+
+    /**
+     * Check if the given value is numeric.
+     *
+     * This method checks if the given value is numeric and throws an
+     * InvalidArgumentException with a custom or default message if
+     * the value is not numeric.
+     *
+     * @param  mixed  $value The value to be checked.
+     * @param  string|null  $message A custom error message. If not provided, a default message will be used.
+     *
+     * @return string|int|float The given value if it is numeric.
+     *
+     * @throws InvalidArgumentException If the value is not numeric.
+     */
+    #[Alias(['numeric', 'n'])]
+    public static function isNumeric(mixed $value, ?string $message = null): string|int|float
+    {
+        return !is_numeric($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a numeric value. Got: %s (%s)',
+                values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
     }
