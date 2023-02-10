@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::stringNotEmpty ✅', function ($value): void {
+test('Guard::stringNotEmpty(✅) ', function ($value): void {
     expect(Guard::stringNotEmpty(value: $value))
         ->toBe($value)
         ->toBeString()
@@ -15,7 +15,7 @@ test('Guard::stringNotEmpty ✅', function ($value): void {
     "('0')"     => ['0'],
 ]);
 
-test('Guard::stringNotEmpty ❌', function ($value, $message): void {
+test('Guard::stringNotEmpty(❌) ', function ($value, $message): void {
     expect(fn () => Guard::stringNotEmpty(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

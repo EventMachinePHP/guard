@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isIntegerValue ✅', function ($value): void {
+test('Guard::isIntegerValue(✅) ', function ($value): void {
     expect(Guard::isIntegerValue(value: $value))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
@@ -15,7 +15,7 @@ test('Guard::isIntegerValue ✅', function ($value): void {
     "('123')" => ['123'],
 ]);
 
-test('Guard::isIntegerValue ❌', function ($value, $message): void {
+test('Guard::isIntegerValue(❌) ', function ($value, $message): void {
     expect(fn () => Guard::isIntegerValue(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
