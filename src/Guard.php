@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard;
 
-use DateTime;
 use Countable;
 use ArrayAccess;
 use function is_bool;
-use DateTimeImmutable;
 use function is_array;
 use function is_float;
 use function get_class;
@@ -18,7 +16,6 @@ use function is_string;
 use function is_numeric;
 use function is_callable;
 use function is_resource;
-use function method_exists;
 use function get_resource_type;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
@@ -469,9 +466,9 @@ class Guard
 
     // endregion
 
-    // region Protected Methods
+    // region Helpers
 
-    protected static function valueToString(mixed $value): string
+    public static function valueToString(mixed $value): string
     {
         if (null === $value) {
             return 'null';
@@ -490,14 +487,6 @@ class Guard
         }
 
         if (is_object($value)) {
-            if (method_exists($value, '__toString')) {
-                return get_class($value).': '.self::valueToString($value->__toString());
-            }
-
-            if ($value instanceof DateTime || $value instanceof DateTimeImmutable) {
-                return get_class($value).': '.self::valueToString($value->format('c'));
-            }
-
             return get_class($value);
         }
 
@@ -512,7 +501,7 @@ class Guard
         return (string) $value;
     }
 
-    protected static function valueToType(mixed $value): string
+    public static function valueToType(mixed $value): string
     {
         return get_debug_type($value);
     }
