@@ -5,8 +5,8 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::scalar ✅', function ($value): void {
-    expect(Guard::scalar(value: $value))
+test('Guard::isScalar(✅) ', function ($value): void {
+    expect(Guard::isScalar(value: $value))
         ->toBe($value)
         ->toBeScalar()
         ->not()->toThrow(InvalidArgumentException::class);
@@ -16,8 +16,8 @@ test('Guard::scalar ✅', function ($value): void {
     '(true)' => [true],
 ]);
 
-test('Guard::scalar ❌', function ($value, $message): void {
-    expect(fn () => Guard::scalar(value: $value))
+test('Guard::isScalar(❌) ', function ($value, $message): void {
+    expect(fn () => Guard::isScalar(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([
     '(null)'           => [null, 'Expected a scalar value. Got: null (null)'],
