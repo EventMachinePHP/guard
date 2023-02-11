@@ -3,25 +3,27 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isIntegerValue(passing)', function ($value): void {
-    expect(Guard::isIntegerValue(value: $value))
-        ->toBe($value)
-        ->not()->toThrow(exception: InvalidArgumentException::class);
-})->with(data: 'isIntegerValue(passing)');
+test('Guard::isIntegerValue(passing)')
+    ->with('isIntegerValue(passing)')
+    ->expect(fn ($value) => Guard::isIntegerValue(value: $value))
+    ->toHaveValue(fn ($value) => $value)
+    ->notToThrowInvalidArgumentException();
 
-test('Guard::isIntegerValue(failing)', function ($value, $message): void {
-    expect(fn () => Guard::isIntegerValue(value: $value))
-        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
-})->with(data: 'isIntegerValue(failing)');
+test('Guard::isIntegerValue(failing)')
+    ->expectInvalidArgumentException(fn ($value, $message) => $message)
+    ->with('isIntegerValue(failing)')
+    ->expect(fn ($value, $message) => Guard::isIntegerValue(value: $value));
+
+test('Guard::isIntegerValue() Aliases')
+    ->expect('isIntegerValue')
+    ->validateAliases();
 
 dataset('isIntegerValue(passing)', [
     '(123)'   => [123],
     '(1.0)'   => [1.0],
     "('123')" => ['123'],
 ]);
-
 dataset('isIntegerValue(failing)', [
     '(12.34)'  => [12.34, 'Expected an isIntegerValue value. Got: 12.34 (float)'],
     '(true)'   => [true, 'Expected an isIntegerValue value. Got: true (bool)'],

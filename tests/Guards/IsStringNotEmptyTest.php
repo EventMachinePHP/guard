@@ -3,26 +3,28 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::stringNotEmpty(passing)', function ($value): void {
-    expect(Guard::stringNotEmpty(value: $value))
-        ->toBe($value)
-        ->toBeString()
-        ->not()->toThrow(exception: InvalidArgumentException::class);
-})->with(data:'stringNotEmpty(passing)');
+test('Guard::isStringNotEmpty(passing)')
+    ->with('isStringNotEmpty(passing)')
+    ->expect(fn ($value) => Guard::isStringNotEmpty(value: $value))
+    ->toHaveValue(fn ($value) => $value)
+    ->toBeString()
+    ->notToThrowInvalidArgumentException();
 
-test('Guard::stringNotEmpty(failing)', function ($value, $message): void {
-    expect(fn () => Guard::stringNotEmpty(value: $value))
-        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
-})->with(data:'stringNotEmpty(failing)');
+test('Guard::isStringNotEmpty(failing)')
+    ->expectInvalidArgumentException(fn ($value, $message) => $message)
+    ->with('isStringNotEmpty(failing)')
+    ->expect(fn ($value, $message) => Guard::isStringNotEmpty(value: $value));
 
-dataset('stringNotEmpty(passing)', [
+test('Guard::stringNotEmpty() Aliases')
+    ->expect('isStringNotEmpty')
+    ->validateAliases();
+
+dataset('isStringNotEmpty(passing)', [
     "('value')" => ['value'],
     "('0')"     => ['0'],
 ]);
-
-dataset('stringNotEmpty(failing)', [
+dataset('isStringNotEmpty(failing)', [
     "('')" => ['', 'Expected a value different from: "" (string). Got: "" (string)'],
     '(1)'  => [1, 'Expected a string. Got: 1 (int)'],
 ]);

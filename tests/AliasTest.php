@@ -59,8 +59,3 @@ test('aliases should be documented on trait and methods docblocks', function ():
         }
     }
 });
-
-test('abac', function (): void {
-    $a = \Pest\Datasets::get('test');
-    dd($a);
-})->skip();

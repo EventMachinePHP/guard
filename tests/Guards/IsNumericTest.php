@@ -3,18 +3,21 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isNumeric(passing)', function ($value): void {
-    expect(Guard::isNumeric(value: $value))
-        ->toBe($value)
-        ->not()->toThrow(exception: InvalidArgumentException::class);
-})->with(data: 'isNumeric(passing)');
+test('Guard::isNumeric(passing)')
+    ->with('isNumeric(passing)')
+    ->expect(fn ($value) => Guard::isNumeric(value: $value))
+    ->toHaveValue(fn ($value) => $value)
+    ->notToThrowInvalidArgumentException();
 
-test('Guard::isNumeric(failing)', function ($value, $message): void {
-    expect(fn () => Guard::isNumeric(value: $value))
-        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
-})->with(data: 'isNumeric(failing)');
+test('Guard::isNumeric(failing)')
+    ->expectInvalidArgumentException(fn ($value, $message) => $message)
+    ->with('isNumeric(failing)')
+    ->expect(fn ($value, $message) => Guard::isNumeric(value: $value));
+
+test('Guard::isNumeric() Aliases')
+    ->expect('isNumeric')
+    ->validateAliases();
 
 dataset('isNumeric(passing)', [
     '(1.0)'   => [1.0],
@@ -22,7 +25,6 @@ dataset('isNumeric(passing)', [
     '(123)'   => [123],
     "('123')" => ['123'],
 ]);
-
 dataset('isNumeric(failing)', [
     "('foo')" => ['foo', 'Expected a numeric value. Got: "foo" (string)'],
 ]);

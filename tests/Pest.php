@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+use Pest\Datasets;
+use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Tests\TestCase;
+
+uses(TestCase::class)->in(__DIR__);
+
 /**
  * Gets the argument string for a method.
  *
@@ -63,3 +69,53 @@ function generateMethodAliasSeeDefinition(string $alias): string
 {
     return '@see Guard::'.$alias.'()';
 }
+
+/*
+ * The toHaveValue extension for Pest evaluates a closure
+ * and asserts its return value against the expected
+ * value using the data provided to the test case.
+ */
+expect()->extend('toHaveValue', function ($callable) {
+    $value = $callable(...)->bindTo(test())(...test()->getProvidedData());
+
+    return $this->toBe($value);
+});
+
+/*
+ * Adds a custom expectation to the test case to check that an
+ * exception of type `InvalidArgumentException` is not thrown.
+ */
+expect()->extend('notToThrowInvalidArgumentException', function () {
+    return $this
+        ->not()
+        ->toThrow(EventMachinePHP\Guard\Exceptions\InvalidArgumentException::class);
+});
+
+/*
+ * The "validateAliases" Pest extension method tests each alias method for the
+ * passed in ReflectionMethod instance and asserts that it does not throw an
+ * InvalidArgumentException when passed valid arguments, and does throw an
+ * InvalidArgumentException when passed invalid arguments.
+ */
+expect()->extend('validateAliases', function (): void {
+    $reflectionMethod = new ReflectionMethod(Guard::class, $this->value);
+
+    foreach ($reflectionMethod->getAttributes() as $attribute) {
+        $attributeArguments = $attribute->getArguments()[0];
+        $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+
+        foreach ($aliasMethodNames as $aliasMethodName) {
+            $passingArguments = Datasets::get($reflectionMethod->getName().'(passing)');
+            $passingArguments = $passingArguments[array_key_first($passingArguments)];
+
+            $failingArguments = Datasets::get($reflectionMethod->getName().'(failing)');
+            $failingArguments = $failingArguments[array_key_first($failingArguments)];
+            array_pop($failingArguments);
+
+            expect(call_user_func([Guard::class, $aliasMethodName], ...$passingArguments))
+                ->notToThrowInvalidArgumentException()
+                ->and(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingArguments))
+                ->toThrow(\EventMachinePHP\Guard\Exceptions\InvalidArgumentException::class);
+        }
+    }
+});

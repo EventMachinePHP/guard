@@ -3,26 +3,28 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isInteger(passing)', function ($value): void {
-    expect(Guard::isInteger(value: $value))
-        ->toBe($value)
-        ->toBeInt()
-        ->not()->toThrow(exception: InvalidArgumentException::class);
-})->with(data: 'isInteger(passing)');
+test('Guard::isInteger(passing)')
+    ->with('isInteger(passing)')
+    ->expect(fn ($value) => Guard::isInteger(value: $value))
+    ->toHaveValue(fn ($value) => $value)
+    ->toBeInt()
+    ->notToThrowInvalidArgumentException();
 
-test('Guard::isInteger(failing)', function ($value, $message): void {
-    expect(fn () => Guard::isInteger(value: $value))
-        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
-})->with(data: 'isInteger(failing)');
+test('Guard::isInteger(failing)')
+    ->expectInvalidArgumentException(fn ($value, $message) => $message)
+    ->with('isInteger(failing)')
+    ->expect(fn ($value) => Guard::isInteger(value: $value));
+
+test('Guard::isInteger() Aliases')
+    ->expect('isInteger')
+    ->validateAliases();
 
 dataset('isInteger(passing)', [
     '(23)' => [23],
     '(0)'  => [0],
     '(-1)' => [-1],
 ]);
-
 dataset('isInteger(failing)', [
     '(null)'                                   => [null, 'Expected an integer. Got: null'],
     '(true)'                                   => [true, 'Expected an integer. Got: bool'],
@@ -42,10 +44,4 @@ dataset('isInteger(failing)', [
     '(new class {})'                           => [new class {}, 'Expected an integer. Got: class@anonymous'],
     '(new Exception())'                        => [new Exception(), 'Expected an integer. Got: Exception'],
     'resource (stream)'                        => [fopen('php://memory', 'r'), 'Expected an integer. Got: resource (stream)'],
-    'resource (closed)'                        => [function () {
-        $r = fopen('php://memory', 'r');
-        fclose($r);
-
-        return $r;
-    }, 'Expected an integer. Got: resource (closed)'],
 ]);

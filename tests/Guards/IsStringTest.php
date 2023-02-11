@@ -3,19 +3,22 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isString(passing)', function ($value): void {
-    expect(Guard::isString(value: $value))
-        ->toBe($value)
-        ->toBeString()
-        ->not()->toThrow(exception: InvalidArgumentException::class);
-})->with('isString(passing)');
+test('Guard::isString(passing)')
+    ->with('isString(passing)')
+    ->expect(fn ($value) => Guard::isString(value: $value))
+    ->toHaveValue(fn ($value) => $value)
+    ->toBeString()
+    ->notToThrowInvalidArgumentException();
 
-test('Guard::isString(failing)', function ($value, $message): void {
-    expect(fn () => Guard::isString(value: $value))
-        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
-})->with('isString(failing)');
+test('Guard::isString(failing)')
+    ->expectInvalidArgumentException(fn ($value, $message) => $message)
+    ->with('isString(failing)')
+    ->expect(fn ($value, $message) => Guard::isString(value: $value));
+
+test('Guard::isString() Aliases')
+    ->expect('isString')
+    ->validateAliases();
 
 dataset('isString(passing)', [
     "('abc')"  => ['abc'],
@@ -25,7 +28,6 @@ dataset('isString(passing)', [
     "(' ')"    => [' '],
     "('0')"    => ['0'],
 ]);
-
 dataset('isString(failing)', [
     '(true)'   => [true, 'Expected a string. Got: true (bool)'],
     '(false)'  => [false, 'Expected a string. Got: false (bool)'],
