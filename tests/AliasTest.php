@@ -49,13 +49,13 @@ test('aliases should be documented on trait and methods docblocks', function ():
                     $this->assertStringContainsString(
                         needle: generateMethodDocBlockDefinition($method, $alias),
                         haystack: $traitDocComment,
-                        message: "Method alias '".$alias."' is not (correctly) documented in trait ".$trait->getName().' docblock.',
+                        message: generateMethodDocBlockDefinitionErrorMessage($alias, $trait->getName()),
                     );
 
                     $this->assertStringContainsString(
                         needle: generateMethodAliasSeeDefinition($alias),
                         haystack: $methodDocComment,
-                        message: "Method alias '".$alias."' is not (correctly) documented in method ".$method->getName().' docblock.'.PHP_EOL.'It should look like this:'.PHP_EOL.generateMethodAliasSeeDefinition($alias),
+                        message: generateMethodAliasSeeDefinitionErrorMessage($alias, $method->getName()),
                     );
                 }
             }

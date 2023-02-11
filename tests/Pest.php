@@ -58,6 +58,11 @@ function generateMethodDocBlockDefinition(ReflectionMethod $method, string $alia
     );
 }
 
+function generateMethodDocBlockDefinitionErrorMessage(string $alias, string $traitName): string
+{
+    return "Method alias '{$alias}' is not (correctly) documented in trait '{$traitName}' docblock.";
+}
+
 /**
  * Generates the `@ see` definition for a method alias.
  *
@@ -68,6 +73,14 @@ function generateMethodDocBlockDefinition(ReflectionMethod $method, string $alia
 function generateMethodAliasSeeDefinition(string $alias): string
 {
     return '@see Guard::'.$alias.'()';
+}
+
+function generateMethodAliasSeeDefinitionErrorMessage(string $alias, string $methodName): string
+{
+    return "Method alias '{$alias}' is not (correctly) documented in method '{$methodName}' docblock.".
+        PHP_EOL.
+        'It should look like this:'.
+        PHP_EOL.generateMethodAliasSeeDefinition($alias);
 }
 
 /*
