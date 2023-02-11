@@ -18,7 +18,6 @@ test('Guard::isPositiveInteger(failing)', function ($value, $message): void {
         ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
 })->with(data:'isPositiveInteger(failing)');
 
-
 dataset('isPositiveInteger(passing)', [
     '(123)' => [123],
     '(1)'   => [1],
