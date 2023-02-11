@@ -33,6 +33,11 @@ trait BooleanGuards
      * @return bool The boolean value if validation is successful
      *
      * @throws InvalidArgumentException If the value is not a boolean
+     *
+     * @see Guard::b()
+     * @see Guard::bool()
+     * @see Guard::is_bool()
+     * @see Guard::boolean()
      */
     #[Alias(['boolean', 'is_bool', 'bool', 'b'])]
     public static function isBoolean(mixed $value, ?string $message = null): bool

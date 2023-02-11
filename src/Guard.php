@@ -16,6 +16,7 @@ use function is_resource;
 use BadMethodCallException;
 use function get_resource_type;
 use EventMachinePHP\Guard\Guards\FloatGuards;
+use EventMachinePHP\Guard\Guards\ObjectGuards;
 use EventMachinePHP\Guard\Guards\ScalarGuards;
 use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\BooleanGuards;
@@ -27,6 +28,7 @@ class Guard
     use BooleanGuards;
     use FloatGuards;
     use IntegerGuards;
+    use ObjectGuards;
     use ScalarGuards;
     use StringGuards;
 
@@ -36,21 +38,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Objects
-
-    public static function object(mixed $value, ?string $message = null): object
-    {
-        return !is_object($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an object. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Resources
 

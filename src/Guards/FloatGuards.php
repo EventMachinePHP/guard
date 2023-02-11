@@ -35,6 +35,10 @@ trait FloatGuards
      * @return float The given value, if it is a float
      *
      * @throws InvalidArgumentException If the value is not a float
+     *
+     * @see Guard::f()
+     * @see Guard::float()
+     * @see Guard::is_float()
      */
     #[Alias(['is_float', 'float', 'f'])]
     public static function isFloat(mixed $value, ?string $message = null): float
