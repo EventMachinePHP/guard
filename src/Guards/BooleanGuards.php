@@ -39,7 +39,7 @@ trait BooleanGuards
      * @see Guard::is_bool()
      * @see Guard::boolean()
      */
-    #[Alias(['boolean', 'is_bool', 'bool', 'b'])]
+    #[Alias(['b', 'bool', 'is_bool', 'boolean'])]
     public static function isBoolean(mixed $value, ?string $message = null): bool
     {
         return !is_bool($value)

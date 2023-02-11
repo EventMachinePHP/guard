@@ -12,20 +12,20 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains guards that check if a value is of type integer.
  *
- * @method static int i (mixed $value, ?string $message = null) @see Guard::isInteger()
- * @method static int int (mixed $value, ?string $message = null) @see Guard::isInteger()
- * @method static int is_int (mixed $value, ?string $message = null) @see Guard::isInteger()
- * @method static int integer (mixed $value, ?string $message = null) @see Guard::isInteger()
- * @method static string|int|float n (mixed $value, ?string $message = null) @see Guard::isNumeric()
- * @method static string|int|float numeric (mixed $value, ?string $message = null) @see Guard::isNumeric()
- * @method static string|int|float is_numeric (mixed $value, ?string $message = null) @see Guard::isNumeric()
- * @method static string|int|float intVal (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
- * @method static string|int|float integerish (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
- * @method static string|int|float integerValue (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
- * @method static int positiveInt (mixed $value, ?string $message = null) @see Guard::isPositiveInteger()
- * @method static int positiveInteger (mixed $value, ?string $message = null) @see Guard::isPositiveInteger()
- * @method static int naturalInt (mixed $value, ?string $message = null) @see Guard::isNaturalInteger()
- * @method static int naturalInteger (mixed $value, ?string $message = null) @see Guard::isNaturalInteger()
+ * @method static int i(mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static int int(mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static int is_int(mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static int integer(mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static string|int|float n(mixed $value, ?string $message = null) @see Guard::isNumeric()
+ * @method static string|int|float numeric(mixed $value, ?string $message = null) @see Guard::isNumeric()
+ * @method static string|int|float is_numeric(mixed $value, ?string $message = null) @see Guard::isNumeric()
+ * @method static string|int|float intVal(mixed $value, ?string $message = null) @see Guard::isIntegerValue()
+ * @method static string|int|float integerish(mixed $value, ?string $message = null) @see Guard::isIntegerValue()
+ * @method static string|int|float integerValue(mixed $value, ?string $message = null) @see Guard::isIntegerValue()
+ * @method static int positiveInt(mixed $value, ?string $message = null) @see Guard::isPositiveInteger()
+ * @method static int positiveInteger(mixed $value, ?string $message = null) @see Guard::isPositiveInteger()
+ * @method static int naturalInt(mixed $value, ?string $message = null) @see Guard::isNaturalInteger()
+ * @method static int naturalInteger(mixed $value, ?string $message = null) @see Guard::isNaturalInteger()
  */
 trait IntegerGuards
 {
@@ -46,8 +46,13 @@ trait IntegerGuards
      * @return int The given value, if it is of type integer
      *
      * @throws InvalidArgumentException If the value is not of type integer
+     *
+     * @see Guard::i()
+     * @see Guard::int()
+     * @see Guard::is_int()
+     * @see Guard::integer()
      */
-    #[Alias(['integer', 'is_int', 'int', 'i'])]
+    #[Alias(['i', 'int', 'is_int', 'integer'])]
     public static function isInteger(mixed $value, ?string $message = null): int
     {
         return !is_int($value)
@@ -72,8 +77,12 @@ trait IntegerGuards
      * @return string|int|float The given value if it is numeric.
      *
      * @throws InvalidArgumentException If the value is not numeric.
+     *
+     * @see Guard::n()
+     * @see Guard::numeric()
+     * @see Guard::is_numeric()
      */
-    #[Alias(['is_numeric', 'numeric', 'n'])]
+    #[Alias(['n', 'numeric', 'is_numeric'])]
     public static function isNumeric(mixed $value, ?string $message = null): string|int|float
     {
         return !is_numeric($value)
@@ -105,8 +114,12 @@ trait IntegerGuards
      * @return int|float|string The given value, if it can be cast to an integer, float or string
      *
      * @throws InvalidArgumentException If the value is not of a type that can be cast to an integer, float or string
+     *
+     * @see Guard::intVal()
+     * @see Guard::integerish()
+     * @see Guard::integerValue()
      */
-    #[Alias(['integerValue', 'integerish', 'intVal'])]
+    #[Alias(['intVal', 'integerish', 'integerValue'])]
     public static function isIntegerValue(mixed $value, ?string $message = null): string|int|float
     {
         return !is_numeric($value) || $value != (int) $value
@@ -138,8 +151,11 @@ trait IntegerGuards
      * @return int The given value, if it is a positive integer
      *
      * @throws InvalidArgumentException If the value is not a positive integer
+     *
+     * @see Guard::positiveInt()
+     * @see Guard::positiveInteger()
      */
-    #[Alias(['positiveInteger', 'positiveInt'])]
+    #[Alias(['positiveInt', 'positiveInteger'])]
     public static function isPositiveInteger(mixed $value, ?string $message = null): int
     {
         self::isInteger($value, $message);
@@ -167,8 +183,11 @@ trait IntegerGuards
      * @return int The given value, if it is a natural integer
      *
      * @throws InvalidArgumentException If the value is not a natural integer
+     *
+     * @see Guard::naturalInt()
+     * @see Guard::naturalInteger()
      */
-    #[Alias(['naturalInteger', 'naturalInt'])]
+    #[Alias(['naturalInt', 'naturalInteger'])]
     public static function isNaturalInteger(mixed $value, ?string $message = null): int
     {
         self::isInteger($value, $message);

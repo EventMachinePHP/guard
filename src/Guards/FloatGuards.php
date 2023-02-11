@@ -40,7 +40,7 @@ trait FloatGuards
      * @see Guard::float()
      * @see Guard::is_float()
      */
-    #[Alias(['is_float', 'float', 'f'])]
+    #[Alias(['f', 'float', 'is_float'])]
     public static function isFloat(mixed $value, ?string $message = null): float
     {
         return !is_float($value)

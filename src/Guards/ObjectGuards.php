@@ -11,9 +11,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains guards that check if a value is of type object.
  *
- * @method static object o (mixed $value, ?string $message = null) @see Guard::isObject()
- * @method static object object (mixed $value, ?string $message = null) @see Guard::isObject()
- * @method static object is_object (mixed $value, ?string $message = null) @see Guard::isObject()
+ * @method static object o(mixed $value, ?string $message = null) @see Guard::isObject()
+ * @method static object object(mixed $value, ?string $message = null) @see Guard::isObject()
+ * @method static object is_object(mixed $value, ?string $message = null) @see Guard::isObject()
  */
 trait ObjectGuards
 {
@@ -35,7 +35,7 @@ trait ObjectGuards
      * @see Guard::object()
      * @see Guard::is_object()
      */
-    #[Alias(['is_object', 'object', 'o'])]
+    #[Alias(['o', 'object', 'is_object'])]
     public static function isObject(mixed $value, ?string $message = null): object
     {
         return !is_object($value)

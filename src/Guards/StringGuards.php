@@ -36,9 +36,12 @@ trait StringGuards
      *
      * @throws InvalidArgumentException If the provided value is not a string.
      *
-     * @alias string
+     * @see Guard::s()
+     * @see Guard::str()
+     * @see Guard::string()
+     * @see Guard::is_string()
      */
-    #[Alias(['is_string', 'string', 'str', 's'])]
+    #[Alias(['s', 'str', 'string', 'is_string'])]
     public static function isString(mixed $value, ?string $message = null): string
     {
         return !is_string($value)
@@ -64,8 +67,12 @@ trait StringGuards
      * @return string The string value if the validation is successful.
      *
      * @throws InvalidArgumentException If the value is not a string or if it is equal to an empty string.
+     *
+     * @see Guard::sne()
+     * @see Guard::strNotEmpty()
+     * @see Guard::stringNotEmpty()
      */
-    #[Alias(['stringNotEmpty', 'strNotEmpty', 'sne'])]
+    #[Alias(['sne', 'strNotEmpty', 'stringNotEmpty'])]
     public static function isStringNotEmpty(mixed $value, ?string $message = null): string
     {
         self::isString($value, $message);
