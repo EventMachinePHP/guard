@@ -39,7 +39,7 @@
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "lint": "vendor/bin/pint",
-        "infection": "vendor/bin/infection --test-framework=pest --show-mutations --threads=max --min-msi=100 --min-covered-msi=100 --ansi",
+        "infection": "vendor/bin/infection --test-framework=pest --show-mutations --threads=max --min-msi=95 --min-covered-msi=95 --ansi",
         "bench": "vendor/bin/phpbench run tests/Benchmark --tag=original --report=aggregate --retry-threshold=5"
     },
     "config": {

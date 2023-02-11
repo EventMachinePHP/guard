@@ -5,21 +5,25 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isInteger(✅) ', function ($value): void {
+test('Guard::isInteger(passing)', function ($value): void {
     expect(Guard::isInteger(value: $value))
         ->toBe($value)
         ->toBeInt()
-        ->not()->toThrow(InvalidArgumentException::class);
-})->with([
+        ->not()->toThrow(exception: InvalidArgumentException::class);
+})->with(data: 'isInteger(passing)');
+
+test('Guard::isInteger(failing)', function ($value, $message): void {
+    expect(fn () => Guard::isInteger(value: $value))
+        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
+})->with(data: 'isInteger(failing)');
+
+dataset('isInteger(passing)', [
     '(23)' => [23],
     '(0)'  => [0],
     '(-1)' => [-1],
 ]);
 
-test('Guard::isInteger(❌) ', function ($value, $message): void {
-    expect(fn () => Guard::isInteger(value: $value))
-        ->toThrow(InvalidArgumentException::class, $message);
-})->with([
+dataset('isInteger(failing)', [
     '(null)'                                   => [null, 'Expected an integer. Got: null'],
     '(true)'                                   => [true, 'Expected an integer. Got: bool'],
     '(false)'                                  => [false, 'Expected an integer. Got: bool'],

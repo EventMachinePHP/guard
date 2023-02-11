@@ -5,12 +5,19 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isString(✅) ', function ($value): void {
+test('Guard::isString(passing)', function ($value): void {
     expect(Guard::isString(value: $value))
         ->toBe($value)
         ->toBeString()
-        ->not()->toThrow(InvalidArgumentException::class);
-})->with([
+        ->not()->toThrow(exception: InvalidArgumentException::class);
+})->with('isString(passing)');
+
+test('Guard::isString(failing)', function ($value, $message): void {
+    expect(fn () => Guard::isString(value: $value))
+        ->toThrow(exception: InvalidArgumentException::class, exceptionMessage: $message);
+})->with('isString(failing)');
+
+dataset('isString(passing)', [
     "('abc')"  => ['abc'],
     "('23')"   => ['23'],
     "('23.5')" => ['23.5'],
@@ -19,10 +26,7 @@ test('Guard::isString(✅) ', function ($value): void {
     "('0')"    => ['0'],
 ]);
 
-test('Guard::isString(❌) ', function ($value, $message): void {
-    expect(fn () => Guard::isString(value: $value))
-        ->toThrow(InvalidArgumentException::class, $message);
-})->with([
+dataset('isString(failing)', [
     '(true)'   => [true, 'Expected a string. Got: true (bool)'],
     '(false)'  => [false, 'Expected a string. Got: false (bool)'],
     '(null)'   => [null, 'Expected a string. Got: null (null)'],
