@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isIterable ✅', function ($value): void {
+test('Guard::isIterable(passing)', function ($value): void {
     expect(Guard::isIterable(value: $value))
         ->toBe($value)
         ->toBeIterable()
@@ -16,7 +16,7 @@ test('Guard::isIterable ✅', function ($value): void {
     '(new ArrayIterator([1,2,3])' => [new ArrayIterator([1, 2, 3])],
 ]);
 
-test('Guard::isIterable ❌', function ($value, $message): void {
+test('Guard::isIterable(failing)', function ($value, $message): void {
     expect(fn () => Guard::isIterable(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

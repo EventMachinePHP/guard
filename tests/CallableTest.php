@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isCallable ✅', function ($value): void {
+test('Guard::isCallable(passing)', function ($value): void {
     expect(Guard::isCallable(value: $value))
         ->toBe($value)
         ->toBeCallable()
@@ -15,7 +15,7 @@ test('Guard::isCallable ✅', function ($value): void {
     '(fn (): Closure => function (): void {})' => [fn (): Closure => function (): void {}],
 ]);
 
-test('Guard::isCallable ❌', function ($value, $message): void {
+test('Guard::isCallable(failing)', function ($value, $message): void {
     expect(fn () => Guard::isCallable(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

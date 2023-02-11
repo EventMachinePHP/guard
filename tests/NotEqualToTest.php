@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::notEqualTo ✅', function ($value, $limit): void {
+test('Guard::notEqualTo(passing)', function ($value, $limit): void {
     expect(Guard::notEqualTo(value: $value, expect: $limit))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
@@ -15,7 +15,7 @@ test('Guard::notEqualTo ✅', function ($value, $limit): void {
     '(1, false)' => [1, false],
 ]);
 
-test('Guard::notEqualTo ❌', function ($value, $limit, $message): void {
+test('Guard::notEqualTo(failing)', function ($value, $limit, $message): void {
     expect(fn () => Guard::notEqualTo(value: $value, expect: $limit))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

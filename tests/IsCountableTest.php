@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isCountable ✅', function ($value): void {
+test('Guard::isCountable(passing)', function ($value): void {
     expect(Guard::isCountable(value: $value))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
@@ -17,7 +17,7 @@ test('Guard::isCountable ✅', function ($value): void {
     'new \SimpleXMLElement(...)' => [new SimpleXMLElement('<foo>bar</foo>')],
 ]);
 
-test('Guard::isCountable ❌', function ($value, $message): void {
+test('Guard::isCountable(failing)', function ($value, $message): void {
     expect(fn () => Guard::isCountable(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

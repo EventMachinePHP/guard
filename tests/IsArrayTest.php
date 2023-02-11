@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isArray ✅', function ($value): void {
+test('Guard::isArray(passing)', function ($value): void {
     expect(Guard::isArray(value: $value))
         ->toBe($value)
         ->toBeArray()
@@ -15,7 +15,7 @@ test('Guard::isArray ✅', function ($value): void {
     '([1, 2, 3])' => [[1, 2, 3]],
 ]);
 
-test('Guard::isArray ❌', function ($value, $message): void {
+test('Guard::isArray(failing)', function ($value, $message): void {
     expect(fn () => Guard::isArray(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

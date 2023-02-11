@@ -14,13 +14,13 @@ use function is_string;
 use function is_callable;
 use function is_resource;
 use BadMethodCallException;
-use function get_resource_type;
 use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\ObjectGuards;
 use EventMachinePHP\Guard\Guards\ScalarGuards;
 use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
+use EventMachinePHP\Guard\Guards\ResourceGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
@@ -29,6 +29,7 @@ class Guard
     use FloatGuards;
     use IntegerGuards;
     use ObjectGuards;
+    use ResourceGuards;
     use ScalarGuards;
     use StringGuards;
 
@@ -38,31 +39,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Resources
-
-    public static function resource(mixed $value, ?string $type = null, ?string $message = null)
-    {
-        if (!is_resource($value)) {
-            return throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a resource. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            );
-        }
-
-        if ($type !== null && get_resource_type($value) !== $type) {
-            return throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a resource of type: %s. Got: %s',
-                values: [$type, get_resource_type($value)],
-            );
-        }
-
-        return $value;
-    }
-
-    // endregion
 
     // region Callables
 

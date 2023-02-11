@@ -34,6 +34,9 @@ test('aliases should be documented on trait and methods docblocks', function ():
 
     foreach ($traits as $trait) {
         $traitDocComment = $trait->getDocComment();
+        if ($traitDocComment === false) {
+            $this->fail('Trait '.$trait->getName().' does not have a docblock.');
+        }
 
         foreach ($trait->getMethods() as $method) {
             $methodDocComment = $method->getDocComment();
@@ -46,13 +49,13 @@ test('aliases should be documented on trait and methods docblocks', function ():
                     $this->assertStringContainsString(
                         needle: generateMethodDocBlockDefinition($method, $alias),
                         haystack: $traitDocComment,
-                        message: "Method alias '".$alias."' is not (correctly) documented in trait ".$trait->getName().'.',
+                        message: "Method alias '".$alias."' is not (correctly) documented in trait ".$trait->getName().' docblock.',
                     );
 
                     $this->assertStringContainsString(
                         needle: generateMethodAliasSeeDefinition($alias),
                         haystack: $methodDocComment,
-                        message: "Method alias '".$alias."' is not (correctly) documented in method ".$method->getName().'.',
+                        message: "Method alias '".$alias."' is not (correctly) documented in method ".$method->getName().' docblock.'.PHP_EOL.'It should look like this:'.PHP_EOL.generateMethodAliasSeeDefinition($alias),
                     );
                 }
             }

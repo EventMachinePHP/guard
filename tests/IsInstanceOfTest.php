@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isInstanceOf ✅', function ($value, $class): void {
+test('Guard::isInstanceOf(passing)', function ($value, $class): void {
     expect(Guard::isInstanceOf(value: $value, class: $class))
         ->toBe($value)
         ->toBeInstanceOf($class)
@@ -14,7 +14,7 @@ test('Guard::isInstanceOf ✅', function ($value, $class): void {
     "(new stdClass(), 'stdClass')" => [new stdClass(), 'stdClass'],
 ]);
 
-test('Guard::isInstanceOf ❌', function ($value, $class, $message): void {
+test('Guard::isInstanceOf(failing)', function ($value, $class, $message): void {
     expect(fn () => Guard::isInstanceOf(value: $value, class: $class))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

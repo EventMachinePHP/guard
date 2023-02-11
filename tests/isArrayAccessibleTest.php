@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isArrayAccessible ✅', function ($value): void {
+test('Guard::isArrayAccessible(passing)', function ($value): void {
     expect(Guard::isArrayAccessible(value: $value))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
@@ -15,7 +15,7 @@ test('Guard::isArrayAccessible ✅', function ($value): void {
     '(new ArrayObject([]))' => [new ArrayObject([])],
 ]);
 
-test('Guard::isArrayAccessible ❌', function ($value, $message): void {
+test('Guard::isArrayAccessible(failing)', function ($value, $message): void {
     expect(fn () => Guard::isArrayAccessible(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

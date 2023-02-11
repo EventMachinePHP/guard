@@ -5,7 +5,7 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::isNaturalInteger ✅', function ($value): void {
+test('Guard::isNaturalInteger(passing)', function ($value): void {
     expect(Guard::isNaturalInteger(value: $value))
         ->toBe($value)
         ->toBeInt()
@@ -15,7 +15,7 @@ test('Guard::isNaturalInteger ✅', function ($value): void {
     '(1)' => [1],
 ]);
 
-test('Guard::isNaturalInteger ❌', function ($value, $message): void {
+test('Guard::isNaturalInteger(failing)', function ($value, $message): void {
     expect(fn () => Guard::isNaturalInteger(value: $value))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

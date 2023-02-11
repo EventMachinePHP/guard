@@ -7,7 +7,7 @@ namespace EventMachinePHP\Guard\Tests;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::lessThanOrEqual ✅', function ($value, $limit): void {
+test('Guard::lessThanOrEqual(passing)', function ($value, $limit): void {
     expect(Guard::lessThanOrEqual(value: $value, limit: $limit))
         ->toBe($value)
         ->not()->toThrow(InvalidArgumentException::class);
@@ -16,7 +16,7 @@ test('Guard::lessThanOrEqual ✅', function ($value, $limit): void {
     '(1, 1)' => [1, 1],
 ]);
 
-test('Guard::lessThanOrEqual ❌', function ($value, $limit, $message): void {
+test('Guard::lessThanOrEqual(failing)', function ($value, $limit, $message): void {
     expect(fn () => Guard::lessThanOrEqual(value: $value, limit: $limit))
         ->toThrow(InvalidArgumentException::class, $message);
 })->with([

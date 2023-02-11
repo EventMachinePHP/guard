@@ -22,6 +22,7 @@
         "laravel/pint": "^1.2",
         "pestphp/pest": "^1.20",
         "pestphp/pest-plugin-mock": "^1.0",
+        "pestphp/pest-plugin-watch": "1.x-dev",
         "phpbench/phpbench": "^1.2",
         "symfony/var-dumper": "^6.2"
     },
@@ -37,6 +38,7 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
+        "watch": "vendor/bin/pest --watch",
         "test-coverage": "vendor/bin/pest --coverage",
         "lint": "vendor/bin/pint",
         "infection": "vendor/bin/infection --test-framework=pest --show-mutations --threads=max --min-msi=95 --min-covered-msi=95 --ansi",
