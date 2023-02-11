@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Guards;
 
+use function is_int;
+use function is_numeric;
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
@@ -12,9 +14,11 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  *
  * @method static int i (mixed $value, ?string $message = null) @see Guard::isInteger()
  * @method static int int (mixed $value, ?string $message = null) @see Guard::isInteger()
+ * @method static int is_int (mixed $value, ?string $message = null) @see Guard::isInteger()
  * @method static int integer (mixed $value, ?string $message = null) @see Guard::isInteger()
  * @method static string|int|float n (mixed $value, ?string $message = null) @see Guard::isNumeric()
  * @method static string|int|float numeric (mixed $value, ?string $message = null) @see Guard::isNumeric()
+ * @method static string|int|float is_numeric (mixed $value, ?string $message = null) @see Guard::isNumeric()
  * @method static string|int|float intVal (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
  * @method static string|int|float integerish (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
  * @method static string|int|float integerValue (mixed $value, ?string $message = null) @see Guard::isIntegerValue()
@@ -43,7 +47,7 @@ trait IntegerGuards
      *
      * @throws InvalidArgumentException If the value is not of type integer
      */
-    #[Alias(['integer', 'int', 'i'])]
+    #[Alias(['integer', 'is_int', 'int', 'i'])]
     public static function isInteger(mixed $value, ?string $message = null): int
     {
         return !is_int($value)
@@ -69,7 +73,7 @@ trait IntegerGuards
      *
      * @throws InvalidArgumentException If the value is not numeric.
      */
-    #[Alias(['numeric', 'n'])]
+    #[Alias(['is_numeric', 'numeric', 'n'])]
     public static function isNumeric(mixed $value, ?string $message = null): string|int|float
     {
         return !is_numeric($value)

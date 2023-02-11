@@ -7,7 +7,6 @@ namespace EventMachinePHP\Guard;
 use Countable;
 use ArrayAccess;
 use ReflectionClass;
-use function is_bool;
 use function is_array;
 use function get_class;
 use function is_object;
@@ -19,6 +18,7 @@ use BadMethodCallException;
 use function get_resource_type;
 use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\StringGuards;
+use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
@@ -27,6 +27,7 @@ class Guard
     use StringGuards;
     use IntegerGuards;
     use FloatGuards;
+    use BooleanGuards;
 
     // TODO: Core_c: Loop through interfaces, using instance of
     // TODO: Look for php aliases methods
@@ -34,21 +35,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Booleans
-
-    public static function boolean(mixed $value, ?string $message = null): bool
-    {
-        return !is_bool($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a boolean value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Scalars
 

@@ -14,6 +14,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static string s(mixed $value, ?string $message = null) @see Guard::isString()
  * @method static string str(mixed $value, ?string $message = null) @see Guard::isString()
  * @method static string string(mixed $value, ?string $message = null) @see Guard::isString()
+ * @method static string is_string(mixed $value, ?string $message = null) @see Guard::isString()
  * @method static string sne(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
  * @method static string strNotEmpty(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
  * @method static string stringNotEmpty(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
@@ -37,7 +38,7 @@ trait StringGuards
      *
      * @alias string
      */
-    #[Alias(['string', 'str', 's'])]
+    #[Alias(['is_string', 'string', 'str', 's'])]
     public static function isString(mixed $value, ?string $message = null): string
     {
         return !is_string($value)
