@@ -6,6 +6,7 @@ use Pest\Datasets;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Tests\TestCase;
 
+/* @infection-ignore-all */
 uses(TestCase::class)->in(__DIR__);
 
 /**
@@ -20,6 +21,8 @@ uses(TestCase::class)->in(__DIR__);
  * @param  ReflectionMethod  $method The reflection method.
  *
  * @return string The argument string for the method, with each argument separated by a comma.
+ *
+ * @infection-ignore-all
  */
 function getMethodArgumentString(ReflectionMethod $method): string
 {
@@ -46,6 +49,8 @@ function getMethodArgumentString(ReflectionMethod $method): string
  * @param  string  $alias  The alias for the method.
  *
  * @return string The docblock definition for the method alias.
+ *
+ * @infection-ignore-all
  */
 function generateMethodDocBlockDefinition(ReflectionMethod $method, string $alias): string
 {
@@ -58,6 +63,7 @@ function generateMethodDocBlockDefinition(ReflectionMethod $method, string $alia
     );
 }
 
+/** @infection-ignore-all */
 function generateMethodDocBlockDefinitionErrorMessage(string $alias, string $traitName): string
 {
     return "Method alias '{$alias}' is not (correctly) documented in trait '{$traitName}' docblock.";
@@ -69,12 +75,15 @@ function generateMethodDocBlockDefinitionErrorMessage(string $alias, string $tra
  * @param  string  $alias The alias for the method.
  *
  * @return string The `@ see` definition for the method alias.
+ *
+ * @infection-ignore-all
  */
 function generateMethodAliasSeeDefinition(string $alias): string
 {
     return '@see Guard::'.$alias.'()';
 }
 
+/** @infection-ignore-all */
 function generateMethodAliasSeeDefinitionErrorMessage(ReflectionMethod $method): string
 {
     $aliasSeeBlock = '';
@@ -90,6 +99,7 @@ function generateMethodAliasSeeDefinitionErrorMessage(ReflectionMethod $method):
         'It should look like this:'.PHP_EOL.$aliasSeeBlock;
 }
 
+/** @infection-ignore-all */
 function generateTraitDocBlockForAliases(ReflectionClass $trait)
 {
     $docBlock = <<<'DOC'
@@ -119,6 +129,8 @@ function generateTraitDocBlockForAliases(ReflectionClass $trait)
  * The toHaveValue extension for Pest evaluates a closure
  * and asserts its return value against the expected
  * value using the data provided to the test case.
+ *
+ * @infection-ignore-all
  */
 expect()->extend('toHaveValue', function ($callable): Pest\Expectation {
     $value = $callable(...)->bindTo(test())(...test()->getProvidedData());
@@ -126,6 +138,7 @@ expect()->extend('toHaveValue', function ($callable): Pest\Expectation {
     return $this->toBe($value);
 });
 
+/* @infection-ignore-all */
 expect()->extend('toHaveValueThat', function (string $assertionName, callable $callable): Pest\Expectation {
     return $this->$assertionName($callable(...)->bindTo(test())(...test()->getProvidedData()));
 });
@@ -133,6 +146,8 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
 /*
  * Adds a custom expectation to the test case to check that an
  * exception of type `InvalidArgumentException` is not thrown.
+ *
+ * @infection-ignore-all
  */
 expect()->extend('notToThrowInvalidArgumentException', function () {
     return $this
@@ -145,6 +160,8 @@ expect()->extend('notToThrowInvalidArgumentException', function () {
  * passed in ReflectionMethod instance and asserts that it does not throw an
  * InvalidArgumentException when passed valid arguments, and does throw an
  * InvalidArgumentException when passed invalid arguments.
+ *
+ * @infection-ignore-all
  */
 expect()->extend('validateAliases', function (): void {
     $reflectionMethod = new ReflectionMethod(Guard::class, $this->value);
