@@ -22,9 +22,9 @@ trait CountableGuards
      * Validates if the given value is countable and returns ıt.
      *
      * This method checks if the provided value is either an instance
-     * of the `Countable` interface or an array.
+     * of the {@see \Countable} interface or an array.
      *
-     * If the value is not countable, an `InvalidArgumentException`
+     * If the value is not countable, an {@see InvalidArgumentException}
      * is thrown with a default message indicating the expected
      * type and the received value and type. If a custom
      * message is provided, it will be used instead.

@@ -21,8 +21,8 @@ trait InstanceGuards
      * given class and returns it.
      *
      * Verifies if the value is an instance of the specified class. If the
-     * check fails, an InvalidArgumentException is thrown with a custom
-     * or default message.
+     * check fails, an {@see InvalidArgumentException} is thrown with a
+     * custom or default message.
      *
      * @param  mixed  $value     The value to check.
      * @param  string  $class     The class to check the value against.
@@ -51,8 +51,8 @@ trait InstanceGuards
      * of a specified class and returns it.
      *
      * This method checks if the given value is not an instance of the
-     * specified class. If it is, an InvalidArgumentException is
-     * thrown. If the value is not an instance of the class,
+     * specified class. If it is, an {@see InvalidArgumentException}
+     * is thrown. If the value is not an instance of the class,
      * the value is returned.
      *
      * @param  mixed  $value The value to check.
@@ -80,9 +80,9 @@ trait InstanceGuards
      *
      * This method checks if the given value is an instance of at
      * least one of the classes in the `$classes` array. If it is
-     * not, an `InvalidArgumentException` will be thrown with a
-     * message indicating which classes were expected and what
-     * value was received instead.
+     * not, an {@see InvalidArgumentException} will be thrown
+     * with a message indicating which classes were expected
+     * and what value was received instead.
      *
      * @param  mixed  $value The value to be validated.
      * @param  array  $classes The list of classes that the value should be an instance of.

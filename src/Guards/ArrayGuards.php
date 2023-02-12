@@ -24,8 +24,8 @@ trait ArrayGuards
     /**
      * Validates if the given value is an array and returns it.
      *
-     * Throws an InvalidArgumentException if the value is not
-     * an array.
+     * Throws an {@see InvalidArgumentException} if the value
+     * is not an array.
      *
      * @param  mixed  $value The value to validate.
      * @param  string|null  $message Custom error message.
@@ -52,13 +52,13 @@ trait ArrayGuards
 
     /**
      * Validates if the given value is either an array or implements
-     * ArrayAccess and returns it.
+     * {@see ArrayAccess} and returns it.
      *
      * This method checks if the given value is either an array or
-     * an object that implements the ArrayAccess interface. If the
-     * value is not an array or ArrayAccess, it throws an
-     * InvalidArgumentException with a custom or default
-     * error message.
+     * an object that implements the {@see ArrayAccess} interface.
+     * If the value is not an array or {@see ArrayAccess}, it
+     * throws an {@see InvalidArgumentException} with a
+     * custom or default error message.
      *
      * @param  mixed  $value The value to be checked.
      * @param  string|null  $message Optional custom error message.

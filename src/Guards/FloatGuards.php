@@ -22,8 +22,8 @@ trait FloatGuards
      *
      * This method checks if the given value is a float and returns
      * the value if it's a float. If the value is not a float, an
-     * InvalidArgumentException is thrown with a custom message
-     * if provided or a default error message.
+     * {@see InvalidArgumentException} is thrown with a custom
+     * message if provided or a default error message.
      *
      * @param  mixed  $value The value to validate.
      * @param  string|null  $message The custom error message.

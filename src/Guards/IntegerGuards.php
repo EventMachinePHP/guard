@@ -30,22 +30,19 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait IntegerGuards
 {
     /**
-     * Checks if the given value is of type integer and returns it.
+     * Validates if the given value is an integer and returns it.
      *
-     * This method is used to ensure that the input value is of the
-     * correct type. If the value is not of type integer, an
-     * `InvalidArgumentException` will be thrown.
+     * This method checks if a value is an integer and throws an
+     * exception if it is not. The value is passed as an
+     * argument and the exception message can be
+     * customized using the `$message` argument.
      *
-     * The exception message can include a custom message (if provided)
-     * or a default message indicating that an integer was expected,
-     * and includes a string representation of the actual value received.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message [optional] The exception message.
      *
-     * @param  mixed  $value The value to check
-     * @param  string|null  $message [optional] A custom message to use in the exception, if thrown
+     * @return int The integer value.
      *
-     * @return int The given value, if it is of type integer
-     *
-     * @throws InvalidArgumentException If the value is not of type integer
+     * @throws InvalidArgumentException If the value is not an integer.
      *
      * @see Guard::i()
      * @see Guard::int()
@@ -65,16 +62,16 @@ trait IntegerGuards
     }
 
     /**
-     * Check if the given value is numeric.
+     * Validates if the given value is numeric and returns it.
      *
-     * This method checks if the given value is numeric and throws an
-     * InvalidArgumentException with a custom or default message if
-     * the value is not numeric.
+     * The method checks if the passed value is numeric and returns
+     * it if it is. If it's not numeric, an {@see InvalidArgumentException}
+     * is thrown with a custom or default error message.
      *
-     * @param  mixed  $value The value to be checked.
-     * @param  string|null  $message A custom error message. If not provided, a default message will be used.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message A custom error message.
      *
-     * @return string|int|float The given value if it is numeric.
+     * @return string|int|float The passed value if it's numeric.
      *
      * @throws InvalidArgumentException If the value is not numeric.
      *
@@ -95,25 +92,16 @@ trait IntegerGuards
     }
 
     /**
-     * Checks if the given value can be cast to an integer, float or string, and returns it.
+     * Validates if the given value is an integer value.
      *
-     * This method is used to ensure that the input value is of a type
-     * that can be cast to either an integer, float or string. If
-     * the value is not of a type that can be cast to one of
-     * these types, an `InvalidArgumentException` will be
-     * thrown.
+     * This method checks if the given value is a numeric value and
+     * also equal to its integer representation.
      *
-     * The exception message can include a custom message (if provided)
-     * or a default message indicating that an integer, float or
-     * string value was expected, and includes a string
-     * representation of the actual value received.
+     * @param  mixed  $value The value to be validated.
+     * @param  string|null  $message An optional custom error message.
      *
-     * @param  mixed  $value The value to check
-     * @param  string|null  $message [optional] A custom message to use in the exception, if thrown
-     *
-     * @return int|float|string The given value, if it can be cast to an integer, float or string
-     *
-     * @throws InvalidArgumentException If the value is not of a type that can be cast to an integer, float or string
+     * @throws InvalidArgumentException If the value is not a numeric value or
+     * not equal to its integer representation.
      *
      * @see Guard::intVal()
      * @see Guard::integerish()
@@ -132,25 +120,21 @@ trait IntegerGuards
     }
 
     /**
-     * Checks if the given value is a positive integer.
+     * Validates if the given value is a positive integer and returns it.
      *
-     * This method is used to ensure that the input value is a
-     * positive integer. If the value is not a positive
-     * integer, an `InvalidArgumentException` will be
-     * thrown.
+     * This method will validate that the given value is an integer
+     * using the {@see Guard::isInteger()} method, and that the
+     * value is greater than 0. If the value is not a positive
+     * integer, an {@see InvalidArgumentException} is thrown
+     * with the given message, or a default message if not
+     * provided.
      *
-     * The exception message can include a custom message
-     * (if provided) or a default message indicating
-     * that a positive integer was expected, and
-     * includes a string representation of the
-     * actual value received.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message The error message to use if the value is not a positive integer.
      *
-     * @param  mixed  $value The value to check
-     * @param  string|null  $message [optional] A custom message to use in the exception, if thrown
+     * @return int The validated positive integer.
      *
-     * @return int The given value, if it is a positive integer
-     *
-     * @throws InvalidArgumentException If the value is not a positive integer
+     * @throws InvalidArgumentException If the value is not a positive integer.
      *
      * @see Guard::positiveInt()
      * @see Guard::positiveInteger()
@@ -165,24 +149,19 @@ trait IntegerGuards
     }
 
     /**
-     * Checks if the given value is a natural integer.
+     * Validates if the given value is a natural integer and returns it.
      *
-     * This method is used to ensure that the input value is a
-     * non-negative integer. If the value is not a natural
-     * integer, an `InvalidArgumentException` will be
-     * thrown.
+     * A natural integer is an integer that is greater than or equal to 0.
+     * The given value will be checked for being an integer and for being
+     * greater than or equal to 0. If either of these conditions is not
+     * met, an {@see InvalidArgumentException} will be thrown.
      *
-     * The exception message can include a custom message (if provided)
-     * or a default message indicating that a natural integer was
-     * expected, and includes a string representation of the
-     * actual value received.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message The error message to use if the validation fails.
      *
-     * @param  mixed  $value The value to check
-     * @param  string|null  $message [optional] A custom message to use in the exception, if thrown
+     * @return int The validated value.
      *
-     * @return int The given value, if it is a natural integer
-     *
-     * @throws InvalidArgumentException If the value is not a natural integer
+     * @throws InvalidArgumentException If the value is not a natural integer.
      *
      * @see Guard::naturalInt()
      * @see Guard::naturalInteger()

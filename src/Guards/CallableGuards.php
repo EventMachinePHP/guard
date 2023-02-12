@@ -21,8 +21,8 @@ trait CallableGuards
      * Validates if the given value is callable and returns it.
      *
      * This function checks whether a value is callable. If the value is
-     * not callable, it throws an `InvalidArgumentException` with a
-     * custom or default error message.
+     * not callable, it throws an `{@see InvalidArgumentException}` with
+     * a custom or default error message.
      *
      * @param  mixed  $value The value to check.
      * @param  string|null  $message The error message to use.

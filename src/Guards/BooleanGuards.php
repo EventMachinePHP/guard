@@ -21,8 +21,8 @@ trait BooleanGuards
     /**
      * Validates if the given value is a boolean and returns it.
      *
-     * If the value is not a boolean, an InvalidArgumentException is
-     * thrown. The exception message can be customized by providing
+     * If the value is not a boolean, an {@see InvalidArgumentException}
+     * is thrown. The exception message can be customized by providing
      * the `$message` parameter.
      *
      * @param  mixed  $value Value to validate.

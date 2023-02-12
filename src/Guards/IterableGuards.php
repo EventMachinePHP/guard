@@ -18,17 +18,17 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait IterableGuards
 {
     /**
-     * Check if a value is iterable and return it.
-     * A value is considered iterable if it's an
-     * array or an object that implements the
-     * `Traversable` interface.
+     * Validates if the given value is iterable and returns it.
      *
-     * @param  mixed  $value The value to be checked if it's iterable.
-     * @param  string|null  $message Custom error message to be thrown when the value is not iterable.
+     * If the value is not iterable, the method throws an
+     * {@see InvalidArgumentException}
      *
-     * @return iterable The value if it's iterable.
+     * @param  mixed  $value The value to be checked.
+     * @param  string|null  $message The custom exception message.
      *
-     * @throws InvalidArgumentException If the value is not iterable. The exception message includes the type and string representation of the value.
+     * @return iterable The iterable value if it is iterable.
+     *
+     * @throws InvalidArgumentException If the value is not iterable.
      *
      * @see Guard::it()
      * @see Guard::iterable()
