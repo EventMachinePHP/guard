@@ -35,7 +35,7 @@ trait InstanceGuards
      * @see Guard::is_instance_of()
      */
     #[Alias(['io', 'instanceOf', 'is_instance_of'])]
-    public static function isInstanceOf(mixed $value, string $class, ?string $message = null): mixed
+    public static function isInstanceOf(mixed $value, string $class, ?string $message = null): object
     {
         return !($value instanceof $class)
             ? throw InvalidArgumentException::create(
