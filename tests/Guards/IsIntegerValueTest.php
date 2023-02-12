@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isIntegerValue(passing)')
     ->with('isIntegerValue(passing)')
     ->expect(fn ($value) => Guard::isIntegerValue(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->notToThrowInvalidArgumentException();
 
 test('Guard::isIntegerValue(failing)')

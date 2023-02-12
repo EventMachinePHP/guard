@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isCallable(passing)')
     ->with('isCallable(passing)')
     ->expect(fn ($value) => Guard::isCallable(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeCallable()
     ->notToThrowInvalidArgumentException();
 

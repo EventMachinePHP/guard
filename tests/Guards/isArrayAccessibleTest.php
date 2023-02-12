@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isArrayAccessible(passing)')
     ->with('isArrayAccessible(passing)')
     ->expect(fn ($value) => Guard::isArrayAccessible(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->notToThrowInvalidArgumentException();
 
 test('Guard::isArrayAccessible(failing)')

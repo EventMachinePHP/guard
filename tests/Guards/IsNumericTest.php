@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isNumeric(passing)')
     ->with('isNumeric(passing)')
     ->expect(fn ($value) => Guard::isNumeric(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->notToThrowInvalidArgumentException();
 
 test('Guard::isNumeric(failing)')

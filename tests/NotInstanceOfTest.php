@@ -3,22 +3,24 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::notInstanceOf(passing)', function ($value, $class): void {
-    expect(Guard::notInstanceOf(value: $value, class: $class))
-        ->toBe($value)
-        ->not()->toBeInstanceOf($class)
-        ->not()->toThrow(InvalidArgumentException::class);
-})->with([
+test('Guard::notInstanceOf(passing)')
+    ->with('notInstanceOf(passing)')
+    ->expect(fn ($value, $class) => Guard::notInstanceOf(value: $value, class: $class))
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value, $class) => $value)
+    ->not()->toHaveValueThat(assertionName: 'toBeInstanceOf', callable: fn ($value, $class) => $class)
+    ->notToThrowInvalidArgumentException();
+
+test('Guard::notInstanceOf(failing)')
+    ->expectInvalidArgumentException(fn ($value, $class, $message) => $message)
+    ->with('notInstanceOf(failing)')
+    ->expect(fn ($value, $class, $message) => Guard::notInstanceOf(value: $value, class: $class));
+
+dataset('notInstanceOf(passing)', [
     "(new Exception(), 'stdClass')" => [new Exception(), 'stdClass'],
     "(123, 'stdClass')"             => [123, 'stdClass'],
     "([], 'stdClass'')"             => [[], 'stdClass'],
 ]);
-
-test('Guard::notInstanceOf(failing)', function ($value, $class, $message): void {
-    expect(fn () => Guard::notInstanceOf(value: $value, class: $class))
-        ->toThrow(InvalidArgumentException::class, $message);
-})->with([
+dataset('notInstanceOf(failing)', [
     "new stdClass(), 'stdClass')" => [new stdClass(), 'stdClass', 'Expected a value not being an instance of stdClass. Got: stdClass (stdClass)'],
 ]);

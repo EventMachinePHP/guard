@@ -5,19 +5,22 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Tests;
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::lessThan(passing)', function ($value, $limit): void {
-    expect(Guard::lessThan(value: $value, limit: $limit))
-        ->toBe($value)
-        ->not()->toThrow(InvalidArgumentException::class);
-})->with([
+test('Guard::lessThan(passing)')
+    ->with('lessThan(passing)')
+    ->expect(fn ($value, $limit) => Guard::lessThan(value: $value, limit: $limit))
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value, $limit) => $value)
+    ->toHaveValueThat(assertionName: 'toBeLessThan', callable: fn ($value, $limit) => $limit)
+    ->notToThrowInvalidArgumentException();
+
+test('Guard::lessThan(failing)')
+    ->expectInvalidArgumentException(fn ($value, $limit, $message) => $message)
+    ->with('lessThan(failing)')
+    ->expect(fn ($value, $limit, $message) => Guard::lessThan(value: $value, limit: $limit));
+
+dataset('lessThan(passing)', [
     '(0, 1)' => [0, 1],
 ]);
-
-test('Guard::lessThan(failing)', function ($value, $limit, $message): void {
-    expect(fn () => Guard::lessThan(value: $value, limit: $limit))
-        ->toThrow(InvalidArgumentException::class, $message);
-})->with([
+dataset('lessThan(failing)', [
     '(1, 1)' => [1, 1, 'Expected a value less than: 1 (int). Got: 1 (int)'],
 ]);

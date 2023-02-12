@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isFloat(passing)')
     ->with('isFloat(passing)')
     ->expect(fn ($value) => Guard::isFloat(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeFloat()
     ->notToThrowInvalidArgumentException();
 

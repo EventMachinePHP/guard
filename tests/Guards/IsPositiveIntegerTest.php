@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isPositiveInteger(passing)')
     ->with('isPositiveInteger(passing)')
     ->expect(fn ($value) => Guard::isPositiveInteger(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeInt()
     ->toBeGreaterThan(0)
     ->notToThrowInvalidArgumentException();

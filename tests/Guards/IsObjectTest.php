@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isObject(passing)')
     ->with('isObject(passing)')
     ->expect(fn ($value) => Guard::isObject(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeObject()
     ->notToThrowInvalidArgumentException();
 

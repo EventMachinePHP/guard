@@ -120,10 +120,14 @@ function generateTraitDocBlockForAliases(ReflectionClass $trait)
  * and asserts its return value against the expected
  * value using the data provided to the test case.
  */
-expect()->extend('toHaveValue', function ($callable) {
+expect()->extend('toHaveValue', function ($callable): Pest\Expectation {
     $value = $callable(...)->bindTo(test())(...test()->getProvidedData());
 
     return $this->toBe($value);
+});
+
+expect()->extend('toHaveValueThat', function (string $assertionName, callable $callable): Pest\Expectation {
+    return $this->$assertionName($callable(...)->bindTo(test())(...test()->getProvidedData()));
 });
 
 /*

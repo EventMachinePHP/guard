@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isBoolean(passing)')
     ->with('isBoolean(passing)')
     ->expect(fn ($value) => Guard::isBoolean(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeBool()
     ->notToThrowInvalidArgumentException();
 

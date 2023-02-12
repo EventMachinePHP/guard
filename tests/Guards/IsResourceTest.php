@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isResource(passing)')
     ->with('isResource(passing)')
     ->expect(fn ($value, $type) => Guard::isResource(value: $value, type: $type))
-    ->toHaveValue(fn ($value, $type) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable:  fn ($value, $type) => $value)
     ->toBeResource()
     ->notToThrowInvalidArgumentException();
 

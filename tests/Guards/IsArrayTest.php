@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isArray(passing)')
     ->with('isArray(passing)')
     ->expect(fn ($value) => Guard::isArray(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeArray()
     ->notToThrowInvalidArgumentException();
 

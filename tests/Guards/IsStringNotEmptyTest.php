@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Guard;
 test('Guard::isStringNotEmpty(passing)')
     ->with('isStringNotEmpty(passing)')
     ->expect(fn ($value) => Guard::isStringNotEmpty(value: $value))
-    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value) => $value)
     ->toBeString()
     ->notToThrowInvalidArgumentException();
 

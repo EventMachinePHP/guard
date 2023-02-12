@@ -3,22 +3,25 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
-test('Guard::notEqualTo(passing)', function ($value, $limit): void {
-    expect(Guard::notEqualTo(value: $value, expect: $limit))
-        ->toBe($value)
-        ->not()->toThrow(InvalidArgumentException::class);
-})->with([
+test('Guard::notEqualTo(passing)')
+    ->with('notEqualTo(passing)')
+    ->expect(fn ($value, $expect) => Guard::notEqualTo(value: $value, expect: $expect))
+    ->toHaveValueThat(assertionName: 'toBe', callable: fn ($value, $expect) => $value)
+    ->not()->toHaveValueThat(assertionName: 'toEqual', callable: fn ($value, $expect) => $expect)
+    ->notToThrowInvalidArgumentException();
+
+test('Guard::notEqualTo(failing)')
+    ->expectInvalidArgumentException(fn ($value, $expect, $message) => $message)
+    ->with('notEqualTo(failing)')
+    ->expect(fn ($value, $expect, $message) => Guard::notEqualTo(value: $value, expect: $expect));
+
+dataset('notEqualTo(passing)', [
     '(1, 2)'     => [1, 2],
     "(1, '2')"   => [1, '2'],
     '(1, false)' => [1, false],
 ]);
-
-test('Guard::notEqualTo(failing)', function ($value, $limit, $message): void {
-    expect(fn () => Guard::notEqualTo(value: $value, expect: $limit))
-        ->toThrow(InvalidArgumentException::class, $message);
-})->with([
+dataset('notEqualTo(failing)', [
     '(1, 1)'    => [1, 1, 'Expected a value different from: 1 (int). Got: 1 (int)'],
     "(1, '1')"  => [1, '1', 'Expected a value different from: 1 (int). Got: "1" (string)'],
     '(1, true)' => [1, true, 'Expected a value different from: 1 (int). Got: true (bool)'],
