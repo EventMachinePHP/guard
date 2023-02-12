@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 test('Guard::isCallable(passing)')
     ->with('isCallable(passing)')
@@ -29,5 +28,3 @@ dataset('isCallable(failing)', [
     '(1234)'  => [1234, 'Expected a callable. Got: 1234 (int)'],
     "('foo')" => ['foo', 'Expected a callable. Got: "foo" (string)'],
 ]);
-
-

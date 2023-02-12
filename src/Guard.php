@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard;
 
 use Countable;
-use ArrayAccess;
 use ReflectionClass;
 use function is_array;
 use function get_class;
@@ -13,6 +12,7 @@ use function is_object;
 use function is_string;
 use function is_resource;
 use BadMethodCallException;
+use EventMachinePHP\Guard\Guards\ArrayGuards;
 use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\ObjectGuards;
 use EventMachinePHP\Guard\Guards\ScalarGuards;
@@ -25,6 +25,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
 {
+    use ArrayGuards;
     use BooleanGuards;
     use CallableGuards;
     use FloatGuards;
@@ -40,32 +41,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Arrays
-
-    public static function isArray(mixed $value, ?string $message = null): array
-    {
-        return !is_array($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an array. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess
-    {
-        return !is_array($value) && !($value instanceof ArrayAccess)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Countables
 

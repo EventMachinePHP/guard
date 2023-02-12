@@ -82,4 +82,5 @@ test('aliases should be documented on trait and methods docblocks', function ():
             }
         }
     }
-});
+})
+    ->depends(tests:'there is no duplicate method aliases');
