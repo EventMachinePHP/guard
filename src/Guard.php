@@ -19,6 +19,7 @@ use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Guards\CallableGuards;
+use EventMachinePHP\Guard\Guards\InstanceGuards;
 use EventMachinePHP\Guard\Guards\IterableGuards;
 use EventMachinePHP\Guard\Guards\ResourceGuards;
 use EventMachinePHP\Guard\Guards\CountableGuards;
@@ -31,6 +32,7 @@ class Guard
     use CallableGuards;
     use CountableGuards;
     use FloatGuards;
+    use InstanceGuards;
     use IntegerGuards;
     use IterableGuards;
     use ObjectGuards;
@@ -44,47 +46,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Instances
-
-    public static function isInstanceOf(mixed $value, string $class, ?string $message = null): object
-    {
-        return !($value instanceof $class)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    public static function notInstanceOf(mixed $value, string $class, ?string $message = null): mixed
-    {
-        return $value instanceof $class
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a value not being an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    public static function isInstanceOfAny(mixed $value, array $classes, ?string $message = null): object
-    {
-        foreach ($classes as $class) {
-            if ($value instanceof $class) {
-                return $value;
-            }
-        }
-
-        return throw InvalidArgumentException::create(
-            customMessage: $message,
-            defaultMessage: 'Expected an instance of any of %s. Got: %s (%s)',
-            values: [implode(', ', $classes), self::valueToString($value), self::valueToType($value)],
-        );
-    }
-
-    // endregion
 
     // region Equality
 

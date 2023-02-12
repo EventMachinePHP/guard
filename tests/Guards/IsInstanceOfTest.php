@@ -16,6 +16,10 @@ test('Guard::isInstanceOf(failing)')
     ->with('isInstanceOf(failing)')
     ->expect(fn ($value, $class, $message) => Guard::isInstanceOf(value: $value, class: $class));
 
+test('Guard::isInstanceOf() Aliases')
+    ->expect('isInstanceOf')
+    ->validateAliases();
+
 dataset('isInstanceOf(passing)', [
     "(new stdClass(), 'stdClass')" => [new stdClass(), 'stdClass'],
 ]);

@@ -16,6 +16,10 @@ test('Guard::isIterable(failing)')
     ->with('isIterable(failing)')
     ->expect(fn ($value, $message) => Guard::isIterable(value: $value));
 
+test('Guard::isIterable() Aliases')
+    ->expect('isIterable')
+    ->validateAliases();
+
 dataset('isIterable(passing)', [
     '([])'                        => [[]],
     '([1, 2, 3])'                 => [[1, 2, 3]],
