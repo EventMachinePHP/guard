@@ -19,6 +19,7 @@ use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Guards\CallableGuards;
+use EventMachinePHP\Guard\Guards\IterableGuards;
 use EventMachinePHP\Guard\Guards\ResourceGuards;
 use EventMachinePHP\Guard\Guards\CountableGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
@@ -31,6 +32,7 @@ class Guard
     use CountableGuards;
     use FloatGuards;
     use IntegerGuards;
+    use IterableGuards;
     use ObjectGuards;
     use ResourceGuards;
     use ScalarGuards;
@@ -42,21 +44,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Iterables
-
-    public static function isIterable(mixed $value, ?string $message = null): iterable
-    {
-        return !is_iterable($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected an iterable. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Instances
 
