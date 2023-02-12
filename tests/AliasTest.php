@@ -5,23 +5,35 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 
 test('there is no duplicate method aliases', function (): void {
+    // Create an array to store the method aliases
     $methodAliases = [];
 
+    // Create a ReflectionClass instance for the Guard class
     $class = new ReflectionClass(Guard::class);
 
+    // Iterate over each method in the Guard class
     foreach ($class->getMethods() as $method) {
+        // Check if the method has any attributes
         foreach ($method->getAttributes() as $attribute) {
+            // Get the arguments for the attribute
             $attributeArguments = $attribute->getArguments()[0];
-            $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+
+            // Convert the argument to an array if it's not already
+            $aliasMethodNames = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+
+            // Iterate over each alias for the method
             foreach ($aliasMethodNames as $alias) {
+                // Get the previous method that used this alias, if any
                 $prevMethod = $methodAliases[$alias] ?? null;
 
+                // Check if the alias has not been used by another method
                 $this->assertArrayNotHasKey(
                     key: $alias,
                     array: $methodAliases,
                     message: "Method alias '".$alias."' is already used by method Guard::".$prevMethod.'().',
                 );
 
+                // Store the method name for the current alias
                 $methodAliases[$alias] = $method->getName();
             }
         }
