@@ -15,6 +15,10 @@ test('Guard::isCountable(failing)')
     ->with('isCountable(failing)')
     ->expect(fn ($value, $message) => Guard::isCountable(value: $value));
 
+test('Guard::isCountable() Aliases')
+    ->expect('isCountable')
+    ->validateAliases();
+
 dataset('isCountable(passing)', [
     '([])'                       => [[]],
     '([1, 2])'                   => [[1, 2]],

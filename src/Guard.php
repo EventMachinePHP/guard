@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard;
 
-use Countable;
 use ReflectionClass;
 use function is_array;
 use function get_class;
@@ -21,6 +20,7 @@ use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
 use EventMachinePHP\Guard\Guards\CallableGuards;
 use EventMachinePHP\Guard\Guards\ResourceGuards;
+use EventMachinePHP\Guard\Guards\CountableGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
@@ -28,6 +28,7 @@ class Guard
     use ArrayGuards;
     use BooleanGuards;
     use CallableGuards;
+    use CountableGuards;
     use FloatGuards;
     use IntegerGuards;
     use ObjectGuards;
@@ -41,21 +42,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Countables
-
-    public static function isCountable(mixed $value, ?string $message = null): Countable|array
-    {
-        return !is_countable($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a countable value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Iterables
 
