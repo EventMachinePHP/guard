@@ -18,17 +18,18 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait CallableGuards
 {
     /**
-     * Check if a value is callable and return it.
+     * Validates if the given value is callable and returns it.
      *
-     * This method is used to validate if the passed value is callable.
-     * If the value is not callable, an `InvalidArgumentException` is thrown.
+     * This function checks whether a value is callable. If the value is
+     * not callable, it throws an `InvalidArgumentException` with a
+     * custom or default error message.
      *
-     * @param  mixed  $value The value to be checked if it's callable. This could be a closure, a string containing the name of a function, or an object that implements the `__invoke` method.
-     * @param  string|null  $message Custom error message to be thrown when the value is not callable. If this parameter is not provided, a default error message will be used.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message The error message to use.
      *
-     * @return callable The value if it's callable.
+     * @return callable The callable value.
      *
-     * @throws InvalidArgumentException If the value is not callable. The error message will either be the custom message passed in the `$message` parameter or a default error message.
+     * @throws InvalidArgumentException If the value is not callable.
      *
      * @see Guard::c()
      * @see Guard::callable()

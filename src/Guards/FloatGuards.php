@@ -18,23 +18,19 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait FloatGuards
 {
     /**
-     * Checks if the given value is a float.
+     * Validates if the given value is a float and returns it.
      *
-     * This method is used to ensure that the input value is a float.
-     * If the value is not a float, an `InvalidArgumentException`
-     * will be thrown.
+     * This method checks if the given value is a float and returns
+     * the value if it's a float. If the value is not a float, an
+     * InvalidArgumentException is thrown with a custom message
+     * if provided or a default error message.
      *
-     * The exception message can include a custom message (if provided)
-     * or a default message indicating that a float was expected,
-     * and includes a string representation of the actual value
-     * received.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message The custom error message.
      *
-     * @param  mixed  $value The value to check
-     * @param  string|null  $message [optional] A custom message to use in the exception, if thrown
+     * @return float The validated float value.
      *
-     * @return float The given value, if it is a float
-     *
-     * @throws InvalidArgumentException If the value is not a float
+     * @throws InvalidArgumentException If the value is not a float.
      *
      * @see Guard::f()
      * @see Guard::float()

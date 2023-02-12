@@ -19,17 +19,22 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait CountableGuards
 {
     /**
-     * Check if a value is countable and return it.
+     * Validates if the given value is countable and returns ıt.
      *
-     * A value is considered countable if it's either an array
-     * or an object that implements the `Countable` interface.
+     * This method checks if the provided value is either an instance
+     * of the `Countable` interface or an array.
      *
-     * @param  mixed  $value The value to be checked if it's countable.
-     * @param  string|null  $message Custom error message to be thrown when the value is not countable.
+     * If the value is not countable, an `InvalidArgumentException`
+     * is thrown with a default message indicating the expected
+     * type and the received value and type. If a custom
+     * message is provided, it will be used instead.
      *
-     * @return Countable|array The value if it's countable.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message A custom error message.
      *
-     * @throws InvalidArgumentException If the value is not countable. The exception message includes the type and string representation of the value.
+     * @return Countable|array The countable value.
+     *
+     * @throws InvalidArgumentException If the value is not countable.
      *
      * @see Guard::co()
      * @see Guard::countable()

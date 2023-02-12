@@ -22,16 +22,17 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait ArrayGuards
 {
     /**
-     * Check if a value is an array and return it.
+     * Validates if the given value is an array and returns it.
      *
-     * If the value is not an array, an `InvalidArgumentException` is thrown.
+     * Throws an InvalidArgumentException if the value is not
+     * an array.
      *
-     * @param  mixed  $value The value to be checked if it's an array. This could be a numeric array, an associative array, or a multi-dimensional array.
-     * @param  string|null  $message Custom error message to be thrown when the value is not an array. If this parameter is not provided, a default error message will be used.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message Custom error message.
      *
-     * @return array The value if it's an array.
+     * @return array The value as an array.
      *
-     * @throws InvalidArgumentException If the value is not an array. The error message will either be the custom message passed in the `$message` parameter or a default error message.
+     * @throws InvalidArgumentException If the value is not an array.
      *
      * @see Guard::a()
      * @see Guard::array()
@@ -50,14 +51,21 @@ trait ArrayGuards
     }
 
     /**
-     * Check if a value is an array or an object that implements `ArrayAccess` and return it.
+     * Validates if the given value is either an array or implements
+     * ArrayAccess and returns it.
      *
-     * @param  mixed  $value The value to be checked if it's an array or an object that implements `ArrayAccess`.
-     * @param  string|null  $message Custom error message to be thrown when the value is not an array or an object that implements `ArrayAccess`.
+     * This method checks if the given value is either an array or
+     * an object that implements the ArrayAccess interface. If the
+     * value is not an array or ArrayAccess, it throws an
+     * InvalidArgumentException with a custom or default
+     * error message.
      *
-     * @return array|ArrayAccess The value if it's an array or an object that implements `ArrayAccess`.
+     * @param  mixed  $value The value to be checked.
+     * @param  string|null  $message Optional custom error message.
      *
-     * @throws InvalidArgumentException If the value is not an array or an object that implements `ArrayAccess`.
+     * @return array|ArrayAccess The value if it is either an array or implements ArrayAccess.
+     *
+     * @throws InvalidArgumentException If the value is not an array or ArrayAccess.
      *
      * @see Guard::aa()
      * @see Guard::array_accessible()

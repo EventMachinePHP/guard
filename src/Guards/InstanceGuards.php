@@ -17,31 +17,25 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait InstanceGuards
 {
     /**
-     * Verify if a value is an instance of a specified class.
+     * Validates if the value is an instance of the
+     * given class and returns it.
      *
-     * This method checks if a given value is an instance of the specified class.
-     * If it's not, an `InvalidArgumentException` is thrown. If the value is an
-     * instance of the specified class, it is returned as-is.
+     * Verifies if the value is an instance of the specified class. If the
+     * check fails, an InvalidArgumentException is thrown with a custom
+     * or default message.
      *
-     * The error message thrown by the `InvalidArgumentException` can be
-     * customized by providing a `$message` argument. If not provided,
-     * a default message is used, indicating the expected class name
-     * and the actual type and string representation of the value.
+     * @param  mixed  $value     The value to check.
+     * @param  string  $class     The class to check the value against.
+     * @param  string|null  $message The custom message for the exception.
      *
-     * @param  mixed  $value The value to be checked if it's an instance of the specified class.
-     * @param  string  $class The class name to check against.
-     * @param  string|null  $message Custom error message to be thrown when the value is not an instance of the specified class.
-     *
-     * @return object The value if it's an instance of the specified class.
-     *
-     * @throws InvalidArgumentException If the value is not an instance of the specified class.
+     * @throws InvalidArgumentException if the check fails.
      *
      * @see Guard::io()
      * @see Guard::instanceOf()
      * @see Guard::is_instance_of()
      */
     #[Alias(['io', 'instanceOf', 'is_instance_of'])]
-    public static function isInstanceOf(mixed $value, string $class, ?string $message = null): object
+    public static function isInstanceOf(mixed $value, string $class, ?string $message = null): mixed
     {
         return !($value instanceof $class)
             ? throw InvalidArgumentException::create(
@@ -51,6 +45,24 @@ trait InstanceGuards
             )
             : $value;
     }
+
+    /**
+     * Validates if the given value is not an instance
+     * of a specified class and returns it.
+     *
+     * This method checks if the given value is not an instance of the
+     * specified class. If it is, an InvalidArgumentException is
+     * thrown. If the value is not an instance of the class,
+     * the value is returned.
+     *
+     * @param  mixed  $value The value to check.
+     * @param  string  $class The class name to check against.
+     * @param  string|null  $message The error message to use when an exception is thrown.
+     *
+     * @return mixed The value if it is not an instance of the specified class.
+     *
+     * @throws InvalidArgumentException If the value is an instance of the specified class.
+     */
     public static function notInstanceOf(mixed $value, string $class, ?string $message = null): mixed
     {
         return $value instanceof $class
@@ -62,7 +74,25 @@ trait InstanceGuards
             : $value;
     }
 
-    public static function isInstanceOfAny(mixed $value, array $classes, ?string $message = null): object
+    /**
+     * Validates if the given value is an instance of at least
+     * one of the given classes and returns it.
+     *
+     * This method checks if the given value is an instance of at
+     * least one of the classes in the `$classes` array. If it is
+     * not, an `InvalidArgumentException` will be thrown with a
+     * message indicating which classes were expected and what
+     * value was received instead.
+     *
+     * @param  mixed  $value The value to be validated.
+     * @param  array  $classes The list of classes that the value should be an instance of.
+     * @param  string|null  $message The custom error message to use, if any.
+     *
+     * @return mixed The validated value.
+     *
+     * @throws InvalidArgumentException If the value is not an instance of any of the given classes.
+     */
+    public static function isInstanceOfAny(mixed $value, array $classes, ?string $message = null): mixed
     {
         foreach ($classes as $class) {
             if ($value instanceof $class) {

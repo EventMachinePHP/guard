@@ -19,20 +19,18 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait BooleanGuards
 {
     /**
-     * Validates if a given value is a boolean.
+     * Validates if the given value is a boolean and returns it.
      *
-     * This method takes in a mixed value as its first argument
-     * and an optional string message as its second argument.
+     * If the value is not a boolean, an InvalidArgumentException is
+     * thrown. The exception message can be customized by providing
+     * the `$message` parameter.
      *
-     * If the value is not a boolean, the method throws an
-     * InvalidArgumentException with the given or default message.
+     * @param  mixed  $value Value to validate.
+     * @param  string|null  $message Custom exception message.
      *
-     * @param  mixed  $value The value to be validated
-     * @param  string|null  $message [optional] Custom error message to be used in case of an exception
+     * @return bool The validated boolean value.
      *
-     * @return bool The boolean value if validation is successful
-     *
-     * @throws InvalidArgumentException If the value is not a boolean
+     * @throws InvalidArgumentException If the value is not a boolean.
      *
      * @see Guard::b()
      * @see Guard::bool()
