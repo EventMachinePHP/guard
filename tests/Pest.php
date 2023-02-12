@@ -75,12 +75,44 @@ function generateMethodAliasSeeDefinition(string $alias): string
     return '@see Guard::'.$alias.'()';
 }
 
-function generateMethodAliasSeeDefinitionErrorMessage(string $alias, string $methodName): string
+function generateMethodAliasSeeDefinitionErrorMessage(ReflectionMethod $method): string
 {
-    return "Method alias '{$alias}' is not (correctly) documented in method '{$methodName}' docblock.".
-        PHP_EOL.
-        'It should look like this:'.
-        PHP_EOL.generateMethodAliasSeeDefinition($alias);
+    $aliasSeeBlock = '';
+    foreach ($method->getAttributes() as $attribute) {
+        $attributeArguments = $attribute->getArguments()[0];
+        $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+        foreach ($aliasMethodNames as $alias) {
+            $aliasSeeBlock .= '* '.generateMethodAliasSeeDefinition($alias).PHP_EOL;
+        }
+    }
+
+    return "Method aliases is not (correctly) documented in method '{$method->getName()}' docblock.".PHP_EOL.
+        'It should look like this:'.PHP_EOL.$aliasSeeBlock;
+}
+
+function generateTraitDocBlockForAliases(ReflectionClass $trait)
+{
+    $docBlock = <<<'DOC'
+    /**
+    * This trait contains methods for validating [replace] values.
+    *
+    
+    DOC;
+
+    foreach ($trait->getMethods() as $method) {
+        $attributes = $method->getAttributes();
+        foreach ($attributes as $attribute) {
+            $attributeArguments = $attribute->getArguments()[0];
+            $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+            foreach ($aliasMethodNames as $alias) {
+                $docBlock .= '* '.generateMethodDocBlockDefinition($method, $alias).PHP_EOL;
+            }
+        }
+    }
+
+    $docBlock .= '*/';
+
+    return 'Trait '.$trait->getName().' does not have a docblock. Here is the generated docblock:'.PHP_EOL.$docBlock;
 }
 
 /*

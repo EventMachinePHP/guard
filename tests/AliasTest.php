@@ -30,21 +30,42 @@ test('there is no duplicate method aliases', function (): void {
 
 test('aliases should be documented on trait and methods docblocks', function (): void {
     $reflectionClass = new ReflectionClass(Guard::class);
-    $traits          = $reflectionClass->getTraits();
+
+    $aliasCountByTraits = array_fill_keys($reflectionClass->getTraitNames(), 0);
+    $aliasesByMethods   = [];
+
+    $traits = $reflectionClass->getTraits();
+    foreach ($traits as $trait) {
+        foreach ($trait->getMethods() as $method) {
+            foreach ($method->getAttributes() as $attribute) {
+                $attributeArguments = $attribute->getArguments()[0];
+                $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+                foreach ($aliasMethodNames as $alias) {
+                    $aliasesByMethods[$method->getName()][] = $alias;
+                    $aliasCountByTraits[$trait->getName()]++;
+                }
+            }
+        }
+    }
 
     foreach ($traits as $trait) {
+        if ($aliasCountByTraits[$trait->getName()] === 0) {
+            continue;
+        }
+
         $traitDocComment = $trait->getDocComment();
         if ($traitDocComment === false) {
-            $this->fail('Trait '.$trait->getName().' does not have a docblock.');
+            $this->fail(generateTraitDocBlockForAliases($trait));
         }
 
         foreach ($trait->getMethods() as $method) {
-            $methodDocComment = $method->getDocComment();
+            if (!isset($aliasesByMethods[$method->getName()])) {
+                continue;
+            }
 
             foreach ($method->getAttributes() as $attribute) {
                 $attributeArguments = $attribute->getArguments()[0];
                 $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
-
                 foreach ($aliasMethodNames as $alias) {
                     $this->assertStringContainsString(
                         needle: generateMethodDocBlockDefinition($method, $alias),
@@ -54,8 +75,8 @@ test('aliases should be documented on trait and methods docblocks', function ():
 
                     $this->assertStringContainsString(
                         needle: generateMethodAliasSeeDefinition($alias),
-                        haystack: $methodDocComment,
-                        message: generateMethodAliasSeeDefinitionErrorMessage($alias, $method->getName()),
+                        haystack: $method->getDocComment() === false ? '' : $method->getDocComment(),
+                        message: generateMethodAliasSeeDefinitionErrorMessage($method),
                     );
                 }
             }

@@ -11,7 +11,6 @@ use function is_array;
 use function get_class;
 use function is_object;
 use function is_string;
-use function is_callable;
 use function is_resource;
 use BadMethodCallException;
 use EventMachinePHP\Guard\Guards\FloatGuards;
@@ -20,12 +19,14 @@ use EventMachinePHP\Guard\Guards\ScalarGuards;
 use EventMachinePHP\Guard\Guards\StringGuards;
 use EventMachinePHP\Guard\Guards\BooleanGuards;
 use EventMachinePHP\Guard\Guards\IntegerGuards;
+use EventMachinePHP\Guard\Guards\CallableGuards;
 use EventMachinePHP\Guard\Guards\ResourceGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 class Guard
 {
     use BooleanGuards;
+    use CallableGuards;
     use FloatGuards;
     use IntegerGuards;
     use ObjectGuards;
@@ -39,21 +40,6 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
-
-    // region Callables
-
-    public static function isCallable(mixed $value, ?string $message = null): callable
-    {
-        return !is_callable($value)
-            ? throw InvalidArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a callable. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
-            )
-            : $value;
-    }
-
-    // endregion
 
     // region Arrays
 
