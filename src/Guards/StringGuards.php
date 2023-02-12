@@ -22,19 +22,19 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait StringGuards
 {
     /**
-     * Validate that the provided value is of type string.
+     * Validates if the given value is a string and returns it.
      *
-     * This method checks if the `$value` argument is of type string. If it is not, an
-     * `InvalidArgumentException` is thrown. The exception message can either be a custom
-     * error message or a default error indicating the actual type and string representation
-     * of the `$value`.
+     * This method throws an {@see InvalidArgumentException} if
+     * the input value is not a string. If a custom error
+     * message is provided, it will be used instead of
+     * the default message.
      *
-     * @param  mixed  $value The value to be validated.
-     * @param  string|null  $message The custom error message to be thrown in case of validation failure.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message The custom error message, if desired.
      *
-     * @return string The validated string value.
+     * @return string The input value, if it is a string.
      *
-     * @throws InvalidArgumentException If the provided value is not a string.
+     * @throws InvalidArgumentException If the input value is not a string.
      *
      * @see Guard::s()
      * @see Guard::str()
@@ -54,19 +54,17 @@ trait StringGuards
     }
 
     /**
-     * Validates if the given value is a string and is not equal to an empty string.
+     * Validatess if the given value is a non-empty string and returns it.
      *
-     * This method first calls the `isString` method to validate if the given value is a string.
-     * If the value is not a string, an InvalidArgumentException is thrown with the custom or default error message.
-     * Then, the method calls the `notEqualTo` method to validate if the given value is not equal to an empty string.
-     * If the value is equal to an empty string, an InvalidArgumentException is thrown with the custom or default error message.
+     * If the value is not a string or is an empty string, an
+     * {@see InvalidArgumentException} exception is thrown.
      *
-     * @param  mixed  $value The value to be validated.
-     * @param  string|null  $message The custom error message to use if the validation fails.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message The error message to use if the validation fails.
      *
-     * @return string The string value if the validation is successful.
+     * @return string The validated value.
      *
-     * @throws InvalidArgumentException If the value is not a string or if it is equal to an empty string.
+     * @throws InvalidArgumentException If the validation fails.
      *
      * @see Guard::sne()
      * @see Guard::strNotEmpty()

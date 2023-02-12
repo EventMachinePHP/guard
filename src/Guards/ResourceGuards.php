@@ -19,15 +19,21 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait ResourceGuards
 {
     /**
-     * Determines if a given value is a PHP resource and optionally of a specific type.
+     * Validates if the given value is a resource and optionally of a
+     * certain type and returns it.
      *
-     * @param  mixed  $value The value to check if it is a resource.
-     * @param  string|null  $type Optional. The expected type of the resource.
-     * @param  string|null  $message Optional. A custom error message to use if the check fails.
+     * This method checks if a value is a resource and if the resource is of a certain type.
+     * If the value is not a resource, an {@see InvalidArgumentException} is thrown. If a
+     * resource type is specified and the type of the resource does not match the specified
+     * type, another {@see InvalidArgumentException} is thrown.
      *
-     * @return resource The value if it is a resource of the expected type.
+     * @param  mixed  $value The value to verify as a resource.
+     * @param  string|null  $type The optional resource type to check the value against.
+     * @param  string|null  $message The optional message to pass to the InvalidArgumentException if the value is not a resource.
      *
-     * @throws InvalidArgumentException if the value is not a resource or if it is not of the expected type.
+     * @return mixed The value if it is a resource of the specified type.
+     *
+     * @throws InvalidArgumentException If the value is not a resource or if the resource type does not match the specified type.
      *
      * @see Guard::r()
      * @see Guard::resource()

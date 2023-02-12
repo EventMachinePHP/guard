@@ -18,18 +18,18 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait ObjectGuards
 {
     /**
-     * Check if the given value is an object.
+     * Validates if the given value is an object and returns it.
      *
-     * This method checks if the given value is an object and returns the value if it is.
-     * If the value is not an object, an `InvalidArgumentException` will be thrown with
-     * a custom or default error message.
+     * If the given value is not an object, an {@see InvalidArgumentException}
+     * will be thrown. The exception message can be customized by providing a
+     * custom message as an optional second argument.
      *
-     * @param  mixed  $value The value to check if it is an object.
-     * @param  string|null  $message [optional] The custom error message to use if the value is not an object.
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message Custom exception message.
      *
-     * @return object The given value if it is an object.
+     * @return object The original value if it is an object.
      *
-     * @throws InvalidArgumentException If the given value is not an object.
+     * @throws InvalidArgumentException If the value is not an object.
      *
      * @see Guard::o()
      * @see Guard::object()

@@ -20,16 +20,18 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 trait ScalarGuards
 {
     /**
-     * Validate if the given value is a scalar value.
+     * Validates if the given value is a scalar value (string, int, float, bool)
+     * and returns it.
      *
-     * A scalar value is either a string, an integer, a float, or a boolean.
+     * If the given value is not a scalar value, an {@see InvalidArgumentException}
+     * will be thrown with a custom or default error message.
      *
-     * @param  mixed  $value The value to validate.
-     * @param  string|null  $message Optional custom message for the exception.
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message The custom error message.
      *
-     * @return string|int|float|bool The validated scalar value.
+     * @return string|int|float|bool The input value if it's a scalar value.
      *
-     * @throws InvalidArgumentException if the given value is not a scalar value.
+     * @throws InvalidArgumentException If the value is not a scalar value.
      *
      * @see Guard::sc()
      * @see Guard::scalar()
