@@ -17,7 +17,7 @@ class GuardBench
      */
     public function benchEqualTo(): void
     {
-        Guard::equalTo(1, 1);
+        Guard::isEqualTo(1, 1);
     }
 
     /**

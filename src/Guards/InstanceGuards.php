@@ -13,6 +13,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static object io(mixed $value, string $class, ?string $message = null) @see Guard::isInstanceOf()
  * @method static object instanceOf(mixed $value, string $class, ?string $message = null) @see Guard::isInstanceOf()
  * @method static object is_instance_of(mixed $value, string $class, ?string $message = null) @see Guard::isInstanceOf()
+ * @method static mixed nio(mixed $value, string $class, ?string $message = null) @see Guard::isNotInstanceOf()
+ * @method static mixed notInstanceOf(mixed $value, string $class, ?string $message = null) @see Guard::isNotInstanceOf()
+ * @method static mixed ioe(mixed $value, array $classes, ?string $message = null) @see Guard::isInstanceOfAny()
+ * @method static mixed instanceOfAny(mixed $value, array $classes, ?string $message = null) @see Guard::isInstanceOfAny()
  */
 trait InstanceGuards
 {
@@ -62,8 +66,12 @@ trait InstanceGuards
      * @return mixed The value if it is not an instance of the specified class.
      *
      * @throws InvalidArgumentException If the value is an instance of the specified class.
+     *
+     * @see Guard::nio()
+     * @see Guard::notInstanceOf()
      */
-    public static function notInstanceOf(mixed $value, string $class, ?string $message = null): mixed
+    #[Alias(['nio', 'notInstanceOf'])]
+    public static function isNotInstanceOf(mixed $value, string $class, ?string $message = null): mixed
     {
         return $value instanceof $class
             ? throw InvalidArgumentException::create(
@@ -91,7 +99,11 @@ trait InstanceGuards
      * @return mixed The validated value.
      *
      * @throws InvalidArgumentException If the value is not an instance of any of the given classes.
+     *
+     * @see Guard::ioe()
+     * @see Guard::instanceOfAny()
      */
+    #[Alias(['ioe', 'instanceOfAny'])]
     public static function isInstanceOfAny(mixed $value, array $classes, ?string $message = null): mixed
     {
         foreach ($classes as $class) {

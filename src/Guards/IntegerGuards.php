@@ -143,7 +143,7 @@ trait IntegerGuards
     public static function isPositiveInteger(mixed $value, ?string $message = null): int
     {
         self::isInteger($value, $message);
-        self::greaterThan($value, 0, $message);
+        self::isGreaterThan($value, 0, $message);
 
         return $value;
     }
@@ -170,7 +170,7 @@ trait IntegerGuards
     public static function isNaturalInteger(mixed $value, ?string $message = null): int
     {
         self::isInteger($value, $message);
-        self::greaterThanOrEqual($value, 0, $message);
+        self::isGreaterThanOrEqual($value, 0, $message);
 
         return $value;
     }

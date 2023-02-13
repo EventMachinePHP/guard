@@ -15,6 +15,10 @@ test('Guard::isInstanceOfAny(failing)')
     ->with('isInstanceOfAny(failing)')
     ->expect(fn ($value, $classes, $message) => Guard::isInstanceOfAny(value: $value, classes: $classes));
 
+test('Guard::isInstanceOfAny() Aliases')
+    ->expect('isInstanceOfAny')
+    ->validateAliases();
+
 dataset('isInstanceOfAny(passing)', [
     "(new ArrayIterator(), ['Iterator', 'ArrayAccess'])" => [new ArrayIterator(), ['Iterator', 'ArrayAccess']],
     "(new Exception(), ['Exception', 'Countable'])"      => [new Exception(), ['Exception', 'Countable']],

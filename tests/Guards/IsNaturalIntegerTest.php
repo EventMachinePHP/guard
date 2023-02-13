@@ -17,6 +17,10 @@ test('Guard::isNaturalInteger(failing)')
     ->with('isNaturalInteger(failing)')
     ->expect(fn ($value, $message) => Guard::isNaturalInteger(value: $value));
 
+test('Guard::isNaturalInteger() Aliases')
+    ->expect('isNaturalInteger')
+    ->validateAliases();
+
 dataset('isNaturalInteger(passing)', [
     '(0)' => [0],
     '(1)' => [1],

@@ -74,7 +74,7 @@ trait StringGuards
     public static function isStringNotEmpty(mixed $value, ?string $message = null): string
     {
         self::isString($value, $message);
-        self::notEqualTo($value, '', $message);
+        self::IsNotEqualTo($value, '', $message);
 
         return $value;
     }

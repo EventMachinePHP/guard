@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
 
-test('Guard::valueToString( )', function ($value, $string): void {
+test('Guard::valueToString()', function ($value, $string): void {
     expect(Guard::valueToString(value: $value))->toBe($string);
 })->with([
     '(null)'                       => [null, 'null'],
