@@ -43,8 +43,8 @@ class Guard
     /**
      * The constructor is private to prevent instantiation of the class.
      */
-    private function __construct()
-    {
+    private function __construct(
+    ) {
     }
 
     // TODO: Core_c: Loop through interfaces, using instance of
@@ -53,6 +53,7 @@ class Guard
     // TODO: Look for examples on php.net for native functions, use them in tests
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
+    // TODO: https://github.com/php-strictus/strictus
 
     // region Aliases
 
