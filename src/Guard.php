@@ -49,6 +49,7 @@ class Guard
     ) {
     }
 
+    // TODO: Look through Laravel validation rules, take not laravel specific ones, if not already implemented
     // TODO: Core_c: Loop through interfaces, using instance of
     // TODO: Look for php aliases methods
     // TODO: standard_5: function is_ (Search)
@@ -56,11 +57,18 @@ class Guard
     // TODO: * @see number_of() :alias:
     // TODO: Update type tests using IntegerTest cases
     // TODO: https://github.com/php-strictus/strictus
+    // TODO: Consider isJsonSring?
     // TODO: Not guards: --> not_instance_of, not_array, not_bool...
     // TODO: NullOr Guards: --> null_or_instance_of, null_or_array, null_or_bool...
+    // TODO: EmptyOr Guards?
+    // TODO: EmptyOrAll Guards?
     // TODO: All Guards: --> all_instance_of, all_array, all_bool...
     // TODO: ? OfAny Guards: --> is_istance_of_any, is_array_of_any, is_bool_of_any...
     // TODO: Consider Guard::empty() ?
+    // TODO: Guard::that()->isEmpty()->isString()->isClassString() --> Lazy Guard Chains
+    // TODO: Guard::not()->isString(), Guard::emptyOr()->isString()
+    // TODO: Guard::not()->isString()->isClassString() ?
+    // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
 
     // region Aliases
 
