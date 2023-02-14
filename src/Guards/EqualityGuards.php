@@ -15,6 +15,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static mixed neq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
  * @method static mixed notEq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
  * @method static mixed notEqualTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
+ * @method static mixed id(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
+ * @method static mixed same(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
+ * @method static mixed identical(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
+ * @method static mixed identicalTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
  */
 trait EqualityGuards
 {
@@ -68,6 +72,8 @@ trait EqualityGuards
      * @see Alias: Guard::neq()
      * @see Alias: Guard::notEq()
      * @see Alias: Guard::notEqualTo()
+     *
+     * TODO: Consider to moving NotGuards?
      */
     #[Alias(['neq', 'notEq', 'notEqualTo'])]
     public static function IsNotEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
@@ -76,6 +82,39 @@ trait EqualityGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
+                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
+            )
+            : $value;
+    }
+
+    /**
+     * Verifies if the given value is identical to a specified value
+     * and returns it.
+     *
+     * This method is used to check that a value is identical to a specified
+     * value. If the value is not identical to the specified value, an
+     * {@see InvalidArgumentException} will be thrown.
+     *
+     * @param  mixed  $value     The value to be verified.
+     * @param  mixed  $expect    The expected value.
+     * @param  string|null  $message  Custom error message.
+     *
+     * @return mixed The value if it is identical to the specified value.
+     *
+     * @throws InvalidArgumentException if the value is not identical to the specified value.
+     *
+     * @see Alias: Guard::id()
+     * @see Alias: Guard::same()
+     * @see Alias: Guard::identical()
+     * @see Alias: Guard::identicalTo()
+     */
+    #[Alias(['id', 'same', 'identical', 'identicalTo'])]
+    public static function isIdenticalTo(mixed $value, mixed $expect, ?string $message = null): mixed
+    {
+        return $value !== $expect
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value identical to: %s (%s). Got: %s (%s)',
                 values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
