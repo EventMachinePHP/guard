@@ -11,7 +11,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains guards that check if a value is of type float.
  *
- * @method static float f(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
+ * @method static float fl(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
  * @method static float float(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
  * @method static float is_float(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
  *
@@ -34,11 +34,11 @@ trait FloatGuards
      *
      * @throws InvalidArgumentException If the value is not a float.
      *
-     * @see Alias: Guard::f()
+     * @see Alias: Guard::fl()
      * @see Alias: Guard::float()
      * @see Alias: Guard::is_float()
      */
-    #[Alias(['f', 'float', 'is_float'])]
+    #[Alias(['fl', 'float', 'is_float'])]
     public static function isFloat(mixed $value, ?string $message = null): float
     {
         return !is_float($value)
