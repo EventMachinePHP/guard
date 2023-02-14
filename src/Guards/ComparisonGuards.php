@@ -10,14 +10,14 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating compared values.
  *
- * @method static mixed gt(mixed $value, mixed $limit, ?string $message = null) @see Guard::isGreaterThan()
- * @method static mixed greaterThan(mixed $value, mixed $limit, ?string $message = null) @see Guard::isGreaterThan()
- * @method static mixed gte(mixed $value, mixed $limit, ?string $message = null) @see Guard::isGreaterThanOrEqual()
- * @method static mixed greaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null) @see Guard::isGreaterThanOrEqual()
- * @method static mixed lt(mixed $value, mixed $limit, ?string $message = null) @see Guard::isLessThan()
- * @method static mixed lessThan(mixed $value, mixed $limit, ?string $message = null) @see Guard::isLessThan()
- * @method static mixed lte(mixed $value, mixed $limit, ?string $message = null) @see Guard::isLessThanOrEqual()
- * @method static mixed lessThanOrEqual(mixed $value, mixed $limit, ?string $message = null) @see Guard::isLessThanOrEqual()
+ * @method static mixed gt(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isGreaterThan()}
+ * @method static mixed greaterThan(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isGreaterThan()}
+ * @method static mixed gte(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isGreaterThanOrEqual()}
+ * @method static mixed greaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isGreaterThanOrEqual()}
+ * @method static mixed lt(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isLessThan()}
+ * @method static mixed lessThan(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isLessThan()}
+ * @method static mixed lte(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isLessThanOrEqual()}
+ * @method static mixed lessThanOrEqual(mixed $value, mixed $limit, ?string $message = null) Alias of {@see Guard::isLessThanOrEqual()}
  */
 trait ComparisonGuards
 {
@@ -37,8 +37,8 @@ trait ComparisonGuards
      *
      * @throws InvalidArgumentException If the value is less than or equal to the limit.
      *
-     * @see Guard::gt()
-     * @see Guard::greaterThan()
+     * @see Alias: Guard::gt()
+     * @see Alias: Guard::greaterThan()
      */
     #[Alias(['gt', 'greaterThan'])]
     public static function isGreaterThan(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -64,8 +64,8 @@ trait ComparisonGuards
      *
      *@throws InvalidArgumentException If the value is not greater than or equal to the limit
      *
-     * @see Guard::gte()
-     * @see Guard::greaterThanOrEqual()
+     * @see Alias: Guard::gte()
+     * @see Alias: Guard::greaterThanOrEqual()
      */
     #[Alias(['gte', 'greaterThanOrEqual'])]
     public static function isGreaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -93,8 +93,8 @@ trait ComparisonGuards
      *
      * @throws InvalidArgumentException If the value is greater than or equal to the limit.
      *
-     * @see Guard::lt()
-     * @see Guard::lessThan()
+     * @see Alias: Guard::lt()
+     * @see Alias: Guard::lessThan()
      */
     #[Alias(['lt', 'lessThan'])]
     public static function isLessThan(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -126,8 +126,8 @@ trait ComparisonGuards
      *
      *@throws InvalidArgumentException If the value is greater than the limit
      *
-     * @see Guard::lte()
-     * @see Guard::lessThanOrEqual()
+     * @see Alias: Guard::lte()
+     * @see Alias: Guard::lessThanOrEqual()
      */
     #[Alias(['lte', 'lessThanOrEqual'])]
     public static function isLessThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed

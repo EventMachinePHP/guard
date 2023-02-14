@@ -12,9 +12,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating PHP resources.
  *
- * @method static mixed r(mixed $value, ?string $type = null, ?string $message = null) @see Guard::isResource()
- * @method static mixed resource(mixed $value, ?string $type = null, ?string $message = null) @see Guard::isResource()
- * @method static mixed is_resource(mixed $value, ?string $type = null, ?string $message = null) @see Guard::isResource()
+ * @method static mixed r(mixed $value, ?string $type = null, ?string $message = null) Alias of {@see Guard::isResource()}
+ * @method static mixed resource(mixed $value, ?string $type = null, ?string $message = null) Alias of {@see Guard::isResource()}
+ * @method static mixed is_resource(mixed $value, ?string $type = null, ?string $message = null) Alias of {@see Guard::isResource()}
  */
 trait ResourceGuards
 {
@@ -35,9 +35,9 @@ trait ResourceGuards
      *
      * @throws InvalidArgumentException If the value is not a resource or if the resource type does not match the specified type.
      *
-     * @see Guard::r()
-     * @see Guard::resource()
-     * @see Guard::is_resource()
+     * @see Alias: Guard::r()
+     * @see Alias: Guard::resource()
+     * @see Alias: Guard::is_resource()
      */
     #[Alias(['r', 'resource', 'is_resource'])]
     public static function isResource(mixed $value, ?string $type = null, ?string $message = null): mixed

@@ -11,9 +11,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating callable values.
  *
- * @method static callable c(mixed $value, ?string $message = null) @see Guard::isCallable()
- * @method static callable callable(mixed $value, ?string $message = null) @see Guard::isCallable()
- * @method static callable is_callable(mixed $value, ?string $message = null) @see Guard::isCallable()
+ * @method static callable c(mixed $value, ?string $message = null) Alias of {@see Guard::isCallable()}
+ * @method static callable callable(mixed $value, ?string $message = null) Alias of {@see Guard::isCallable()}
+ * @method static callable is_callable(mixed $value, ?string $message = null) Alias of {@see Guard::isCallable()}
  */
 trait CallableGuards
 {
@@ -31,9 +31,9 @@ trait CallableGuards
      *
      * @throws InvalidArgumentException If the value is not callable.
      *
-     * @see Guard::c()
-     * @see Guard::callable()
-     * @see Guard::is_callable()
+     * @see Alias: Guard::c()
+     * @see Alias: Guard::callable()
+     * @see Alias: Guard::is_callable()
      */
     #[Alias(['c', 'callable', 'is_callable'])]
     public static function isCallable(mixed $value, ?string $message = null): callable

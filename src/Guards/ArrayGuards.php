@@ -12,12 +12,12 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating array values.
  *
- * @method static array a(mixed $value, ?string $message = null) @see Guard::isArray()
- * @method static array array(mixed $value, ?string $message = null) @see Guard::isArray()
- * @method static array is_array(mixed $value, ?string $message = null) @see Guard::isArray()
- * @method static ArrayAccess|array aa(mixed $value, ?string $message = null) @see Guard::isArrayAccessible()
- * @method static ArrayAccess|array array_accessible(mixed $value, ?string $message = null) @see Guard::isArrayAccessible()
- * @method static ArrayAccess|array is_array_accessible(mixed $value, ?string $message = null) @see Guard::isArrayAccessible()
+ * @method static array a(mixed $value, ?string $message = null) Alias of {@see Guard::isArray()}
+ * @method static array array(mixed $value, ?string $message = null) Alias of {@see Guard::isArray()}
+ * @method static array is_array(mixed $value, ?string $message = null) Alias of {@see Guard::isArray()}
+ * @method static ArrayAccess|array aa(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
+ * @method static ArrayAccess|array array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
+ * @method static ArrayAccess|array is_array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  */
 trait ArrayGuards
 {
@@ -34,9 +34,9 @@ trait ArrayGuards
      *
      * @throws InvalidArgumentException If the value is not an array.
      *
-     * @see Guard::a()
-     * @see Guard::array()
-     * @see Guard::is_array()
+     * @see Alias: Guard::a()
+     * @see Alias: Guard::array()
+     * @see Alias: Guard::is_array()
      */
     #[Alias(['a', 'array', 'is_array'])]
     public static function isArray(mixed $value, ?string $message = null): array
@@ -67,9 +67,9 @@ trait ArrayGuards
      *
      * @throws InvalidArgumentException If the value is not an array or ArrayAccess.
      *
-     * @see Guard::aa()
-     * @see Guard::array_accessible()
-     * @see Guard::is_array_accessible()
+     * @see Alias: Guard::aa()
+     * @see Alias: Guard::array_accessible()
+     * @see Alias: Guard::is_array_accessible()
      */
     #[Alias(['aa', 'array_accessible', 'is_array_accessible'])]
     public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess

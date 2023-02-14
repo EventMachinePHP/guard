@@ -10,11 +10,11 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating equality values.
  *
- * @method static mixed eq(mixed $value, mixed $expect, ?string $message = null) @see Guard::isEqualTo()
- * @method static mixed equalTo(mixed $value, mixed $expect, ?string $message = null) @see Guard::isEqualTo()
- * @method static mixed neq(mixed $value, mixed $expect, ?string $message = null) @see Guard::IsNotEqualTo()
- * @method static mixed notEq(mixed $value, mixed $expect, ?string $message = null) @see Guard::IsNotEqualTo()
- * @method static mixed notEqualTo(mixed $value, mixed $expect, ?string $message = null) @see Guard::IsNotEqualTo()
+ * @method static mixed eq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isEqualTo()}
+ * @method static mixed equalTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isEqualTo()}
+ * @method static mixed neq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
+ * @method static mixed notEq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
+ * @method static mixed notEqualTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
  */
 trait EqualityGuards
 {
@@ -35,8 +35,8 @@ trait EqualityGuards
      *
      * @throws InvalidArgumentException If the value is not equal to the expected value.
      *
-     * @see Guard::eq()
-     * @see Guard::equalTo()
+     * @see Alias: Guard::eq()
+     * @see Alias: Guard::equalTo()
      */
     #[Alias(['eq', 'equalTo'])]
     public static function isEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
@@ -65,9 +65,9 @@ trait EqualityGuards
      *
      * @throws InvalidArgumentException If the value is equal to the expected value.
      *
-     * @see Guard::neq()
-     * @see Guard::notEq()
-     * @see Guard::notEqualTo()
+     * @see Alias: Guard::neq()
+     * @see Alias: Guard::notEq()
+     * @see Alias: Guard::notEqualTo()
      */
     #[Alias(['neq', 'notEq', 'notEqualTo'])]
     public static function IsNotEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed

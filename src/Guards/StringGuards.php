@@ -11,13 +11,13 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating string values.
  *
- * @method static string s(mixed $value, ?string $message = null) @see Guard::isString()
- * @method static string str(mixed $value, ?string $message = null) @see Guard::isString()
- * @method static string string(mixed $value, ?string $message = null) @see Guard::isString()
- * @method static string is_string(mixed $value, ?string $message = null) @see Guard::isString()
- * @method static string sne(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
- * @method static string strNotEmpty(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
- * @method static string stringNotEmpty(mixed $value, ?string $message = null) @see Guard::isStringNotEmpty()
+ * @method static string s(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
+ * @method static string str(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
+ * @method static string string(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
+ * @method static string is_string(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
+ * @method static string sne(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
+ * @method static string strNotEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
+ * @method static string stringNotEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
  */
 trait StringGuards
 {
@@ -36,10 +36,10 @@ trait StringGuards
      *
      * @throws InvalidArgumentException If the input value is not a string.
      *
-     * @see Guard::s()
-     * @see Guard::str()
-     * @see Guard::string()
-     * @see Guard::is_string()
+     * @see Alias: Guard::s()
+     * @see Alias: Guard::str()
+     * @see Alias: Guard::string()
+     * @see Alias: Guard::is_string()
      */
     #[Alias(['s', 'str', 'string', 'is_string'])]
     public static function isString(mixed $value, ?string $message = null): string
@@ -66,9 +66,11 @@ trait StringGuards
      *
      * @throws InvalidArgumentException If the validation fails.
      *
-     * @see Guard::sne()
-     * @see Guard::strNotEmpty()
-     * @see Guard::stringNotEmpty()
+     * @see Alias: Guard::sne()
+     * @see Alias: Guard::strNotEmpty()
+     * @see Alias: Guard::stringNotEmpty()
+     *
+     * TODO: Rename this to isNonEmptyString() not to interfere with NotGuards
      */
     #[Alias(['sne', 'strNotEmpty', 'stringNotEmpty'])]
     public static function isStringNotEmpty(mixed $value, ?string $message = null): string

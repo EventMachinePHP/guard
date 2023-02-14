@@ -25,7 +25,7 @@ dataset('isArray(passing)', [
     '([1, 2, 3])' => [[1, 2, 3]],
 ]);
 dataset('isArray(failing)', [
-    '(123'                        => [123, 'Expected an array. Got: 123 (int)'],
-    '(new stdClass()'             => [new stdClass(), 'Expected an array. Got: stdClass (stdClass)'],
-    '(new ArrayIterator(array())' => [new ArrayIterator([]), 'Expected an array. Got: ArrayIterator (ArrayIterator)'],
+    '(123)'                   => [123, 'Expected an array. Got: 123 (int)'],
+    '(new stdClass())'        => [new stdClass(), 'Expected an array. Got: stdClass (stdClass)'],
+    '(new ArrayIterator([]))' => [new ArrayIterator([]), 'Expected an array. Got: ArrayIterator (ArrayIterator)'],
 ]);

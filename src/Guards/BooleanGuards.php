@@ -11,10 +11,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating boolean values.
  *
- * @method static bool b(mixed $value, ?string $message = null) @see Guard::isBoolean()
- * @method static bool bool(mixed $value, ?string $message = null) @see Guard::isBoolean()
- * @method static bool is_bool(mixed $value, ?string $message = null) @see Guard::isBoolean()
- * @method static bool boolean(mixed $value, ?string $message = null) @see Guard::isBoolean()
+ * @method static bool b(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
+ * @method static bool bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
+ * @method static bool is_bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
+ * @method static bool boolean(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  */
 trait BooleanGuards
 {
@@ -32,10 +32,10 @@ trait BooleanGuards
      *
      * @throws InvalidArgumentException If the value is not a boolean.
      *
-     * @see Guard::b()
-     * @see Guard::bool()
-     * @see Guard::is_bool()
-     * @see Guard::boolean()
+     * @see Alias: Guard::b()
+     * @see Alias: Guard::bool()
+     * @see Alias: Guard::is_bool()
+     * @see Alias: Guard::boolean()
      */
     #[Alias(['b', 'bool', 'is_bool', 'boolean'])]
     public static function isBoolean(mixed $value, ?string $message = null): bool

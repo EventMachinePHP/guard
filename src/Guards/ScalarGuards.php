@@ -13,9 +13,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  *
  * A scalar value is either a string, an integer, a float, or a boolean.
  *
- * @method static string|int|float|bool sc(mixed $value, ?string $message = null) @see Guard::isScalar()
- * @method static string|int|float|bool scalar(mixed $value, ?string $message = null) @see Guard::isScalar()
- * @method static string|int|float|bool is_scalar(mixed $value, ?string $message = null) @see Guard::isScalar()
+ * @method static string|int|float|bool sc(mixed $value, ?string $message = null) Alias of {@see Guard::isScalar()}
+ * @method static string|int|float|bool scalar(mixed $value, ?string $message = null) Alias of {@see Guard::isScalar()}
+ * @method static string|int|float|bool is_scalar(mixed $value, ?string $message = null) Alias of {@see Guard::isScalar()}
  */
 trait ScalarGuards
 {
@@ -33,9 +33,9 @@ trait ScalarGuards
      *
      * @throws InvalidArgumentException If the value is not a scalar value.
      *
-     * @see Guard::sc()
-     * @see Guard::scalar()
-     * @see Guard::is_scalar()
+     * @see Alias: Guard::sc()
+     * @see Alias: Guard::scalar()
+     * @see Alias: Guard::is_scalar()
      */
     #[Alias(['sc', 'scalar', 'is_scalar'])]
     public static function isScalar(mixed $value, ?string $message = null): string|int|float|bool

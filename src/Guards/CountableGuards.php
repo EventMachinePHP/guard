@@ -12,9 +12,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating countable values.
  *
- * @method static Countable|array co(mixed $value, ?string $message = null) @see Guard::isCountable()
- * @method static Countable|array countable(mixed $value, ?string $message = null) @see Guard::isCountable()
- * @method static Countable|array is_countable(mixed $value, ?string $message = null) @see Guard::isCountable()
+ * @method static Countable|array co(mixed $value, ?string $message = null) Alias of {@see Guard::isCountable()}
+ * @method static Countable|array countable(mixed $value, ?string $message = null) Alias of {@see Guard::isCountable()}
+ * @method static Countable|array is_countable(mixed $value, ?string $message = null) Alias of {@see Guard::isCountable()}
  */
 trait CountableGuards
 {
@@ -36,9 +36,9 @@ trait CountableGuards
      *
      * @throws InvalidArgumentException If the value is not countable.
      *
-     * @see Guard::co()
-     * @see Guard::countable()
-     * @see Guard::is_countable()
+     * @see Alias: Guard::co()
+     * @see Alias: Guard::countable()
+     * @see Alias: Guard::is_countable()
      */
     #[Alias(['co', 'countable', 'is_countable'])]
     public static function isCountable(mixed $value, ?string $message = null): Countable|array

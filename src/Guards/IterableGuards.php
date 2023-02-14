@@ -11,9 +11,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 /**
  * This trait contains methods for validating iterable values.
  *
- * @method static iterable it(mixed $value, ?string $message = null) @see Guard::isIterable()
- * @method static iterable iterable(mixed $value, ?string $message = null) @see Guard::isIterable()
- * @method static iterable is_iterable(mixed $value, ?string $message = null) @see Guard::isIterable()
+ * @method static iterable it(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
+ * @method static iterable iterable(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
+ * @method static iterable is_iterable(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
  */
 trait IterableGuards
 {
@@ -30,9 +30,9 @@ trait IterableGuards
      *
      * @throws InvalidArgumentException If the value is not iterable.
      *
-     * @see Guard::it()
-     * @see Guard::iterable()
-     * @see Guard::is_iterable()
+     * @see Alias: Guard::it()
+     * @see Alias: Guard::iterable()
+     * @see Alias: Guard::is_iterable()
      */
     #[Alias(['it', 'iterable', 'is_iterable'])]
     public static function isIterable(mixed $value, ?string $message = null): iterable

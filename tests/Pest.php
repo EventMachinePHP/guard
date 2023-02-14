@@ -54,9 +54,11 @@ function getMethodArgumentString(ReflectionMethod $method): string
  */
 function generateMethodDocBlockDefinition(ReflectionMethod $method, string $alias): string
 {
+    $returnType = (string) ($method->getReturnType() ?? 'mixed');
+
     return sprintf(
-        '@method static %s %s(%s) @see Guard::%s()',
-        $method->getReturnType() ?? 'mixed',
+        '@method static %s %s(%s) Alias of {@see Guard::%s()}',
+        $returnType,
         $alias,
         getMethodArgumentString($method),
         $method->getName(),
@@ -80,7 +82,7 @@ function generateMethodDocBlockDefinitionErrorMessage(string $alias, string $tra
  */
 function generateMethodAliasSeeDefinition(string $alias): string
 {
-    return '@see Guard::'.$alias.'()';
+    return '@see Alias: Guard::'.$alias.'()';
 }
 
 /** @infection-ignore-all */

@@ -8,6 +8,7 @@ use ReflectionClass;
 use function is_array;
 use BadMethodCallException;
 use EventMachinePHP\Guard\Guards\ArrayGuards;
+use EventMachinePHP\Guard\Guards\ClassGuards;
 use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\ObjectGuards;
 use EventMachinePHP\Guard\Guards\ScalarGuards;
@@ -28,6 +29,7 @@ class Guard
     use ArrayGuards;
     use BooleanGuards;
     use CallableGuards;
+    use ClassGuards;
     use ComparisonGuards;
     use CountableGuards;
     use EqualityGuards;
@@ -58,6 +60,7 @@ class Guard
     // TODO: NullOr Guards: --> null_or_instance_of, null_or_array, null_or_bool...
     // TODO: All Guards: --> all_instance_of, all_array, all_bool...
     // TODO: ? OfAny Guards: --> is_istance_of_any, is_array_of_any, is_bool_of_any...
+    // TODO: Consider Guard::empty() ?
 
     // region Aliases
 
