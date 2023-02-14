@@ -169,9 +169,9 @@ expect()->extend('validateAliases', function (): void {
     $reflectionMethod = new ReflectionMethod(Guard::class, $this->value);
     $attributes       = $reflectionMethod->getAttributes();
 
-//    if ($attributes === []) {
-//        throw new InvalidArgumentException(sprintf('No alias attributes found for the method: %s. Is the alias test for this method necessary?', $reflectionMethod->getName()));
-//    }
+    if ($attributes === []) {
+        throw new InvalidArgumentException(sprintf('No alias attributes found for the method: %s. Is the alias test for this method necessary?', $reflectionMethod->getName()));
+    }
 
     foreach ($attributes as $attribute) {
         $attributeArguments = $attribute->getArguments()[0];
