@@ -9,6 +9,7 @@ use function is_array;
 use BadMethodCallException;
 use EventMachinePHP\Guard\Guards\ArrayGuards;
 use EventMachinePHP\Guard\Guards\ClassGuards;
+use EventMachinePHP\Guard\Guards\EmptyGuards;
 use EventMachinePHP\Guard\Guards\FloatGuards;
 use EventMachinePHP\Guard\Guards\ObjectGuards;
 use EventMachinePHP\Guard\Guards\ScalarGuards;
@@ -32,6 +33,7 @@ class Guard
     use ClassGuards;
     use ComparisonGuards;
     use CountableGuards;
+    use EmptyGuards;
     use EqualityGuards;
     use FloatGuards;
     use InstanceGuards;
@@ -69,6 +71,7 @@ class Guard
     // TODO: Guard::not()->isString(), Guard::emptyOr()->isString()
     // TODO: Guard::not()->isString()->isClassString() ?
     // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
+    // TODO: dataset's has duplicate test cases?
 
     // region Aliases
 
