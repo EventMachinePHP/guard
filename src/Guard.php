@@ -7,6 +7,7 @@ namespace EventMachinePHP\Guard;
 use ReflectionClass;
 use function is_array;
 use BadMethodCallException;
+use EventMachinePHP\Guard\Guards\NullGuards;
 use EventMachinePHP\Guard\Guards\ArrayGuards;
 use EventMachinePHP\Guard\Guards\ClassGuards;
 use EventMachinePHP\Guard\Guards\EmptyGuards;
@@ -39,6 +40,7 @@ class Guard
     use InstanceGuards;
     use IntegerGuards;
     use IterableGuards;
+    use NullGuards;
     use ObjectGuards;
     use ResourceGuards;
     use ScalarGuards;
@@ -72,6 +74,7 @@ class Guard
     // TODO: Guard::not()->isString()->isClassString() ?
     // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
     // TODO: dataset's has duplicate test cases?
+    // TODO: Loop through Pest's expectations: toBeNull, toBeNAN?
 
     // region Aliases
 

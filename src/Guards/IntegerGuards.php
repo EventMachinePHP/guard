@@ -16,7 +16,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static int int(mixed $value, ?string $message = null) Alias of {@see Guard::isInteger()}
  * @method static int is_int(mixed $value, ?string $message = null) Alias of {@see Guard::isInteger()}
  * @method static int integer(mixed $value, ?string $message = null) Alias of {@see Guard::isInteger()}
- * @method static string|int|float n(mixed $value, ?string $message = null) Alias of {@see Guard::isNumeric()}
+ * @method static string|int|float nu(mixed $value, ?string $message = null) Alias of {@see Guard::isNumeric()}
  * @method static string|int|float numeric(mixed $value, ?string $message = null) Alias of {@see Guard::isNumeric()}
  * @method static string|int|float is_numeric(mixed $value, ?string $message = null) Alias of {@see Guard::isNumeric()}
  * @method static string|int|float intVal(mixed $value, ?string $message = null) Alias of {@see Guard::isIntegerValue()}
@@ -79,11 +79,11 @@ trait IntegerGuards
      *
      * @throws InvalidArgumentException If the value is not numeric.
      *
-     * @see Alias: Guard::n()
+     * @see Alias: Guard::nu()
      * @see Alias: Guard::numeric()
      * @see Alias: Guard::is_numeric()
      */
-    #[Alias(['n', 'numeric', 'is_numeric'])]
+    #[Alias(['nu', 'numeric', 'is_numeric'])]
     public static function isNumeric(mixed $value, ?string $message = null): string|int|float
     {
         return !is_numeric($value)
