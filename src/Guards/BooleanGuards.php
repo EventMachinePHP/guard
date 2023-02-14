@@ -15,6 +15,8 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static bool bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool is_bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool boolean(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
+ * @method static bool t(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
+ * @method static bool true(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
  */
 trait BooleanGuards
 {
@@ -47,5 +49,35 @@ trait BooleanGuards
                 values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
+    }
+
+    /**
+     * Validates if the given value is true and returns it.
+     *
+     * This method checks if the given value is equal to `true`.
+     * If the value is not equal to `true`, it will throw an
+     * {@see InvalidArgumentException}. The custom error
+     * message or the default error message will be
+     * used depending on the availability of the
+     * custom message.
+     *
+     * @param  mixed  $value    The value to validate.
+     * @param  string|null  $message  [optional] The custom error message.
+     *
+     * @return bool             Returns `true` if the value is equal to `true`.
+     *
+     * @see Alias: Guard::t()
+     * @see Alias: Guard::true()
+     */
+    #[Alias(['t', 'true'])]
+    public static function isTrue(mixed $value, ?string $message = null): bool
+    {
+        return $value !== true
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a value to be true. Got: %s (%s)',
+                values: [self::valueToString($value), self::valueToType($value)],
+            )
+            : true;
     }
 }
