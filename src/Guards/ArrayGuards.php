@@ -18,6 +18,12 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static ArrayAccess|array aa(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array is_array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
+ * @method static iterable us(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable unique_strict(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable unique_strict_values(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable ul(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
+ * @method static iterable unique_loose(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
+ * @method static iterable unique_loose_values(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
  */
 trait ArrayGuards
 {
@@ -81,5 +87,85 @@ trait ArrayGuards
                 values: [self::valueToString($value), self::valueToType($value)],
             )
             : $value;
+    }
+
+    /**
+     * Validates if the given values in the iterable are unique
+     * using strict comparison and return them.
+     *
+     * Given an iterable, this method will loop over the values
+     * and perform a strict comparison between each pair of
+     * values to ensure that no duplicate values exist. If
+     * a duplicate is found, an exception will be thrown.
+     *
+     * @param  iterable  $values   the iterable to check for unique values
+     * @param  string|null  $message  optional error message to use instead of the default
+     *
+     * @return iterable returns the original iterable if all values are unique
+     *
+     * @see Alias: Guard::us()
+     * @see Alias: Guard::unique_strict()
+     * @see Alias: Guard::unique_strict_values()
+     */
+    #[Alias(['us', 'unique_strict', 'unique_strict_values'])]
+    public static function hasUniqueStrictValues(iterable $values, ?string $message = null): iterable
+    {
+        foreach ($values as $value1) {
+            $count = 0;
+            foreach ($values as $value2) {
+                if ($value1 === $value2) {
+                    $count++;
+                }
+            }
+            if ($count > 1) {
+                throw InvalidArgumentException::create(
+                    customMessage: $message,
+                    defaultMessage: 'Expected strict unique values. Got duplicate values',
+                    values: []
+                );
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * Validates if the given values in the iterable are unique
+     * using loose comparison and return them.
+     *
+     * Given an iterable, this method will loop over the values
+     * and perform a loose comparison between each pair of
+     * values to ensure that no duplicate values exist. If
+     * a duplicate is found, an exception will be thrown.
+     *
+     * @param  iterable  $values   the iterable to check for unique values
+     * @param  string|null  $message  optional error message to use instead of the default
+     *
+     * @return iterable returns the original iterable if all values are unique
+     *
+     * @see Alias: Guard::ul()
+     * @see Alias: Guard::unique_loose()
+     * @see Alias: Guard::unique_loose_values()
+     */
+    #[Alias(['ul', 'unique_loose', 'unique_loose_values'])]
+    public static function hasUniqueLooseValues(iterable $values, ?string $message = null): iterable
+    {
+        foreach ($values as $value1) {
+            $count = 0;
+            foreach ($values as $value2) {
+                if ($value1 == $value2) {
+                    $count++;
+                }
+            }
+            if ($count > 1) {
+                throw InvalidArgumentException::create(
+                    customMessage: $message,
+                    defaultMessage: 'Expected loose unique values. Got duplicate values',
+                    values: []
+                );
+            }
+        }
+
+        return $values;
     }
 }
