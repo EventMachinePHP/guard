@@ -47,7 +47,7 @@ trait ClassGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an existing class name. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -85,7 +85,7 @@ trait ClassGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a subclass of %s. Got: %s (%s)',
-                values: [$parentClass, self::valueToString($value), self::valueToType($value)],
+                values: [$parentClass, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

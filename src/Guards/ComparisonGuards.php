@@ -47,7 +47,7 @@ trait ComparisonGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -74,7 +74,7 @@ trait ComparisonGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -103,7 +103,7 @@ trait ComparisonGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -136,7 +136,7 @@ trait ComparisonGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than or equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

@@ -51,7 +51,7 @@ trait ArrayGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -84,7 +84,7 @@ trait ArrayGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

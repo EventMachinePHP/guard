@@ -49,7 +49,7 @@ trait EqualityGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
     }
@@ -82,7 +82,7 @@ trait EqualityGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
     }
@@ -117,7 +117,7 @@ trait EqualityGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value identical to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value), self::valueToString($expect), self::valueToType($expect)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;
     }

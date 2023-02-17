@@ -42,7 +42,7 @@ trait ObjectGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an object. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

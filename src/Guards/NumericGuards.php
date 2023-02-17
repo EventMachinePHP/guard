@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use function is_int;
+use function is_float;
 use function is_numeric;
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
 
 /**
- * This trait contains guards that check if a value is of type integer.
+ * This trait contains methods for validating numeric values.
  *
  * @method static int i(mixed $value, ?string $message = null) Alias of {@see Guard::isInteger()}
  * @method static int int(mixed $value, ?string $message = null) Alias of {@see Guard::isInteger()}
@@ -26,12 +27,18 @@ use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
  * @method static int positiveInteger(mixed $value, ?string $message = null) Alias of {@see Guard::isPositiveInteger()}
  * @method static int naturalInt(mixed $value, ?string $message = null) Alias of {@see Guard::isNaturalInteger()}
  * @method static int naturalInteger(mixed $value, ?string $message = null) Alias of {@see Guard::isNaturalInteger()}
+ * @method static float fl(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
+ * @method static float float(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
+ * @method static float is_float(mixed $value, ?string $message = null) Alias of {@see Guard::isFloat()}
+ * @method static float positiveFloat(mixed $value, ?string $message = null) Alias of {@see Guard::isPositiveFloat()}
+ * @method static float negativeFloat(mixed $value, ?string $message = null) Alias of {@see Guard::isNegativeFloat()}
+ * @method static string|int|float digit(mixed $value, ?string $message = null) Alias of {@see Guard::isDigit()}
  *
  * TODO: Introduce Guard::isNegativeInteger() Guard
  * TODO: Introduce Guard::isNegativeNumber() Guard
  * TODO: ? isNegativeNumeric(), isNegativeIntegerValue()
  */
-trait IntegerGuards
+trait NumericGuards
 {
     /**
      * Validates if the given value is an integer and returns it.
@@ -60,7 +67,7 @@ trait IntegerGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an integer. Got: %s',
-                values: [self::valueToType($value)],
+                values: [self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -90,7 +97,7 @@ trait IntegerGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a numeric value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -118,7 +125,7 @@ trait IntegerGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an isIntegerValue value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -146,8 +153,8 @@ trait IntegerGuards
     #[Alias(['positiveInt', 'positiveInteger'])]
     public static function isPositiveInteger(mixed $value, ?string $message = null): int
     {
-        self::isInteger($value, $message);
-        self::isGreaterThan($value, 0, $message);
+        self::isInteger(value: $value, message: $message);
+        self::isGreaterThan(value: $value, limit: 0, message: $message);
 
         return $value;
     }
@@ -173,9 +180,79 @@ trait IntegerGuards
     #[Alias(['naturalInt', 'naturalInteger'])]
     public static function isNaturalInteger(mixed $value, ?string $message = null): int
     {
-        self::isInteger($value, $message);
-        self::isGreaterThanOrEqual($value, 0, $message);
+        self::isInteger(value: $value, message: $message);
+        self::isGreaterThanOrEqual(value: $value, limit: 0, message: $message);
 
         return $value;
+    }
+
+    /**
+     * Validates if the given value is a float and returns it.
+     *
+     * This method checks if the given value is a float and returns
+     * the value if it's a float. If the value is not a float, an
+     * {@see InvalidArgumentException} is thrown with a custom
+     * message if provided or a default error message.
+     *
+     * @param  mixed  $value The value to validate.
+     * @param  string|null  $message The custom error message.
+     *
+     * @return float The validated float value.
+     *
+     * @throws InvalidArgumentException If the value is not a float.
+     *
+     * @see Alias: Guard::fl()
+     * @see Alias: Guard::float()
+     * @see Alias: Guard::is_float()
+     */
+    #[Alias(['fl', 'float', 'is_float'])]
+    public static function isFloat(mixed $value, ?string $message = null): float
+    {
+        return !is_float($value)
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a float. Got: %s (%s)',
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
+    }
+
+    /**
+     * @see Alias: Guard::positiveFloat()
+     */
+    #[Alias(['positiveFloat'])]
+    public static function isPositiveFloat(mixed $value, ?string $message = null): float
+    {
+        self::isFloat(value: $value, message: $message);
+        self::isGreaterThan(value: $value, limit: 0, message: $message);
+
+        return $value;
+    }
+
+    /**
+     * @see Alias: Guard::negativeFloat()
+     */
+    #[Alias(['negativeFloat'])]
+    public static function isNegativeFloat(mixed $value, ?string $message = null): float
+    {
+        self::isFloat(value: $value, message: $message);
+        self::isLessThan(value: $value, limit: 0, message: $message);
+
+        return $value;
+    }
+
+    /**
+     * @see Alias: Guard::digit()
+     */
+    #[Alias(['digit'])]
+    public static function isDigit(mixed $value, ?string $message = null): string|int|float
+    {
+        return !is_numeric($value) || $value < 0 || $value > 9
+            ? throw InvalidArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a digit. Got: %s (%s)',
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
     }
 }

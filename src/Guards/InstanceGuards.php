@@ -56,7 +56,7 @@ trait InstanceGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), self::valueToType($value)],
+                values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -90,7 +90,7 @@ trait InstanceGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value not being an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString($value), self::valueToType($value)],
+                values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
@@ -130,7 +130,7 @@ trait InstanceGuards
         return throw InvalidArgumentException::create(
             customMessage: $message,
             defaultMessage: 'Expected an instance of any of %s. Got: %s (%s)',
-            values: [implode(', ', $classes), self::valueToString($value), self::valueToType($value)],
+            values: [implode(', ', $classes), self::valueToString(value: $value), self::valueToType(value: $value)],
         );
     }
 
@@ -164,7 +164,7 @@ trait InstanceGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of this class or to this class among its parents "%s". Got: %s (%s)',
-                values: [$class, self::valueToString($value), self::valueToType($value)],
+                values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

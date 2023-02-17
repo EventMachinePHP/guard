@@ -44,7 +44,7 @@ trait ScalarGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a scalar value. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }

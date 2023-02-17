@@ -48,13 +48,13 @@ trait StringGuards
             ? throw InvalidArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a string. Got: %s (%s)',
-                values: [self::valueToString($value), self::valueToType($value)],
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
 
     /**
-     * Validatess if the given value is a non-empty string and returns it.
+     * Validates if the given value is a non-empty string and returns it.
      *
      * If the value is not a string or is an empty string, an
      * {@see InvalidArgumentException} exception is thrown.
@@ -75,8 +75,8 @@ trait StringGuards
     #[Alias(['sne', 'strNotEmpty', 'stringNotEmpty'])]
     public static function isStringNotEmpty(mixed $value, ?string $message = null): string
     {
-        self::isString($value, $message);
-        self::IsNotEqualTo($value, '', $message);
+        self::isString(value: $value, message: $message);
+        self::IsNotEqualTo(value: $value, expect: '', message: $message);
 
         return $value;
     }
