@@ -62,7 +62,6 @@ class Guard
     // TODO: Update type tests using IntegerTest cases
     // TODO: https://github.com/php-strictus/strictus
     // TODO: Consider isJsonSring?
-    // TODO: Not guards: --> not_instance_of, not_array, not_bool...
     // TODO: NullOr Guards: --> null_or_instance_of, null_or_array, null_or_bool...
     // TODO: EmptyOr Guards?
     // TODO: EmptyOrAll Guards?
@@ -117,4 +116,9 @@ class Guard
     }
 
     // endregion
+
+    public static function not(): NotGuard
+    {
+        return NotGuard::getInstance();
+    }
 }
