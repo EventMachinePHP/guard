@@ -134,5 +134,10 @@ class Guard
         return new LazyGuard($value);
     }
 
+    public static function all(): AllGuard
+    {
+        return AllGuard::getInstance();
+    }
+
     // endregion
 }

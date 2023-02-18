@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard;
 
-use function sprintf;
 use BadMethodCallException;
 use function method_exists;
 use function call_user_func;
@@ -45,7 +44,7 @@ class NullOrGuard
         }
 
         if (!method_exists(Guard::class, $name)) {
-            throw new BadMethodCallException(sprintf('Guard::%s() does not exist', $name));
+            throw new BadMethodCallException("Guard::{$name}() does not exist");
         }
 
         try {

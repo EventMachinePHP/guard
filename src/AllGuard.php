@@ -6,15 +6,14 @@ namespace EventMachinePHP\Guard;
 
 use BadMethodCallException;
 use function call_user_func;
-use InvalidArgumentException;
-use EventMachinePHP\Guard\Exceptions\NotGuardException;
 
 /**
- * @method static string isString(mixed $value, ?string $message = null) Opposite of {@see Guard::isString()}
+ * @method static iterable isString(iterable $value, ?string $message = null) {@see Guard::isString()}
+ * @method static iterable isGreaterThan(iterable $value, mixed $limit, ?string $message = null) {@see Guard::isGreaterThan()}
  */
-class NotGuard
+class AllGuard
 {
-    private static ?NotGuard $instance = null;
+    private static ?AllGuard $instance = null;
 
     /**
      * Prevents direct instantiation.
@@ -23,7 +22,7 @@ class NotGuard
     {
     }
 
-    public static function getInstance(): NotGuard
+    public static function getInstance(): AllGuard
     {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -41,12 +40,13 @@ class NotGuard
             throw new BadMethodCallException("Guard::{$name}() does not exist");
         }
 
-        try {
-            call_user_func([Guard::class, $name], ...$arguments);
+        $values = $arguments[array_key_first($arguments)];
+        array_shift($arguments);
 
-            throw new NotGuardException(sprintf('Expected %s() to fail, but not failed.', $name));
-        } catch (InvalidArgumentException) {
-            return $arguments[array_key_first($arguments)];
+        foreach ($values as $value) {
+            call_user_func([Guard::class, $name], $value, ...$arguments);
         }
+
+        return $values;
     }
 }
