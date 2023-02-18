@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard;
 
-use EventMachinePHP\Guard\Exceptions\NullOrGuardExceptionGuard;
 use function sprintf;
 use BadMethodCallException;
 use function method_exists;
 use function call_user_func;
 use function array_key_first;
+use EventMachinePHP\Guard\Exceptions\NullOrGuardExceptionGuard;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
