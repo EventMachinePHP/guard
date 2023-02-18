@@ -6,7 +6,7 @@ namespace EventMachinePHP\Guard\Guards;
 
 use function is_scalar;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains guards that check if a value is a scalar value.
@@ -23,7 +23,7 @@ trait ScalarGuards
      * Validates if the given value is a scalar value (string, int, float, bool)
      * and returns it.
      *
-     * If the given value is not a scalar value, an {@see InvalidArgumentException}
+     * If the given value is not a scalar value, an {@see InvalidGuardArgumentException}
      * will be thrown with a custom or default error message.
      *
      * @param  mixed  $value The value to check.
@@ -31,7 +31,7 @@ trait ScalarGuards
      *
      * @return string|int|float|bool The input value if it's a scalar value.
      *
-     * @throws InvalidArgumentException If the value is not a scalar value.
+     * @throws InvalidGuardArgumentException If the value is not a scalar value.
      *
      * @see Alias: Guard::sc()
      * @see Alias: Guard::scalar()
@@ -41,7 +41,7 @@ trait ScalarGuards
     public static function isScalar(mixed $value, ?string $message = null): string|int|float|bool
     {
         return !is_scalar($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a scalar value. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],

@@ -7,7 +7,7 @@ namespace EventMachinePHP\Guard\Guards;
 use function is_resource;
 use function get_resource_type;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating PHP resources.
@@ -23,9 +23,9 @@ trait ResourceGuards
      * certain type and returns it.
      *
      * This method checks if a value is a resource and if the resource is of a certain type.
-     * If the value is not a resource, an {@see InvalidArgumentException} is thrown. If a
+     * If the value is not a resource, an {@see InvalidGuardArgumentException} is thrown. If a
      * resource type is specified and the type of the resource does not match the specified
-     * type, another {@see InvalidArgumentException} is thrown.
+     * type, another {@see InvalidGuardArgumentException} is thrown.
      *
      * @param  mixed  $value The value to verify as a resource.
      * @param  string|null  $type The optional resource type to check the value against.
@@ -33,7 +33,7 @@ trait ResourceGuards
      *
      * @return mixed The value if it is a resource of the specified type.
      *
-     * @throws InvalidArgumentException If the value is not a resource or if the resource type does not match the specified type.
+     * @throws InvalidGuardArgumentException If the value is not a resource or if the resource type does not match the specified type.
      *
      * @see Alias: Guard::r()
      * @see Alias: Guard::resource()
@@ -43,7 +43,7 @@ trait ResourceGuards
     public static function isResource(mixed $value, ?string $type = null, ?string $message = null): mixed
     {
         if (!is_resource($value)) {
-            return throw InvalidArgumentException::create(
+            return throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a resource. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -51,7 +51,7 @@ trait ResourceGuards
         }
 
         if ($type !== null && get_resource_type($value) !== $type) {
-            return throw InvalidArgumentException::create(
+            return throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a resource of type: %s. Got: %s',
                 values: [$type, get_resource_type($value)],

@@ -6,7 +6,7 @@ namespace EventMachinePHP\Guard\Guards;
 
 use function is_string;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating string values.
@@ -24,7 +24,7 @@ trait StringGuards
     /**
      * Validates if the given value is a string and returns it.
      *
-     * This method throws an {@see InvalidArgumentException} if
+     * This method throws an {@see InvalidGuardArgumentException} if
      * the input value is not a string. If a custom error
      * message is provided, it will be used instead of
      * the default message.
@@ -34,7 +34,7 @@ trait StringGuards
      *
      * @return string The input value, if it is a string.
      *
-     * @throws InvalidArgumentException If the input value is not a string.
+     * @throws InvalidGuardArgumentException If the input value is not a string.
      *
      * @see Alias: Guard::s()
      * @see Alias: Guard::str()
@@ -45,7 +45,7 @@ trait StringGuards
     public static function isString(mixed $value, ?string $message = null): string
     {
         return !is_string($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a string. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -57,14 +57,14 @@ trait StringGuards
      * Validates if the given value is a non-empty string and returns it.
      *
      * If the value is not a string or is an empty string, an
-     * {@see InvalidArgumentException} exception is thrown.
+     * {@see InvalidGuardArgumentException} exception is thrown.
      *
      * @param  mixed  $value The value to validate.
      * @param  string|null  $message The error message to use if the validation fails.
      *
      * @return string The validated value.
      *
-     * @throws InvalidArgumentException If the validation fails.
+     * @throws InvalidGuardArgumentException If the validation fails.
      *
      * @see Alias: Guard::sne()
      * @see Alias: Guard::strNotEmpty()

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating null values.
@@ -19,14 +19,14 @@ trait NullGuards
      * Validates if the given value  is `null` and returns it.
      *
      * This method verifies that a value is `null` and throws an
-     * {@see InvalidArgumentException} if it's not.
+     * {@see InvalidGuardArgumentException} if it's not.
      *
      * @param  mixed  $value The value to verify.
      * @param  string|null  $message The exception message to throw.
      *
      * @return mixed The value if it's `null`.
      *
-     * @throws InvalidArgumentException If the value is not `null`.
+     * @throws InvalidGuardArgumentException If the value is not `null`.
      *
      * @see Alias: Guard::n()
      * @see Alias: Guard::null()
@@ -35,7 +35,7 @@ trait NullGuards
     public static function isNull(mixed $value, ?string $message = null): mixed
     {
         return $value !== null
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected null. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],

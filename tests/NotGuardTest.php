@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use EventMachinePHP\Guard\Exceptions\NotGuardException;
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Exceptions\NotGuardException;
 
 test('Guard::not()->isString(passing)')
     ->expect(Guard::not()->isString(value: 123))
@@ -12,4 +12,4 @@ test('Guard::not()->isString(passing)')
 
 test('Guard::not()->isString(failing)')
     ->throws(NotGuardException::class)
-    ->expect(fn() => Guard::not()->isString(value: 'string'));
+    ->expect(fn () => Guard::not()->isString(value: 'string'));

@@ -8,7 +8,7 @@ use function is_a;
 use function is_string;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating instance values.
@@ -33,14 +33,14 @@ trait InstanceGuards
      * given class and returns it.
      *
      * Verifies if the value is an instance of the specified class. If the
-     * check fails, an {@see InvalidArgumentException} is thrown with a
+     * check fails, an {@see InvalidGuardArgumentException} is thrown with a
      * custom or default message.
      *
      * @param  mixed  $value     The value to check.
      * @param  string  $class     The class to check the value against.
      * @param  string|null  $message The custom message for the exception.
      *
-     * @throws InvalidArgumentException if the check fails.
+     * @throws InvalidGuardArgumentException if the check fails.
      *
      * @see Alias: Guard::ia()
      * @see Alias: Guard::iio()
@@ -53,7 +53,7 @@ trait InstanceGuards
     public static function isInstanceOf(mixed $value, string $class, ?string $message = null): object
     {
         return !($value instanceof $class)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of %s. Got: %s (%s)',
                 values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -66,7 +66,7 @@ trait InstanceGuards
      * of a specified class and returns it.
      *
      * This method checks if the given value is not an instance of the
-     * specified class. If it is, an {@see InvalidArgumentException}
+     * specified class. If it is, an {@see InvalidGuardArgumentException}
      * is thrown. If the value is not an instance of the class,
      * the value is returned.
      *
@@ -76,7 +76,7 @@ trait InstanceGuards
      *
      * @return mixed The value if it is not an instance of the specified class.
      *
-     * @throws InvalidArgumentException If the value is an instance of the specified class.
+     * @throws InvalidGuardArgumentException If the value is an instance of the specified class.
      *
      * @see Alias: Guard::nio()
      * @see Alias: Guard::notInstanceOf()
@@ -87,7 +87,7 @@ trait InstanceGuards
     public static function isNotInstanceOf(mixed $value, string $class, ?string $message = null): mixed
     {
         return $value instanceof $class
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value not being an instance of %s. Got: %s (%s)',
                 values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -101,7 +101,7 @@ trait InstanceGuards
      *
      * This method checks if the given value is an instance of at
      * least one of the classes in the `$classes` array. If it is
-     * not, an {@see InvalidArgumentException} will be thrown
+     * not, an {@see InvalidGuardArgumentException} will be thrown
      * with a message indicating which classes were expected
      * and what value was received instead.
      *
@@ -111,7 +111,7 @@ trait InstanceGuards
      *
      * @return mixed The validated value.
      *
-     * @throws InvalidArgumentException If the value is not an instance of any of the given classes.
+     * @throws InvalidGuardArgumentException If the value is not an instance of any of the given classes.
      *
      * @see Alias: Guard::ioe()
      * @see Alias: Guard::instanceOfAny()
@@ -127,7 +127,7 @@ trait InstanceGuards
             }
         }
 
-        return throw InvalidArgumentException::create(
+        return throw InvalidGuardArgumentException::create(
             customMessage: $message,
             defaultMessage: 'Expected an instance of any of %s. Got: %s (%s)',
             values: [implode(', ', $classes), self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -142,7 +142,7 @@ trait InstanceGuards
      * of a class among its parents. It first checks if the class
      * exists and then checks if the value is an instance of the
      * specified class or of one of its parents. If it's not,
-     * it throws an {@see InvalidArgumentException}.
+     * it throws an {@see InvalidGuardArgumentException}.
      *
      * @param  mixed  $value The value to check.
      * @param  mixed  $class The class name to check the value against.
@@ -150,7 +150,7 @@ trait InstanceGuards
      *
      * @return mixed The original value if the check passes.
      *
-     * @throws InvalidArgumentException If the value is not an instance of the specified class or of one of its parents.
+     * @throws InvalidGuardArgumentException If the value is not an instance of the specified class or of one of its parents.
      *
      * @see Alias: Guard::iao()
      * @see Alias: Guard::is_a_of()
@@ -161,7 +161,7 @@ trait InstanceGuards
         Guard::isClassExists($class);
 
         return !is_a($value, $class, is_string($value))
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of this class or to this class among its parents "%s". Got: %s (%s)',
                 values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],

@@ -6,7 +6,7 @@ namespace EventMachinePHP\Guard\Guards;
 
 use function is_object;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains guards that check if a value is of type object.
@@ -20,7 +20,7 @@ trait ObjectGuards
     /**
      * Validates if the given value is an object and returns it.
      *
-     * If the given value is not an object, an {@see InvalidArgumentException}
+     * If the given value is not an object, an {@see InvalidGuardArgumentException}
      * will be thrown. The exception message can be customized by providing a
      * custom message as an optional second argument.
      *
@@ -29,7 +29,7 @@ trait ObjectGuards
      *
      * @return object The original value if it is an object.
      *
-     * @throws InvalidArgumentException If the value is not an object.
+     * @throws InvalidGuardArgumentException If the value is not an object.
      *
      * @see Alias: Guard::o()
      * @see Alias: Guard::object()
@@ -39,7 +39,7 @@ trait ObjectGuards
     public static function isObject(mixed $value, ?string $message = null): object
     {
         return !is_object($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an object. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],

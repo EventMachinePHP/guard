@@ -6,7 +6,7 @@ namespace EventMachinePHP\Guard\Guards;
 
 use function is_bool;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating boolean values.
@@ -25,7 +25,7 @@ trait BooleanGuards
     /**
      * Validates if the given value is a boolean and returns it.
      *
-     * If the value is not a boolean, an {@see InvalidArgumentException}
+     * If the value is not a boolean, an {@see InvalidGuardArgumentException}
      * is thrown. The exception message can be customized by providing
      * the `$message` parameter.
      *
@@ -34,7 +34,7 @@ trait BooleanGuards
      *
      * @return bool The validated boolean value.
      *
-     * @throws InvalidArgumentException If the value is not a boolean.
+     * @throws InvalidGuardArgumentException If the value is not a boolean.
      *
      * @see Alias: Guard::b()
      * @see Alias: Guard::bool()
@@ -45,7 +45,7 @@ trait BooleanGuards
     public static function isBoolean(mixed $value, ?string $message = null): bool
     {
         return !is_bool($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a boolean value. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -58,7 +58,7 @@ trait BooleanGuards
      *
      * This method checks if the given value is equal to `true`.
      * If the value is not equal to `true`, it will throw an
-     * {@see InvalidArgumentException}. The custom error
+     * {@see InvalidGuardArgumentException}. The custom error
      * message or the default error message will be
      * used depending on the availability of the
      * custom message.
@@ -75,7 +75,7 @@ trait BooleanGuards
     public static function isTrue(mixed $value, ?string $message = null): bool
     {
         return $value !== true
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value to be true. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -88,7 +88,7 @@ trait BooleanGuards
      *
      * This method checks if the given value is equal to `false`.
      * If the value is not equal to `false`, it will throw an
-     * {@see InvalidArgumentException}. The custom error
+     * {@see InvalidGuardArgumentException}. The custom error
      * message or the default error message will be
      * used depending on the availability of the
      * custom message.
@@ -105,7 +105,7 @@ trait BooleanGuards
     public static function isFalse(mixed $value, ?string $message = null): bool
     {
         return $value !== false
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value to be false. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],

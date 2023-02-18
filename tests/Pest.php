@@ -154,7 +154,7 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
 expect()->extend('notToThrowInvalidArgumentException', function () {
     return $this
         ->not()
-        ->toThrow(EventMachinePHP\Guard\Exceptions\InvalidArgumentException::class);
+        ->toThrow(EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException::class);
 });
 
 /*
@@ -188,7 +188,7 @@ expect()->extend('validateAliases', function (): void {
             expect(call_user_func([Guard::class, $aliasMethodName], ...$passingArguments))
                 ->notToThrowInvalidArgumentException()
                 ->and(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingArguments))
-                ->toThrow(\EventMachinePHP\Guard\Exceptions\InvalidArgumentException::class);
+                ->toThrow(\EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException::class);
         }
     }
 });

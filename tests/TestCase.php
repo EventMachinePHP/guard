@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Tests;
 
 use Closure;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +19,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         $message = $callable(...)->bindTo(test())(...test()->getProvidedData());
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidGuardArgumentException::class);
         $this->expectExceptionMessage($message);
     }
 }

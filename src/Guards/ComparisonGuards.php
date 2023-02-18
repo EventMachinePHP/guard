@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating compared values.
@@ -26,7 +26,7 @@ trait ComparisonGuards
      * and returns it.
      *
      * If the given value is less than or equal to the limit, an
-     * {@see InvalidArgumentException} will be thrown with a
+     * {@see InvalidGuardArgumentException} will be thrown with a
      * default or custom message.
      *
      * @param  mixed  $value The value to validate.
@@ -35,7 +35,7 @@ trait ComparisonGuards
      *
      * @return mixed The original value.
      *
-     * @throws InvalidArgumentException If the value is less than or equal to the limit.
+     * @throws InvalidGuardArgumentException If the value is less than or equal to the limit.
      *
      * @see Alias: Guard::gt()
      * @see Alias: Guard::greaterThan()
@@ -44,7 +44,7 @@ trait ComparisonGuards
     public static function isGreaterThan(mixed $value, mixed $limit, ?string $message = null): mixed
     {
         return $value <= $limit
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than: %s (%s). Got: %s (%s)',
                 values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -62,7 +62,7 @@ trait ComparisonGuards
      *
      * @return mixed The input value
      *
-     *@throws InvalidArgumentException If the value is not greater than or equal to the limit
+     *@throws InvalidGuardArgumentException If the value is not greater than or equal to the limit
      *
      * @see Alias: Guard::gte()
      * @see Alias: Guard::greaterThanOrEqual()
@@ -71,7 +71,7 @@ trait ComparisonGuards
     public static function isGreaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
     {
         return $value < $limit
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value greater than or equal to: %s (%s). Got: %s (%s)',
                 values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -82,7 +82,7 @@ trait ComparisonGuards
     /**
      * Validates if the value is less than a limit and returns it.
      *
-     * Throws an {@see InvalidArgumentException} if the value is
+     * Throws an {@see InvalidGuardArgumentException} if the value is
      * greater than or equal to the limit.
      *
      * @param  mixed  $value The value to validate.
@@ -91,7 +91,7 @@ trait ComparisonGuards
      *
      * @return mixed The value if validation is successful.
      *
-     * @throws InvalidArgumentException If the value is greater than or equal to the limit.
+     * @throws InvalidGuardArgumentException If the value is greater than or equal to the limit.
      *
      * @see Alias: Guard::lt()
      * @see Alias: Guard::lessThan()
@@ -100,7 +100,7 @@ trait ComparisonGuards
     public static function isLessThan(mixed $value, mixed $limit, ?string $message = null): mixed
     {
         return $value >= $limit
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than: %s (%s). Got: %s (%s)',
                 values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -124,7 +124,7 @@ trait ComparisonGuards
      *
      * @return mixed The value if it is less than or equal to the limit
      *
-     *@throws InvalidArgumentException If the value is greater than the limit
+     *@throws InvalidGuardArgumentException If the value is greater than the limit
      *
      * @see Alias: Guard::lte()
      * @see Alias: Guard::lessThanOrEqual()
@@ -133,7 +133,7 @@ trait ComparisonGuards
     public static function isLessThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
     {
         return $value > $limit
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value less than or equal to: %s (%s). Got: %s (%s)',
                 values: [self::valueToString($limit), self::valueToType($limit), self::valueToString(value: $value), self::valueToType(value: $value)],

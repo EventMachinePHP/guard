@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating equality values.
@@ -37,7 +37,7 @@ trait EqualityGuards
      *
      * @return mixed The value if it is equal to the expected value.
      *
-     * @throws InvalidArgumentException If the value is not equal to the expected value.
+     * @throws InvalidGuardArgumentException If the value is not equal to the expected value.
      *
      * @see Alias: Guard::eq()
      * @see Alias: Guard::equalTo()
@@ -46,7 +46,7 @@ trait EqualityGuards
     public static function isEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
     {
         return $value != $expect
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
@@ -57,7 +57,7 @@ trait EqualityGuards
     /**
      * Validates if the given value is not equal to the expected value and returns it.
      *
-     * Throws an {@see InvalidArgumentException} if the value is equal to the expected
+     * Throws an {@see InvalidGuardArgumentException} if the value is equal to the expected
      * value. The exception message can be customized through the `$message` parameter
      * or a default message will be used if not provided.
      *
@@ -67,7 +67,7 @@ trait EqualityGuards
      *
      * @return mixed The original value if validation passes.
      *
-     * @throws InvalidArgumentException If the value is equal to the expected value.
+     * @throws InvalidGuardArgumentException If the value is equal to the expected value.
      *
      * @see Alias: Guard::neq()
      * @see Alias: Guard::notEq()
@@ -79,7 +79,7 @@ trait EqualityGuards
     public static function IsNotEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
     {
         return $value == $expect
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
@@ -93,7 +93,7 @@ trait EqualityGuards
      *
      * This method is used to check that a value is identical to a specified
      * value. If the value is not identical to the specified value, an
-     * {@see InvalidArgumentException} will be thrown.
+     * {@see InvalidGuardArgumentException} will be thrown.
      *
      * @param  mixed  $value     The value to be verified.
      * @param  mixed  $expect    The expected value.
@@ -101,7 +101,7 @@ trait EqualityGuards
      *
      * @return mixed The value if it is identical to the specified value.
      *
-     * @throws InvalidArgumentException if the value is not identical to the specified value.
+     * @throws InvalidGuardArgumentException if the value is not identical to the specified value.
      *
      * @see Alias: Guard::id()
      * @see Alias: Guard::same()
@@ -114,7 +114,7 @@ trait EqualityGuards
     public static function isIdenticalTo(mixed $value, mixed $expect, ?string $message = null): mixed
     {
         return $value !== $expect
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value identical to: %s (%s). Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],

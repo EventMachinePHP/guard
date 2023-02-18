@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use EventMachinePHP\Guard\GuardedTypes\BooleanValue;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 test('new BooleanValue(valid)')
     ->expect(new BooleanValue(value: true))
@@ -14,7 +14,7 @@ test('(new BooleanValue(value: true))()')
     ->toBe(true);
 
 test('new BooleanValue(invalid)')
-    ->expectException(InvalidArgumentException::class)
+    ->expectException(InvalidGuardArgumentException::class)
     ->expect(fn () => new BooleanValue(value: 'invalid'));
 
 test('BooleanValue::make()')

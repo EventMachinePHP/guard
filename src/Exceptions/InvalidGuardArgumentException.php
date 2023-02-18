@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Exceptions;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidGuardArgumentException extends \InvalidArgumentException
 {
     public static function create(
         ?string $customMessage = null,

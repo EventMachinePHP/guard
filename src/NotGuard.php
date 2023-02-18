@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard;
 
 use BadMethodCallException;
+use function call_user_func;
 use InvalidArgumentException;
 use EventMachinePHP\Guard\Exceptions\NotGuardException;
-use function call_user_func;
 
 /**
  * @method static string isString(mixed $value, ?string $message = null) Opposite of {@see Guard::isString()}
@@ -17,7 +17,7 @@ class NotGuard
     private static ?NotGuard $instance = null;
 
     /**
-     * Prevents direct instantiation
+     * Prevents direct instantiation.
      */
     private function __construct()
     {

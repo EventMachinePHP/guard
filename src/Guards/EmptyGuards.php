@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating empty values.
@@ -25,7 +25,7 @@ trait EmptyGuards
      *
      * @return mixed The given value if it is empty.
      *
-     * @throws InvalidArgumentException If the value is not empty.
+     * @throws InvalidGuardArgumentException If the value is not empty.
      *
      * @see Alias: Guard::ie()
      * @see Alias: Guard::empty()
@@ -34,7 +34,7 @@ trait EmptyGuards
     public static function isEmpty(mixed $value, ?string $message = null): mixed
     {
         return !empty($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an empty value. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],

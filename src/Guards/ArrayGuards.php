@@ -7,7 +7,7 @@ namespace EventMachinePHP\Guard\Guards;
 use ArrayAccess;
 use function is_array;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating array values.
@@ -30,7 +30,7 @@ trait ArrayGuards
     /**
      * Validates if the given value is an array and returns it.
      *
-     * Throws an {@see InvalidArgumentException} if the value
+     * Throws an {@see InvalidGuardArgumentException} if the value
      * is not an array.
      *
      * @param  mixed  $value The value to validate.
@@ -38,7 +38,7 @@ trait ArrayGuards
      *
      * @return array The value as an array.
      *
-     * @throws InvalidArgumentException If the value is not an array.
+     * @throws InvalidGuardArgumentException If the value is not an array.
      *
      * @see Alias: Guard::a()
      * @see Alias: Guard::array()
@@ -48,7 +48,7 @@ trait ArrayGuards
     public static function isArray(mixed $value, ?string $message = null): array
     {
         return !is_array($value)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -63,7 +63,7 @@ trait ArrayGuards
      * This method checks if the given value is either an array or
      * an object that implements the {@see ArrayAccess} interface.
      * If the value is not an array or {@see ArrayAccess}, it
-     * throws an {@see InvalidArgumentException} with a
+     * throws an {@see InvalidGuardArgumentException} with a
      * custom or default error message.
      *
      * @param  mixed  $value The value to be checked.
@@ -71,7 +71,7 @@ trait ArrayGuards
      *
      * @return array|ArrayAccess The value if it is either an array or implements ArrayAccess.
      *
-     * @throws InvalidArgumentException If the value is not an array or ArrayAccess.
+     * @throws InvalidGuardArgumentException If the value is not an array or ArrayAccess.
      *
      * @see Alias: Guard::aa()
      * @see Alias: Guard::array_accessible()
@@ -81,7 +81,7 @@ trait ArrayGuards
     public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess
     {
         return !is_array($value) && !($value instanceof ArrayAccess)
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -118,7 +118,7 @@ trait ArrayGuards
                 }
             }
             if ($count > 1) {
-                throw InvalidArgumentException::create(
+                throw InvalidGuardArgumentException::create(
                     customMessage: $message,
                     defaultMessage: 'Expected strict unique values. Got duplicate values',
                     values: []
@@ -158,7 +158,7 @@ trait ArrayGuards
                 }
             }
             if ($count > 1) {
-                throw InvalidArgumentException::create(
+                throw InvalidGuardArgumentException::create(
                     customMessage: $message,
                     defaultMessage: 'Expected loose unique values. Got duplicate values',
                     values: []

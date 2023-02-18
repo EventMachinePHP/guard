@@ -8,7 +8,7 @@ use function class_exists;
 use function is_subclass_of;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
-use EventMachinePHP\Guard\Exceptions\InvalidArgumentException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This trait contains methods for validating class values.
@@ -27,7 +27,7 @@ trait ClassGuards
      * This method checks if the input string is a valid class name and
      * class exists in the current environment. If the input is not a
      * valid class name or the class does not exist, an
-     * {@see InvalidArgumentException} is thrown.
+     * {@see InvalidGuardArgumentException} is thrown.
      *
      * @param  mixed  $value    The input value to validate.
      * @param  string|null  $message  Custom error message to use.
@@ -44,7 +44,7 @@ trait ClassGuards
         Guard::isString($value);
 
         return (!class_exists($value))
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an existing class name. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
@@ -61,7 +61,7 @@ trait ClassGuards
      * class name.
      *
      * If `$value` is not a subclass of `$parentClass`, an
-     * {@see InvalidArgumentException} will be thrown with
+     * {@see InvalidGuardArgumentException} will be thrown with
      * either the `$message` or a default message.
      *
      * @param  string|object  $value      - The value to check
@@ -70,7 +70,7 @@ trait ClassGuards
      *
      * @return string|object - The original `$value`
      *
-     * @throws InvalidArgumentException if `$value` is not a subclass of `$parentClass`
+     * @throws InvalidGuardArgumentException if `$value` is not a subclass of `$parentClass`
      *
      * @see Alias: Guard::sub()
      * @see Alias: Guard::subclass_of()
@@ -82,7 +82,7 @@ trait ClassGuards
         $parentClass = is_object($parentClass) ? $parentClass::class : $parentClass;
 
         return (!is_subclass_of($value, $parentClass))
-            ? throw InvalidArgumentException::create(
+            ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a subclass of %s. Got: %s (%s)',
                 values: [$parentClass, self::valueToString(value: $value), self::valueToType(value: $value)],
