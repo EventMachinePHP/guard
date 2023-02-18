@@ -72,6 +72,8 @@ class Guard
     // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
     // TODO: dataset's has duplicate test cases?
     // TODO: Loop through Pest's expectations: toBeNull, toBeNAN?
+    // TODO: Consider thatAll(): Validates all rules and then return the failed ones
+    // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
 
     // region Aliases
 
@@ -115,6 +117,8 @@ class Guard
 
     // endregion
 
+    // region Combination Guards
+
     public static function not(): NotGuard
     {
         return NotGuard::getInstance();
@@ -124,4 +128,11 @@ class Guard
     {
         return NullOrGuard::getInstance();
     }
+
+    public static function that(mixed $value): LazyGuard
+    {
+        return new LazyGuard($value);
+    }
+
+    // endregion
 }
