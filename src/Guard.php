@@ -74,6 +74,7 @@ class Guard
     // TODO: Loop through Pest's expectations: toBeNull, toBeNAN?
     // TODO: Consider thatAll(): Validates all rules and then return the failed ones
     // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
+    // TODO: https://github.com/spatie/pest-expectations
 
     // region Aliases
 

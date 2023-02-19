@@ -5,6 +5,12 @@ declare(strict_types=1);
 use Pest\Datasets;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Tests\TestCase;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
+
+const PASSING_CASES  = '.passing';
+const FAILING_CASES  = '.failing';
+const ERROR_MESSAGES = '.errors';
+const ALIASES        = '.aliases';
 
 /* @infection-ignore-all */
 uses(TestCase::class)->in(__DIR__);
@@ -146,18 +152,6 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
 });
 
 /*
- * Adds a custom expectation to the test case to check that an
- * exception of type `InvalidArgumentException` is not thrown.
- *
- * @infection-ignore-all
- */
-expect()->extend('notToThrowInvalidArgumentException', function () {
-    return $this
-        ->not()
-        ->toThrow(EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException::class);
-});
-
-/*
  * The "validateAliases" Pest extension method tests each alias method for the
  * passed in ReflectionMethod instance and asserts that it does not throw an
  * InvalidArgumentException when passed valid arguments, and does throw an
@@ -178,17 +172,44 @@ expect()->extend('validateAliases', function (): void {
         $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
 
         foreach ($aliasMethodNames as $aliasMethodName) {
-            $passingArguments = Datasets::get($reflectionMethod->getName().'(passing)');
+            $passingArguments = Datasets::get('Guard::'.$reflectionMethod->getName().PASSING_CASES);
             $passingArguments = $passingArguments[array_key_first($passingArguments)];
 
-            $failingArguments = Datasets::get($reflectionMethod->getName().'(failing)');
+            $failingArguments = Datasets::get('Guard::'.$reflectionMethod->getName().FAILING_CASES);
             $failingArguments = $failingArguments[array_key_first($failingArguments)];
-            array_pop($failingArguments);
 
             expect(call_user_func([Guard::class, $aliasMethodName], ...$passingArguments))
-                ->notToThrowInvalidArgumentException()
+                //->notToThrowInvalidArgumentException()
                 ->and(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingArguments))
-                ->toThrow(\EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException::class);
+                ->toThrow(InvalidGuardArgumentException::class);
         }
     }
 });
+
+function guardNameFromFile(string $filePath): string
+{
+    $parts    = explode('/', $filePath);
+    $fileName = array_pop($parts);
+
+    return lcfirst(str_replace(['Test.php', '.php'], '', $fileName));
+}
+
+function passingCasesDescription(string $filePath): string
+{
+    return guardNameFromFile($filePath).PASSING_CASES;
+}
+
+function failingCasesDescription(string $filePath): string
+{
+    return guardNameFromFile($filePath).FAILING_CASES;
+}
+
+function errorMessagesDescription(string $filePath): string
+{
+    return guardNameFromFile($filePath).ERROR_MESSAGES;
+}
+
+function aliasesDescription(string $filePath): string
+{
+    return 'Guard::'.guardNameFromFile($filePath).ALIASES;
+}

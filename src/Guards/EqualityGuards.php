@@ -12,9 +12,6 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  *
  * @method static mixed eq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isEqualTo()}
  * @method static mixed equalTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isEqualTo()}
- * @method static mixed neq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
- * @method static mixed notEq(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
- * @method static mixed notEqualTo(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::IsNotEqualTo()}
  * @method static mixed id(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
  * @method static mixed same(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
  * @method static mixed identical(mixed $value, mixed $expect, ?string $message = null) Alias of {@see Guard::isIdenticalTo()}
@@ -49,39 +46,6 @@ trait EqualityGuards
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a value equal to: %s (%s). Got: %s (%s)',
-                values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
-            )
-            : $value;
-    }
-
-    /**
-     * Validates if the given value is not equal to the expected value and returns it.
-     *
-     * Throws an {@see InvalidGuardArgumentException} if the value is equal to the expected
-     * value. The exception message can be customized through the `$message` parameter
-     * or a default message will be used if not provided.
-     *
-     * @param  mixed  $value     The value to be validated.
-     * @param  mixed  $expect    The expected value.
-     * @param  string|null  $message  Optional custom error message.
-     *
-     * @return mixed The original value if validation passes.
-     *
-     * @throws InvalidGuardArgumentException If the value is equal to the expected value.
-     *
-     * @see Alias: Guard::neq()
-     * @see Alias: Guard::notEq()
-     * @see Alias: Guard::notEqualTo()
-     *
-     * TODO: Consider to moving NotGuards?
-     */
-    #[Alias(['neq', 'notEq', 'notEqualTo'])]
-    public static function IsNotEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
-    {
-        return $value == $expect
-            ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a value different from: %s (%s). Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value), self::valueToString($expect), self::valueToType($expect)],
             )
             : $value;

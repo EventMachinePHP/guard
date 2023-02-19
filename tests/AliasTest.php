@@ -2,9 +2,15 @@
 
 declare(strict_types=1);
 
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
+use Pest\Datasets;
+use function Ozzie\Nest\test;
 use EventMachinePHP\Guard\Guard;
+use function Ozzie\Nest\describe;
 
-test('there is no duplicate method aliases', function (): void {
+test('no duplicate guard aliases', function (): void {
+    // TODO: Do this thorough traits
+
     // Create an array to store the method aliases
     $methodAliases = [];
 
@@ -40,7 +46,7 @@ test('there is no duplicate method aliases', function (): void {
     }
 });
 
-test('aliases should be documented on trait and methods docblocks', function (): void {
+describe('Alias Docblocks: ', function (): void {
     // Create a ReflectionClass instance for the Guard class
     $reflectionClass = new ReflectionClass(Guard::class);
 
@@ -101,21 +107,69 @@ test('aliases should be documented on trait and methods docblocks', function ():
                 $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
                 foreach ($aliasMethodNames as $alias) {
                     // Check if the alias is documented in the trait docblock
-                    $this->assertStringContainsString(
-                        needle: generateMethodDocBlockDefinition($method, $alias),
-                        haystack: $traitDocComment,
-                        message: generateMethodDocBlockDefinitionErrorMessage($alias, $trait->getName()),
-                    );
+                    test("{$alias} (Trait DocBlock)", function () use ($trait, $alias, $method, $traitDocComment): void {
+                        $this->assertStringContainsString(
+                            needle: generateMethodDocBlockDefinition($method, $alias),
+                            haystack: $traitDocComment,
+                            message: generateMethodDocBlockDefinitionErrorMessage($alias, $trait->getName()),
+                        );
+                    });
 
                     // Check if the alias is documented in the method docblock
-                    $this->assertStringContainsString(
-                        needle: generateMethodAliasSeeDefinition($alias),
-                        haystack: $method->getDocComment() === false ? '' : $method->getDocComment(),
-                        message: generateMethodAliasSeeDefinitionErrorMessage($method),
-                    );
+                    test("{$alias} (Method DocBlock)", function () use ($alias, $method): void {
+                        $this->assertStringContainsString(
+                            needle: generateMethodAliasSeeDefinition($alias),
+                            haystack: $method->getDocComment() === false ? '' : $method->getDocComment(),
+                            message: generateMethodAliasSeeDefinitionErrorMessage($method),
+                        );
+                    });
                 }
             }
         }
     }
-})
-    ->depends(tests:'there is no duplicate method aliases');
+});
+
+describe('Guard Alias: ', function (): void {
+    // Create a ReflectionClass instance for the Guard class
+    $reflectionClass = new ReflectionClass(Guard::class);
+
+    // Get all the traits used by the Guard class
+    $traits = $reflectionClass->getTraits();
+
+    // Iterate over each trait and its methods
+    foreach ($traits as $trait) {
+        foreach ($trait->getMethods() as $method) {
+            // Check if the method has any attributes
+            foreach ($method->getAttributes() as $attribute) {
+                // Get the arguments for the attribute
+                $attributeArguments = $attribute->getArguments()[0];
+
+                // Convert the argument to an array if it's not already
+                $aliasMethodNames = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
+
+                // Increment the alias count for the trait and store the alias for the method
+                foreach ($aliasMethodNames as $aliasMethodName) {
+                    // Randomly select a passing case for the method
+                    $passingCases    = Datasets::get($method->getName().PASSING_CASES);
+                    $passingCaseKeys = array_keys($passingCases);
+                    $passingCases    = $passingCases[$passingCaseKeys[array_rand($passingCaseKeys)]];
+
+                    // Randomly select a failing case for the method
+                    $failingCases    = Datasets::get($method->getName().FAILING_CASES);
+                    $failingCaseKeys = array_keys($failingCases);
+                    $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
+
+                    test($aliasMethodName.'(passing)', function () use ($passingCases, $aliasMethodName): void {
+                        expect(call_user_func([Guard::class, $aliasMethodName], ...$passingCases))
+                            ->toBe($passingCases[array_key_first($passingCases)]);
+                    });
+
+                    test($aliasMethodName.'(failing)', function () use ($failingCases, $aliasMethodName): void {
+                        expect(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingCases))
+                            ->toThrow(InvalidGuardArgumentException::class);
+                    });
+                }
+            }
+        }
+    }
+});

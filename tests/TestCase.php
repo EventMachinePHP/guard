@@ -22,4 +22,16 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $this->expectException(InvalidGuardArgumentException::class);
         $this->expectExceptionMessage($message);
     }
+
+    public function expectExceptionMessage(Closure|string $message): void
+    {
+        if (is_string($message)) {
+            parent::expectExceptionMessage($message);
+        } else {
+            $message = $message(...)->bindTo(test())(...test()->getProvidedData());
+            $message = array_pop($message);
+
+            parent::expectExceptionMessage((string) $message);
+        }
+    }
 }

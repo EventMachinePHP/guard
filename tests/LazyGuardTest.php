@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
 
-test('Guard::that()->(...)(passing)')
+test('Guard::that()->(...)(passingCases)')
     ->expect(
         Guard::that(value: 123)
             ->isNumeric()
@@ -13,10 +13,9 @@ test('Guard::that()->(...)(passing)')
             ->isGreaterThan(limit: 100)
             ->validate()
     )
-    ->toBe(123)
-    ->notToThrowInvalidArgumentException();
+    ->toBe(123);
 
-test('Guard::that()->(...)(failing)')
+test('Guard::that()->(...)(failingCases)')
     ->expectException(InvalidArgumentException::class)
     ->expect(
         fn () => Guard::that(value: 123)

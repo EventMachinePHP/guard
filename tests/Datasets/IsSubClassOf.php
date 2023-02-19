@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+use EventMachinePHP\Guard\Tests\Fixtures\A;
+use EventMachinePHP\Guard\Tests\Fixtures\B;
+
+dataset(passingCasesDescription(filePath: __FILE__), [
+    '(\EventMachinePHP\Guard\Tests\TestCase::class, TestCase::class)' => [\EventMachinePHP\Guard\Tests\TestCase::class, TestCase::class],
+    '(A::class, stdClass::class)'                                     => [A::class, stdClass::class],
+    //'(new A(), new stdClass())'                                       => [new A(), new stdClass()],
+    '(B::class, A::class)' => [B::class, A::class],
+    '(B::class, new A())'  => [B::class, new A()],
+]);
+
+dataset(failingCasesDescription(filePath: __FILE__), [
+    [A::class, B::class, 'Expected a subclass of B. Got: "A" (string)'],
+    [B::class, 'not-exists-parent::class', 'Expected a subclass of not-exists-parent::class. Got: "B" (string)'],
+    ['not-exists::class', A::class, 'Expected a subclass of A. Got: "not-exists::class" (string)'],
+]);
+
+dataset(errorMessagesDescription(filePath: __FILE__), [
+    'default error message' => [null, 'DEFAULT'],
+    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
+]);

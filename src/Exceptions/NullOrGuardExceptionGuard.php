@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Exceptions;
 
-class NullOrGuardExceptionGuard extends InvalidGuardArgumentException
+use Exception;
+
+class NullOrGuardExceptionGuard extends Exception
 {
     public static function fromException(InvalidGuardArgumentException $exception): self
     {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard;
 
 use BadMethodCallException;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 use function call_user_func;
-use InvalidArgumentException;
 use EventMachinePHP\Guard\Exceptions\NotGuardException;
 
 /**
@@ -45,7 +45,7 @@ class NotGuard
             call_user_func([Guard::class, $name], ...$arguments);
 
             throw new NotGuardException(sprintf('Expected %s() to fail, but not failed.', $name));
-        } catch (InvalidArgumentException) {
+        } catch (InvalidGuardArgumentException) {
             return $arguments[array_key_first($arguments)];
         }
     }
