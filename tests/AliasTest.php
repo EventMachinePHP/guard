@@ -9,8 +9,6 @@ use function Ozzie\Nest\describe;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 test('no duplicate guard alias exists', function (): void {
-    // TODO: Do this thorough traits
-
     // Create an array to store the method aliases
     $methodAliases = [];
 

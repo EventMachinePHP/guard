@@ -37,6 +37,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * TODO: Introduce Guard::isNegativeInteger() Guard
  * TODO: Introduce Guard::isNegativeNumber() Guard
  * TODO: ? isNegativeNumeric(), isNegativeIntegerValue()
+ * TODO: Add missing tests
  */
 trait NumericGuards
 {

@@ -72,7 +72,6 @@ trait EqualityGuards
      * @see Alias: Guard::identical()
      * @see Alias: Guard::identicalTo()
      *
-     * TODO: Consider not()->identicalTo()
      */
     #[Alias(['id', 'same', 'identical', 'identicalTo'])]
     public static function isIdenticalTo(mixed $value, mixed $expect, ?string $message = null): mixed
