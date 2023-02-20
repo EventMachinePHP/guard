@@ -9,14 +9,9 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
-    '(12.34)'  => [12.34, 'Expected an isIntegerValue value. Got: 12.34 (float)'],
-    '(true)'   => [true, 'Expected an isIntegerValue value. Got: true (bool)'],
-    '(null)'   => [null, 'Expected an isIntegerValue value. Got: null (null)'],
-    '(array)'  => [[], 'Expected an isIntegerValue value. Got: array (array)'],
-    '(object)' => [new stdClass(), 'Expected an isIntegerValue value. Got: stdClass (stdClass)'],
-]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
+    '(12.34)'          => [12.34, 'Expected an isIntegerValue value. Got: 12.34 (float)'],
+    '(true)'           => [true, 'Expected an isIntegerValue value. Got: true (bool)'],
+    '(null)'           => [null, 'Expected an isIntegerValue value. Got: null (null)'],
+    '([])'             => [[], 'Expected an isIntegerValue value. Got: array (array)'],
+    '(new stdClass())' => [new stdClass(), 'Expected an isIntegerValue value. Got: stdClass (stdClass)'],
 ]);

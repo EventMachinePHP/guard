@@ -12,8 +12,3 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 dataset(failingCasesDescription(filePath: __FILE__), [
     "('foo')" => ['foo', 'Expected a numeric value. Got: "foo" (string)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

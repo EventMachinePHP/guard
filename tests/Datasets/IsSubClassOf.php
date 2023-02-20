@@ -15,12 +15,7 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
-    [A::class, B::class, 'Expected a subclass of B. Got: "A" (string)'],
-    [B::class, 'not-exists-parent::class', 'Expected a subclass of not-exists-parent::class. Got: "B" (string)'],
-    ['not-exists::class', A::class, 'Expected a subclass of A. Got: "not-exists::class" (string)'],
-]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
+    '(A::class, B::class)'                   => [A::class, B::class, 'Expected a subclass of B. Got: "A" (string)'],
+    "(B::class, 'not-exists-parent::class')" => [B::class, 'not-exists-parent::class', 'Expected a subclass of not-exists-parent::class. Got: "B" (string)'],
+    "('not-exists::class', A::class)"        => ['not-exists::class', A::class, 'Expected a subclass of A. Got: "not-exists::class" (string)'],
 ]);

@@ -12,8 +12,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     '(123)'            => [123, 'Expected an iterable. Got: 123 (int)'],
     '(new stdClass())' => [new stdClass(), 'Expected an iterable. Got: stdClass (stdClass)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

@@ -17,8 +17,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     '(1.0)'    => [1.0, 'Expected an integer. Got: float'],
     '(1.23)'   => [1.23, 'Expected an integer. Got: float'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

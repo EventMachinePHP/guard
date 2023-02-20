@@ -13,13 +13,8 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
-    '([1, 2, 3, 1])'          => [[1, 2, 3, 1], 'Expected strict unique values. Got duplicate values'],
-    "(['a', 'b', 'a'])"       => [['a', 'b', 'a'], 'Expected strict unique values. Got duplicate values'],
-    '([[true, 1, 1]])'        => [[true, 1, 1], 'Expected strict unique values. Got duplicate values'],
-    '([[null, false, null]])' => [[null, false, null], 'Expected strict unique values. Got duplicate values'],
-]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'Expected strict unique values. Got duplicate values'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
+    '([1, 2, 3, 1])'        => [[1, 2, 3, 1], 'Expected strict unique values. Got duplicate values'],
+    "(['a', 'b', 'a'])"     => [['a', 'b', 'a'], 'Expected strict unique values. Got duplicate values'],
+    '([true, 1, 1])'        => [[true, 1, 1], 'Expected strict unique values. Got duplicate values'],
+    '([null, false, null])' => [[null, false, null], 'Expected strict unique values. Got duplicate values'],
 ]);

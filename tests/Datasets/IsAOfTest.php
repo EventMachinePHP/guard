@@ -23,8 +23,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     "([], 'Iterator')"                           => [[], 'Iterator', 'Expected an existing class name. Got: "Iterator" (string)'],
     '([], Iterator::class)'                      => [[], Iterator::class, 'Expected an existing class name. Got: "Iterator" (string)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

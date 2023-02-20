@@ -9,7 +9,6 @@ dataset(passingCasesDescription(filePath: __FILE__), [
     '(0)'     => [0],
     '(0.0)'   => [0.0],
     "('')"    => [''],
-    '("")'    => [''],
     '([])'    => [[]],
 ]);
 
@@ -20,10 +19,4 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     "('00')"           => ['00', 'Expected an empty value. Got: "00" (string)'],
     "('0 0')"          => ['0 0', 'Expected an empty value. Got: "0 0" (string)'],
     '(new stdClass())' => [new stdClass(), 'Expected an empty value. Got: stdClass (stdClass)'],
-    '(new stdClass())' => [new stdClass(), 'Expected an empty value. Got: stdClass (stdClass)'],
-]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
 ]);

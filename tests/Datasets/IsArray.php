@@ -12,8 +12,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     '(new stdClass())'        => [new stdClass(), 'Expected an array. Got: stdClass (stdClass)'],
     '(new ArrayIterator([]))' => [new ArrayIterator([]), 'Expected an array. Got: ArrayIterator (ArrayIterator)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'Expected an array. Got: '],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

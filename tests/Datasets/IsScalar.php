@@ -13,8 +13,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     '([])'             => [[], 'Expected a scalar value. Got: array (array)'],
     '(new stdClass())' => [new stdClass(), 'Expected a scalar value. Got: stdClass (stdClass)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

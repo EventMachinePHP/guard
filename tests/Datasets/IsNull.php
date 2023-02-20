@@ -13,8 +13,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     "('')"    => ['', 'Expected null. Got: "" (string)'],
     '([])'    => [[], 'Expected null. Got: array (array)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

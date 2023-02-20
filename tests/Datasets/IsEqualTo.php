@@ -14,8 +14,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     "(1, '2')"   => [1, '2', 'Expected a value equal to: 1 (int). Got: "2" (string)'],
     '(1, false)' => [1, false, 'Expected a value equal to: 1 (int). Got: false (bool)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

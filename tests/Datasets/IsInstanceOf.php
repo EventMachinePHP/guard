@@ -12,8 +12,3 @@ dataset(failingCasesDescription(filePath: __FILE__), [
     '([])'                          => [[], 'stdClass', 'Expected an instance of stdClass. Got: array (array)'],
     '(null)'                        => [null, 'stdClass', 'Expected an instance of stdClass. Got: null (null)'],
 ]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
-]);

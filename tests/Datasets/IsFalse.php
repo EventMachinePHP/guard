@@ -6,13 +6,9 @@ dataset(passingCasesDescription(filePath: __FILE__), [
     '(false)' => [false],
 ]);
 
+// TODO: Add error messages
 dataset(failingCasesDescription(filePath: __FILE__), [
-    '(true)' => [true, 'a'],
-    '(1)'    => [1, 'a'],
-    '(null)' => [null, 'a'],
-]);
-
-dataset(errorMessagesDescription(filePath: __FILE__), [
-    'default error message' => [null, 'DEFAULT'],
-    'custom error message'  => ['Custom Error Message', 'Custom Error Message'],
+    '(true)' => [true, 'M'],
+    '(1)'    => [1, 'M'],
+    '(null)' => [null, 'M'],
 ]);

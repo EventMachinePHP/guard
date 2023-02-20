@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 use Pest\Datasets;
 use function Ozzie\Nest\test;
 use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 test('no duplicate guard aliases', function (): void {
     // TODO: Do this thorough traits
