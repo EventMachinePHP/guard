@@ -12,6 +12,8 @@ const FAILING_CASES  = '.failing';
 const ERROR_MESSAGES = '.errors';
 const ALIASES        = '.aliases';
 
+const CUSTOM_ERROR_MESSAGE = 'Custom Error Message';
+
 /* @infection-ignore-all */
 uses(TestCase::class)->in(__DIR__);
 
@@ -212,4 +214,11 @@ function errorMessagesDescription(string $filePath): string
 function aliasesDescription(string $filePath): string
 {
     return 'Guard::'.guardNameFromFile($filePath).ALIASES;
+}
+
+function randomFailingCase(string $filePath): array
+{
+    $failingCases = Datasets::get(failingCasesDescription($filePath));
+
+    return [$failingCases[array_rand($failingCases)]];
 }

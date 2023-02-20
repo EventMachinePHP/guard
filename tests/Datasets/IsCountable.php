@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 dataset(passingCasesDescription(filePath: __FILE__), [
-    '([])'                      => [[]],
-    '([1, 2])'                  => [[1, 2]],
-    '(new ArrayIterator())'     => [new ArrayIterator()],
-    '(new ArrayIterator([])'    => [new ArrayIterator([])],
+    '([])'                   => [[]],
+    '([1, 2])'               => [[1, 2]],
+    '(new ArrayIterator())'  => [new ArrayIterator()],
+    '(new ArrayIterator([])' => [new ArrayIterator([])],
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [

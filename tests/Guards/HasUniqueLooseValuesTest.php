@@ -14,9 +14,23 @@ test(description: passingCasesDescription(__FILE__))
     ))
     ->toHaveValue(fn ($values) => $values);
 
-//test(description: failingCasesDescription(__FILE__))
-//    ->with(data: failingCasesDescription(__FILE__))
-//    ->with(data: errorMessagesDescription(__FILE__))
-//    ->expectException(InvalidGuardArgumentException::class)
-//    ->expectExceptionMessage(fn ($values, $message) => $message)
-//    ->expect(fn ($values, $message) => Guard::hasUniqueLooseValues(values: $values));
+test(description: failingCasesDescription(__FILE__))
+    ->with(data: failingCasesDescription(__FILE__))
+    ->expectException(InvalidGuardArgumentException::class)
+    ->expectExceptionMessage(fn ($values, $message) => $message)
+    ->expect(fn ($values, $message) => (
+        Guard::hasUniqueLooseValues(
+            values: $values
+        )
+    ));
+
+test(description: errorMessagesDescription(__FILE__))
+    ->with(data: randomFailingCase(__FILE__))
+    ->expectExceptionObject(new InvalidGuardArgumentException(message: CUSTOM_ERROR_MESSAGE))
+    ->expectException(InvalidGuardArgumentException::class)
+    ->expect(fn ($values, $message) => (
+        Guard::hasUniqueLooseValues(
+            values: $values,
+            message: CUSTOM_ERROR_MESSAGE
+        )
+    ));

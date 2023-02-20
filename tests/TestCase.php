@@ -29,7 +29,10 @@ class TestCase extends \PHPUnit\Framework\TestCase
             parent::expectExceptionMessage($message);
         } else {
             $message = $message(...)->bindTo(test())(...test()->getProvidedData());
-            $message = array_pop($message);
+
+            if (is_array($message)) {
+                $message = array_pop($message);
+            }
 
             parent::expectExceptionMessage((string) $message);
         }
