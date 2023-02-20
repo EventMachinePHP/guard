@@ -19,12 +19,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static object isA(mixed $value, string $class, ?string $message = null) Alias of {@see Guard::isInstanceOf()}}
  * @method static object instanceOf(mixed $value, string $class, ?string $message = null) Alias of {@see Guard::isInstanceOf()}}
  * @method static object is_instance_of(mixed $value, string $class, ?string $message = null) Alias of {@see Guard::isInstanceOf()}}
- * @method static mixed nio(mixed $value, string $class, ?string $message = null) Alias of {@see Guard::isNotInstanceOf()}}
- * @method static mixed notInstanceOf(mixed $value, string $class, ?string $message = null) Alias of {@see Guard::isNotInstanceOf()}}
  * @method static mixed ioe(mixed $value, array $classes, ?string $message = null) Alias of {@see Guard::isInstanceOfAny()}}
  * @method static mixed instanceOfAny(mixed $value, array $classes, ?string $message = null) Alias of {@see Guard::isInstanceOfAny()}}
  * @method static mixed iao(mixed $value, mixed $class, ?string $message = null) Alias of {@see Guard::isAOf()}}
- * @method static mixed is_a_of(mixed $value, mixed $class, ?string $message = null) Alias of {@see Guard::isAOf()}}
+ * @method static mixed a_of(mixed $value, mixed $class, ?string $message = null) Alias of {@see Guard::isAOf()}}
  */
 trait InstanceGuards
 {
@@ -56,40 +54,6 @@ trait InstanceGuards
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of %s. Got: %s (%s)',
-                values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
-    }
-
-    /**
-     * Validates if the given value is not an instance
-     * of a specified class and returns it.
-     *
-     * This method checks if the given value is not an instance of the
-     * specified class. If it is, an {@see InvalidGuardArgumentException}
-     * is thrown. If the value is not an instance of the class,
-     * the value is returned.
-     *
-     * @param  mixed  $value The value to check.
-     * @param  string  $class The class name to check against.
-     * @param  string|null  $message The error message to use when an exception is thrown.
-     *
-     * @return mixed The value if it is not an instance of the specified class.
-     *
-     * @throws InvalidGuardArgumentException If the value is an instance of the specified class.
-     *
-     * @see Alias: Guard::nio()
-     * @see Alias: Guard::notInstanceOf()
-     *
-     * TODO: Consider moving this to NotGuards?
-     */
-    #[Alias(['nio', 'notInstanceOf'])]
-    public static function isNotInstanceOf(mixed $value, string $class, ?string $message = null): mixed
-    {
-        return $value instanceof $class
-            ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a value not being an instance of %s. Got: %s (%s)',
                 values: [$class, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
@@ -153,9 +117,9 @@ trait InstanceGuards
      * @throws InvalidGuardArgumentException If the value is not an instance of the specified class or of one of its parents.
      *
      * @see Alias: Guard::iao()
-     * @see Alias: Guard::is_a_of()
+     * @see Alias: Guard::a_of()
      */
-    #[Alias(['iao', 'is_a_of'])]
+    #[Alias(['iao', 'a_of'])]
     public static function isAOf(mixed $value, mixed $class, ?string $message = null): mixed
     {
         Guard::isClassExists($class, $message);

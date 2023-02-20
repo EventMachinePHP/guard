@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 test(description: passingCasesDescription(__FILE__))
     ->with(data: passingCasesDescription(__FILE__))

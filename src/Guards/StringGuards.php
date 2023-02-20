@@ -21,6 +21,8 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  */
 trait StringGuards
 {
+    // TODO: Consider renaming to isStringNonEmpty()
+
     /**
      * Validates if the given value is a string and returns it.
      *
