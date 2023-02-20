@@ -12,11 +12,13 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  *
  * @method static mixed btw(mixed $value, mixed $min, mixed $max, ?string $message = null) Alias of {@see Guard::isBetween()}
  * @method static mixed between(mixed $value, mixed $min, mixed $max, ?string $message = null) Alias of {@see Guard::isBetween()}
+ * @method static mixed wtn(mixed $value, mixed $min, mixed $max, ?string $message = null) Alias of {@see Guard::isWithin()}
+ * @method static mixed within(mixed $value, mixed $min, mixed $max, ?string $message = null) Alias of {@see Guard::isWithin()}
  */
 trait RangeGuards
 {
     /**
-     * Validas if the given value is between min and max and return it.
+     * Validates if the given value is between min and max and return it.
      *
      * This method checks if the value is equal to or greater than the
      * minimum value and equal to or less than the maximum value. If
@@ -54,12 +56,27 @@ trait RangeGuards
             : $value;
     }
 
+    /**
+     * Validates if the given value is within the bounds defined by min and max.
+     *
+     * This method checks if the `$value` is greater than `$min` and less than `$max`.
+     * If the validation fails, an {@see InvalidGuardArgumentException} will be
+     * thrown.
+     *
+     *
+     *
+     * @throws InvalidGuardArgumentException
+     *
+     * @see Alias: Guard::wtn()
+     * @see Alias: Guard::within()
+     */
+    #[Alias(['wtn', 'within'])]
     public static function isWithin(mixed $value, mixed $min, mixed $max, ?string $message = null): mixed
     {
-        return $value <= $min || $value >= $max
+        return $value < $min || $value > $max
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
-                defaultMessage: 'Expected a value within %s (%s) and %s (%s). Got: %s (%s)',
+                defaultMessage: 'Expected a value within the bounds of %s (%s) and %s (%s). Got: %s (%s)',
                 values: [
                     self::valueToString($min),
                     self::valueToType($min),

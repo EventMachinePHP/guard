@@ -7,7 +7,6 @@ dataset(passingCasesDescription(filePath: __FILE__), [
     '(0)' => [0],
 ]);
 
-// TODO: Add error message
 dataset(failingCasesDescription(filePath: __FILE__), [
-    '(10)' => [10, 'Message'],
+    '(10)' => [10, 'Expected a digit. Got: 10 (int)'],
 ]);

@@ -122,9 +122,9 @@ trait InstanceGuards
     #[Alias(['iao', 'a_of'])]
     public static function isAOf(mixed $value, mixed $class, ?string $message = null): mixed
     {
-        Guard::isClassExists($class, $message);
+        //Guard::isClassExists($class, $message);
 
-        return !is_a($value, $class, is_string($value))
+        return !is_string($class) || !class_exists($class) || !is_a($value, $class, is_string($value))
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an instance of this class or to this class among its parents "%s". Got: %s (%s)',
