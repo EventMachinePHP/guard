@@ -8,7 +8,7 @@ use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
-test('no duplicate guard aliases', function (): void {
+test('no duplicate guard alias exists', function (): void {
     // TODO: Do this thorough traits
 
     // Create an array to store the method aliases
@@ -158,6 +158,7 @@ describe('Guard Alias: ', function (): void {
                     $failingCases    = Datasets::get($method->getName().FAILING_CASES);
                     $failingCaseKeys = array_keys($failingCases);
                     $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
+                    array_pop($failingCases);
 
                     test($aliasMethodName.'(passing)', function () use ($passingCases, $aliasMethodName): void {
                         expect(call_user_func([Guard::class, $aliasMethodName], ...$passingCases))

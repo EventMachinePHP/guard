@@ -8,6 +8,6 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
-    "('')" => ['', 'Expected a value different from: "" (string). Got: "" (string)'],
-    '(1)'  => [1, 'Expected a string. Got: 1 (int)'],
+    "('')" => ['', 'Expected a non-empty-string. Got: "" (string)'],
+    '(1)'  => [1, 'Expected a non-empty-string. Got: 1 (int)'],
 ]);

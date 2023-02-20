@@ -77,9 +77,12 @@ trait StringGuards
     #[Alias(['sne', 'strNotEmpty', 'stringNotEmpty'])]
     public static function isStringNotEmpty(mixed $value, ?string $message = null): string
     {
-        self::isString(value: $value, message: $message);
-        self::not()->isEqualTo(value: $value, expect: '', message: $message);
-
-        return $value;
+        return (!is_string($value) || $value === '')
+            ? throw InvalidGuardArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a non-empty-string. Got: %s (%s)',
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
     }
 }

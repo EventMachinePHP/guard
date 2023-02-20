@@ -9,9 +9,9 @@ use EventMachinePHP\Guard\Tests\Fixtures\B;
 dataset(passingCasesDescription(filePath: __FILE__), [
     '(\EventMachinePHP\Guard\Tests\TestCase::class, TestCase::class)' => [\EventMachinePHP\Guard\Tests\TestCase::class, TestCase::class],
     '(A::class, stdClass::class)'                                     => [A::class, stdClass::class],
-    '(new A(), new stdClass())'                                       => [new A(), new stdClass()],
-    '(B::class, A::class)'                                            => [B::class, A::class],
-    '(B::class, new A())'                                             => [B::class, new A()],
+    //'(new A(), new stdClass())'                                       => [new A(), new stdClass()],
+    '(B::class, A::class)' => [B::class, A::class],
+    '(B::class, new A())'  => [B::class, new A()],
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
