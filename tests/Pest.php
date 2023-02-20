@@ -3,14 +3,12 @@
 declare(strict_types=1);
 
 use Pest\Datasets;
-use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Tests\TestCase;
-use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
-const PASSING_CASES  = '.passing';
-const FAILING_CASES  = '.failing';
-const ERROR_MESSAGES = '.errors';
-const ALIASES        = '.aliases';
+const PASSING_CASES  = '(pass)';
+const FAILING_CASES  = '(fail)';
+const ERROR_MESSAGES = '(error)';
+const ALIASES        = '(aliases)';
 
 const CUSTOM_ERROR_MESSAGE = 'Custom Error Message';
 
@@ -110,7 +108,7 @@ function generateMethodAliasSeeDefinitionErrorMessage(ReflectionMethod $method):
 }
 
 /** @infection-ignore-all */
-function generateTraitDocBlockForAliases(ReflectionClass $trait)
+function generateTraitDocBlockForAliases(ReflectionClass $trait): string
 {
     $docBlock = <<<'DOC'
     /**
@@ -153,41 +151,6 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
     return $this->$assertionName($callable(...)->bindTo(test())(...test()->getProvidedData()));
 });
 
-/*
- * The "validateAliases" Pest extension method tests each alias method for the
- * passed in ReflectionMethod instance and asserts that it does not throw an
- * InvalidArgumentException when passed valid arguments, and does throw an
- * InvalidArgumentException when passed invalid arguments.
- *
- * @infection-ignore-all
- */
-expect()->extend('validateAliases', function (): void {
-    $reflectionMethod = new ReflectionMethod(Guard::class, $this->value);
-    $attributes       = $reflectionMethod->getAttributes();
-
-    if ($attributes === []) {
-        throw new InvalidArgumentException(sprintf('No alias attributes found for the method: %s. Is the alias test for this method necessary?', $reflectionMethod->getName()));
-    }
-
-    foreach ($attributes as $attribute) {
-        $attributeArguments = $attribute->getArguments()[0];
-        $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
-
-        foreach ($aliasMethodNames as $aliasMethodName) {
-            $passingArguments = Datasets::get('Guard::'.$reflectionMethod->getName().PASSING_CASES);
-            $passingArguments = $passingArguments[array_key_first($passingArguments)];
-
-            $failingArguments = Datasets::get('Guard::'.$reflectionMethod->getName().FAILING_CASES);
-            $failingArguments = $failingArguments[array_key_first($failingArguments)];
-
-            expect(call_user_func([Guard::class, $aliasMethodName], ...$passingArguments))
-                //->notToThrowInvalidArgumentException()
-                ->and(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingArguments))
-                ->toThrow(InvalidGuardArgumentException::class);
-        }
-    }
-});
-
 function guardNameFromFile(string $filePath): string
 {
     $parts    = explode('/', $filePath);
@@ -209,11 +172,6 @@ function failingCasesDescription(string $filePath): string
 function errorMessagesDescription(string $filePath): string
 {
     return guardNameFromFile($filePath).ERROR_MESSAGES;
-}
-
-function aliasesDescription(string $filePath): string
-{
-    return 'Guard::'.guardNameFromFile($filePath).ALIASES;
 }
 
 function randomFailingCase(string $filePath): array
