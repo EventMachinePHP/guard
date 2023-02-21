@@ -41,9 +41,7 @@ trait ClassGuards
     #[Alias(['cl', 'class', 'class_exists'])]
     public static function isClassExists(mixed $value, ?string $message = null): string
     {
-        Guard::isString($value);
-
-        return (!class_exists($value))
+        return !is_string($value) || !class_exists($value)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an existing class name. Got: %s (%s)',

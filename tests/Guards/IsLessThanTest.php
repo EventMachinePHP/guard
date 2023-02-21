@@ -7,6 +7,9 @@ namespace EventMachinePHP\Guard\Tests;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
+/**
+ * This test file contains tests for the {@see Guard::isLessThan()} method.
+ */
 test(description: passingCasesDescription(__FILE__))
     ->with(data: passingCasesDescription(__FILE__))
     ->expect(fn ($value, $limit) => (

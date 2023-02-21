@@ -8,5 +8,5 @@ dataset(passingCasesDescription(filePath: __FILE__), [
 ]);
 
 dataset(failingCasesDescription(filePath: __FILE__), [
-    '(123.123)' => [123.123, 'Expected a value greater than: 0 (int). Got: 123.123 (int)'],
+    '(123.123)' => [123.123, 'Expected a float value less than 0 (float). Got: 123.123 (float)'],
 ]);

@@ -6,16 +6,17 @@ use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
- * This test file contains tests for the {@see Guard::isFalse()} method.
+ * This test file contains tests for the {@see Guard::isNegativeInteger()} method.
  */
 test(description: passingCasesDescription(__FILE__))
     ->with(data: passingCasesDescription(__FILE__))
     ->expect(fn ($value) => (
-        Guard::isFalse(
+        Guard::isNegativeInteger(
             value: $value
         )
     ))
-    ->toBeFalse()
+    ->toBeInt()
+    ->toBeLessThan(0)
     ->toHaveValue(fn ($value) => $value);
 
 test(description: failingCasesDescription(__FILE__))
@@ -23,7 +24,7 @@ test(description: failingCasesDescription(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $message) => $message)
     ->expect(fn ($value, $message) => (
-        Guard::isFalse(
+        Guard::isNegativeInteger(
             value: $value
         )
     ));
@@ -33,8 +34,8 @@ test(description: errorMessagesDescription(__FILE__))
     ->expectExceptionObject(new InvalidGuardArgumentException(message: CUSTOM_ERROR_MESSAGE))
     ->expectException(InvalidGuardArgumentException::class)
     ->expect(fn ($value, $message) => (
-        Guard::isFalse(
+        Guard::isNegativeInteger(
             value: $value,
-            message: CUSTOM_ERROR_MESSAGE,
+            message: CUSTOM_ERROR_MESSAGE
         )
     ));

@@ -80,7 +80,7 @@ trait ArrayGuards
     #[Alias(['aa', 'array_accessible', 'is_array_accessible'])]
     public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess
     {
-        return !is_array($value) && !($value instanceof ArrayAccess)
+        return !(is_array($value) || $value instanceof ArrayAccess)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
@@ -117,6 +117,7 @@ trait ArrayGuards
                     $count++;
                 }
             }
+
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
                     customMessage: $message,
@@ -157,6 +158,7 @@ trait ArrayGuards
                     $count++;
                 }
             }
+
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
                     customMessage: $message,
