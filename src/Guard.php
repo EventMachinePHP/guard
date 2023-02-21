@@ -75,7 +75,6 @@ class Guard
     // TODO: Consider thatAll(): Validates all rules and then return the failed ones
     // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
     // TODO: https://github.com/spatie/pest-expectations
-    // TODO: @see Alias: {@see Guard::i()} convert
 
     // region Aliases
 
