@@ -36,6 +36,7 @@ class NullOrGuard
 
     /**
      * @throws \EventMachinePHP\Guard\Exceptions\NotGuardException
+     * @throws \EventMachinePHP\Guard\Exceptions\NullOrGuardExceptionGuard
      */
     public function __call(string $name, array $arguments)
     {
