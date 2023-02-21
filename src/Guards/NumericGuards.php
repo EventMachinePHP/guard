@@ -35,10 +35,6 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static float positiveFloat(mixed $value, ?string $message = null) Alias of {@see Guard::isPositiveFloat()}
  * @method static float negativeFloat(mixed $value, ?string $message = null) Alias of {@see Guard::isNegativeFloat()}
  * @method static string|int|float digit(mixed $value, ?string $message = null) Alias of {@see Guard::isDigit()}
- *
- * TODO: Introduce Guard::isNegativeNumber() Guard
- * TODO: ? isNegativeNumeric(), isNegativeIntegerValue()
- * TODO: Add missing tests
  */
 trait NumericGuards
 {
