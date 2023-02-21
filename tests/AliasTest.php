@@ -105,7 +105,7 @@ describe('Alias Docblocks: ', function (): void {
                 $aliasMethodNames   = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
                 foreach ($aliasMethodNames as $alias) {
                     // Check if the alias is documented in the trait docblock
-                    test("{$alias} (Trait DocBlock)", function () use ($trait, $alias, $method, $traitDocComment): void {
+                    test("{$alias}(trait)", function () use ($trait, $alias, $method, $traitDocComment): void {
                         $this->assertStringContainsString(
                             needle: generateMethodDocBlockDefinition($method, $alias),
                             haystack: $traitDocComment,
@@ -114,7 +114,7 @@ describe('Alias Docblocks: ', function (): void {
                     });
 
                     // Check if the alias is documented in the method docblock
-                    test("{$alias} (Method DocBlock)", function () use ($alias, $method): void {
+                    test("{$alias}(method)", function () use ($alias, $method): void {
                         $this->assertStringContainsString(
                             needle: generateMethodAliasSeeDefinition($alias),
                             haystack: $method->getDocComment() === false ? '' : $method->getDocComment(),

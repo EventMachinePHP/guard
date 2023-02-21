@@ -156,27 +156,37 @@ function guardNameFromFile(string $filePath): string
     $parts    = explode('/', $filePath);
     $fileName = array_pop($parts);
 
-    return lcfirst(str_replace(['Test.php', '.php'], '', $fileName));
+    return lcfirst(str_replace(['Test.php', 'Dataset.php', '.php'], '', $fileName));
 }
 
 function passingCasesDescription(string $filePath): string
 {
-    return guardNameFromFile($filePath).PASSING_CASES;
+    return str_replace('Dataset', '', guardNameFromFile($filePath)).PASSING_CASES;
 }
 
 function failingCasesDescription(string $filePath): string
 {
-    return guardNameFromFile($filePath).FAILING_CASES;
+    return str_replace('Dataset', '', guardNameFromFile($filePath)).FAILING_CASES;
 }
 
 function errorMessagesDescription(string $filePath): string
 {
-    return guardNameFromFile($filePath).ERROR_MESSAGES;
+    return str_replace('Dataset', '', guardNameFromFile($filePath)).ERROR_MESSAGES;
+}
+
+function passingCasesDataset(string $filePath): string
+{
+    return guardNameFromFile($filePath).PASSING_CASES;
+}
+
+function failingCasesDataset(string $filePath): string
+{
+    return guardNameFromFile($filePath).FAILING_CASES;
 }
 
 function randomFailingCase(string $filePath): array
 {
-    $failingCases = Datasets::get(failingCasesDescription($filePath));
+    $failingCases = Datasets::get(failingCasesDataset($filePath));
 
     return [$failingCases[array_rand($failingCases)]];
 }

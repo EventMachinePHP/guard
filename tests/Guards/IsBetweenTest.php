@@ -11,7 +11,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * This test file contains tests for the {@see Guard::isBetween()} method.
  */
 test(description: passingCasesDescription(__FILE__))
-    ->with(data: passingCasesDescription(__FILE__))
+    ->with(data: passingCasesDataset(__FILE__))
     ->expect(fn ($value, $min, $max) => (
         Guard::isBetween(
             value: $value,
@@ -24,7 +24,7 @@ test(description: passingCasesDescription(__FILE__))
     ->toHaveValueThat(assertionName: 'toBeLessThan', callable: fn ($value, $min, $max) => $max);
 
 test(description: failingCasesDescription(__FILE__))
-    ->with(data: failingCasesDescription(__FILE__))
+    ->with(data: failingCasesDataset(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $min, $max, $message) => $message)
     ->expect(fn ($value, $min, $max, $message) => (

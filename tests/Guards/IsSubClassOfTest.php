@@ -9,7 +9,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * This test file contains tests for the {@see Guard::isSubClassOf()} method.
  */
 test(description: passingCasesDescription(__FILE__))
-    ->with(data: passingCasesDescription(__FILE__))
+    ->with(data: passingCasesDataset(__FILE__))
     ->expect(fn ($value, $parentClass) => (
         Guard::isSubClassOf(
             value: $value,
@@ -18,7 +18,7 @@ test(description: passingCasesDescription(__FILE__))
     ))->not()->toThrow(Exception::class);
 
 test(description: failingCasesDescription(__FILE__))
-    ->with(data: failingCasesDescription(__FILE__))
+    ->with(data: failingCasesDataset(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $parentClass, $message) => $message)
     ->expect(fn ($value, $parentClass, $message) => (

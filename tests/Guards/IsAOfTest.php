@@ -9,7 +9,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * This test file contains tests for the {@see Guard::isAOf()} method.
  */
 test(description: passingCasesDescription(__FILE__))
-    ->with(data: passingCasesDescription(__FILE__))
+    ->with(data: passingCasesDataset(__FILE__))
     ->expect(fn ($value, $class) => (
         Guard::isAOf(
             value: $value,
@@ -19,7 +19,7 @@ test(description: passingCasesDescription(__FILE__))
     ->toHaveValue(fn ($value, $class) => $value);
 
 test(description: failingCasesDescription(__FILE__))
-    ->with(data: failingCasesDescription(__FILE__))
+    ->with(data: failingCasesDataset(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $class, $message) => $message)
     ->expect(fn ($value, $class, $message) => (
