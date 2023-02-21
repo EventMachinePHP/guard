@@ -17,16 +17,18 @@ describe('NullOr Guard: ', function (): void {
                     ->toBeNull();
             });
 
-            test('nullOr()->'.$method->getName().'(pass)', function () use ($method): void {
-                $passingCase = randomPassingCase($method->getName());
+            $passingCase = randomPassingCaseWithDescription($method->getName());
+            test('nullOr()->'.$method->getName().'(pass) with:'.Guard::valueToString($passingCase['description']), function () use ($method, $passingCase): void {
+                $passingCase = $passingCase['case'];
 
                 expect(Guard::nullOr()->{$method->getName()}(...$passingCase))
                     ->toBe($passingCase[array_key_first($passingCase)]);
             });
 
-            $failingCase = randomFailingCase($method->getName());
+            $failingCase = randomFailingCaseWithDescription($method->getName());
+            test('nullOr()->'.$method->getName().'(fail) with: '.Guard::valueToString($failingCase['description']), function () use ($failingCase, $method): void {
+                $failingCase = $failingCase['case'];
 
-            test('nullOr()->'.$method->getName().'(fail) with: '.Guard::valueToString(...$failingCase), function () use ($failingCase, $method): void {
                 if ($failingCase[array_key_first($failingCase)] === null) {
                     expect(true)->toBeTrue();
                 } else {

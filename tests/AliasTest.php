@@ -144,19 +144,20 @@ describe('Guard Alias: ', function (): void {
                 // Convert the argument to an array if it's not already
                 $aliasMethodNames = is_array($attributeArguments) ? $attributeArguments : [$attributeArguments];
 
-                // Increment the alias count for the trait and store the alias for the method
+                // Randomly select a passing case for the method
+                $passingCase = randomPassingCaseWithDescription($method->getName());
                 foreach ($aliasMethodNames as $aliasMethodName) {
-                    test($aliasMethodName.'(passing)', function () use ($method, $aliasMethodName): void {
-                        // Randomly select a passing case for the method
-                        $passingCase = randomPassingCase($method->getName());
+                    test($aliasMethodName.'(passing) with: '.Guard::valueToString($passingCase['description']), function () use ($aliasMethodName, $passingCase): void {
+                        $passingCase = $passingCase['case'];
 
                         expect(call_user_func([Guard::class, $aliasMethodName], ...$passingCase))
                             ->toBe($passingCase[array_key_first($passingCase)]);
                     });
 
-                    test($aliasMethodName.'(failing)', function () use ($method, $aliasMethodName): void {
-                        // Randomly select a failing case for the method
-                        $failingCase = randomFailingCase($method->getName());
+                    // Randomly select a failing case for the method
+                    $failingCase = randomFailingCaseWithDescription($method->getName());
+                    test($aliasMethodName.'(failing) with:'.Guard::valueToString($failingCase['description']), function () use ($aliasMethodName, $failingCase): void {
+                        $failingCase = $failingCase['case'];
 
                         expect(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingCase))
                             ->toThrow(InvalidGuardArgumentException::class);

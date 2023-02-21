@@ -12,17 +12,18 @@ describe('Not Guard: ', function (): void {
 
     foreach ($traits as $trait) {
         foreach ($trait->getMethods(filter: ReflectionMethod::IS_PUBLIC) as $method) {
-            test('not()->'.$method->getName().'(pass)', function () use ($method): void {
+            $passingCase = randomPassingCaseWithDescription($method->getName());
+            test('not()->'.$method->getName().'(pass) with: '.Guard::valueToString($passingCase['description']), function () use ($passingCase, $method): void {
                 $this->expectException(NotGuardException::class);
 
-                $passingCase = randomPassingCase($method->getName());
+                $passingCase = $passingCase['case'];
 
                 Guard::not()->{$method->getName()}(...$passingCase);
             });
 
-            test('not()->'.$method->getName().'(fail)', function () use ($method): void {
-                $failingCase = randomFailingCase($method->getName());
-
+            $failingCase = randomFailingCaseWithDescription($method->getName());
+            test('not()->'.$method->getName().'(fail) with: '.Guard::valueToString($failingCase['description']), function () use ($method, $failingCase): void {
+                $failingCase = $failingCase['case'];
                 expect(Guard::not()->{$method->getName()}(...$failingCase))
                     ->toBe($failingCase[array_key_first($failingCase)]);
             });

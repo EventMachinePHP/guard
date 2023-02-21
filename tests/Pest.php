@@ -8,7 +8,6 @@ use EventMachinePHP\Guard\Tests\TestCase;
 const PASSING_CASES  = '(pass)';
 const FAILING_CASES  = '(fail)';
 const ERROR_MESSAGES = '(error)';
-const ALIASES        = '(aliases)';
 
 const CUSTOM_ERROR_MESSAGE = 'Custom Error Message';
 
@@ -151,15 +150,23 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
     return $this->$assertionName($callable(...)->bindTo(test())(...test()->getProvidedData()));
 });
 
-function randomPassingCase(string $methodName): array
+function randomPassingCaseWithDescription(string $methodName): array
 {
-    $passingCases    = Datasets::get($methodName.PASSING_CASES);
-    $passingCaseKeys = array_keys($passingCases);
+    $passingCases   = Datasets::get($methodName.PASSING_CASES);
+    $passingCaseKey = array_rand($passingCases);
 
-    return $passingCases[$passingCaseKeys[array_rand($passingCaseKeys)]];
+    return [
+        'description' => $passingCaseKey,
+        'case'        => $passingCases[$passingCaseKey],
+    ];
 }
 
-function randomFailingCase(string $filePath): array
+function randomPassingCase(string $methodName): array
+{
+    return randomPassingCaseWithDescription($methodName)['case'];
+}
+
+function randomFailingCaseWithDescription(string $filePath): array
 {
     if (str_contains($filePath, '.php')) {
         $failingCases = Datasets::get(failingCasesDataset($filePath));
@@ -167,12 +174,22 @@ function randomFailingCase(string $filePath): array
         return [$failingCases[array_rand($failingCases)]];
     }
 
-    $failingCases    = Datasets::get($filePath.FAILING_CASES);
-    $failingCaseKeys = array_keys($failingCases);
-    $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
+    $failingCases   = Datasets::get($filePath.FAILING_CASES);
+    $failingCaseKey = array_keys($failingCases);
+    $failingCases   = $failingCases[$failingCaseKey[array_rand($failingCaseKey)]];
     array_pop($failingCases);
 
-    return $failingCases;
+    return [
+        'description' => $failingCaseKey,
+        'case'        => $failingCases,
+    ];
+}
+
+function randomFailingCase(string $filePath): array
+{
+    $case = randomFailingCaseWithDescription($filePath);
+
+    return $case['case'] ?? $case;
 }
 
 function guardNameFromFile(string $filePath): string
