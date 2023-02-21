@@ -177,7 +177,12 @@ class Guard
         }
 
         if (is_string($value)) {
-            return '"'.$value.'"';
+            return match ($value) {
+                "\r"    => '<CR>',
+                "\n"    => '<LF>',
+                "\t"    => '<HT>',
+                default => '"'.$value.'"',
+            };
         }
 
         return (string) $value;

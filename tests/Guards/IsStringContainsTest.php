@@ -17,7 +17,8 @@ test(description: passingCasesDescription(__FILE__))
         )
     ))
     ->toBeString()
-    ->toHaveValue(fn ($value) => $value);
+    ->toHaveValue(fn ($value) => $value)
+    ->toHaveValueThat(assertionName: 'toContain', callable: fn ($value, $subString) => $subString);
 
 test(description: failingCasesDescription(__FILE__))
     ->with(data: failingCasesDataset(__FILE__))
