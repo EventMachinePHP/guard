@@ -35,5 +35,5 @@ dataset(failingCasesDataset(filePath: __FILE__), [
     '(new stdClass()'                         => [new stdClass(), 'Expected an integer. Got: stdClass'],
     '(new class {)'                           => [new class {}, 'Expected an integer. Got: class@anonymous'],
     '(new Exception()'                        => [new Exception(), 'Expected an integer. Got: Exception'],
-    "(fopen('php://memory', 'r')"             => [fopen('php://memory', 'r'), 'Expected an integer. Got: resource (stream)'],
+    '(tmpfile())'                             => [tmpfile(), 'Expected an integer. Got: resource (stream)'],
 ]);

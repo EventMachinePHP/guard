@@ -17,5 +17,5 @@ test('Guard::valueToString()', function ($value, $string): void {
     "(new DateTime('2023-02-10'))"          => [new DateTime('2023-02-10'), 'DateTime'],
     "(new DateTimeImmutable('2023-02-10'))" => [new DateTimeImmutable('2023-02-10'), 'DateTimeImmutable'],
     '(new stdClass())'                      => [new stdClass(), 'stdClass'],
-    "(fopen('php://memory', 'r'))"          => [fopen('php://memory', 'r'), 'resource'],
+    'tmpfile()'                             => [tmpfile(), 'resource'],
 ]);
