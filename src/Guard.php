@@ -63,11 +63,7 @@ class Guard
     // TODO: Consider isJsonSring?
     // TODO: EmptyOr Guards?
     // TODO: EmptyOrAll Guards?
-    // TODO: All Guards: --> all_instance_of, all_array, all_bool...
     // TODO: ? OfAny Guards: --> is_istance_of_any, is_array_of_any, is_bool_of_any...
-    // TODO: Guard::that()->isEmpty()->isString()->isClassString() --> Lazy Guard Chains
-    // TODO: Guard::not()->isString(), Guard::emptyOr()->isString()
-    // TODO: Guard::not()->isString()->isClassString() ?
     // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
     // TODO: dataset's has duplicate test cases?
     // TODO: Loop through Pest's expectations: toBeNull, toBeNAN?
