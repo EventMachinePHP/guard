@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Pest\Datasets;
 use function Ozzie\Nest\test;
 use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
@@ -147,24 +146,19 @@ describe('Guard Alias: ', function (): void {
 
                 // Increment the alias count for the trait and store the alias for the method
                 foreach ($aliasMethodNames as $aliasMethodName) {
-                    // Randomly select a passing case for the method
-                    $passingCases    = Datasets::get($method->getName().PASSING_CASES);
-                    $passingCaseKeys = array_keys($passingCases);
-                    $passingCases    = $passingCases[$passingCaseKeys[array_rand($passingCaseKeys)]];
+                    test($aliasMethodName.'(passing)', function () use ($method, $aliasMethodName): void {
+                        // Randomly select a passing case for the method
+                        $passingCase = randomPassingCase($method->getName());
 
-                    // Randomly select a failing case for the method
-                    $failingCases    = Datasets::get($method->getName().FAILING_CASES);
-                    $failingCaseKeys = array_keys($failingCases);
-                    $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
-                    array_pop($failingCases);
-
-                    test($aliasMethodName.'(passing)', function () use ($passingCases, $aliasMethodName): void {
-                        expect(call_user_func([Guard::class, $aliasMethodName], ...$passingCases))
-                            ->toBe($passingCases[array_key_first($passingCases)]);
+                        expect(call_user_func([Guard::class, $aliasMethodName], ...$passingCase))
+                            ->toBe($passingCase[array_key_first($passingCase)]);
                     });
 
-                    test($aliasMethodName.'(failing)', function () use ($failingCases, $aliasMethodName): void {
-                        expect(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingCases))
+                    test($aliasMethodName.'(failing)', function () use ($method, $aliasMethodName): void {
+                        // Randomly select a failing case for the method
+                        $failingCase = randomFailingCase($method->getName());
+
+                        expect(fn () => call_user_func([Guard::class, $aliasMethodName], ...$failingCase))
                             ->toThrow(InvalidGuardArgumentException::class);
                     });
                 }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Pest\Datasets;
 use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
 use EventMachinePHP\Guard\Helpers;
@@ -19,23 +18,18 @@ describe('Not Guard: ', function (): void {
 
         foreach ($trait->getMethods(filter: ReflectionMethod::IS_PUBLIC) as $method) {
             test('not()->'.$method->getName().'(pass)', function () use ($method): void {
-                $passingCases    = Datasets::get($method->getName().PASSING_CASES);
-                $passingCaseKeys = array_keys($passingCases);
-                $passingCases    = $passingCases[$passingCaseKeys[array_rand($passingCaseKeys)]];
-
                 $this->expectException(NotGuardException::class);
 
-                Guard::not()->{$method->getName()}(...$passingCases);
+                $passingCase = randomPassingCase($method->getName());
+
+                Guard::not()->{$method->getName()}(...$passingCase);
             });
 
             test('not()->'.$method->getName().'(fail)', function () use ($method): void {
-                $failingCases    = Datasets::get($method->getName().FAILING_CASES);
-                $failingCaseKeys = array_keys($failingCases);
-                $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
-                array_pop($failingCases);
+                $failingCase = randomFailingCase($method->getName());
 
-                expect(Guard::not()->{$method->getName()}(...$failingCases))
-                    ->toBe($failingCases[array_key_first($failingCases)]);
+                expect(Guard::not()->{$method->getName()}(...$failingCase))
+                    ->toBe($failingCase[array_key_first($failingCase)]);
             });
         }
     }

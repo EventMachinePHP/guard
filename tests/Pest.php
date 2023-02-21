@@ -151,6 +151,30 @@ expect()->extend('toHaveValueThat', function (string $assertionName, callable $c
     return $this->$assertionName($callable(...)->bindTo(test())(...test()->getProvidedData()));
 });
 
+function randomPassingCase(string $methodName): array
+{
+    $passingCases    = Datasets::get($methodName.PASSING_CASES);
+    $passingCaseKeys = array_keys($passingCases);
+
+    return $passingCases[$passingCaseKeys[array_rand($passingCaseKeys)]];
+}
+
+function randomFailingCase(string $filePath): array
+{
+    if (str_contains($filePath, '.php')) {
+        $failingCases = Datasets::get(failingCasesDataset($filePath));
+
+        return [$failingCases[array_rand($failingCases)]];
+    }
+
+    $failingCases    = Datasets::get($filePath.FAILING_CASES);
+    $failingCaseKeys = array_keys($failingCases);
+    $failingCases    = $failingCases[$failingCaseKeys[array_rand($failingCaseKeys)]];
+    array_pop($failingCases);
+
+    return $failingCases;
+}
+
 function guardNameFromFile(string $filePath): string
 {
     $parts    = explode('/', $filePath);
@@ -182,11 +206,4 @@ function passingCasesDataset(string $filePath): string
 function failingCasesDataset(string $filePath): string
 {
     return guardNameFromFile($filePath).FAILING_CASES;
-}
-
-function randomFailingCase(string $filePath): array
-{
-    $failingCases = Datasets::get(failingCasesDataset($filePath));
-
-    return [$failingCases[array_rand($failingCases)]];
 }
