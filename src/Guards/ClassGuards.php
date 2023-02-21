@@ -34,9 +34,9 @@ trait ClassGuards
      *
      * @return string           The input value if it is a valid existing class name.
      *
-     * @see Alias: Guard::cl()
-     * @see Alias: Guard::class()
-     * @see Alias: Guard::class_exists()
+     * @see Alias: {@see Guard::cl()}
+     * @see Alias: {@see Guard::class()}
+     * @see Alias: {@see Guard::class_exists()}
      */
     #[Alias(['cl', 'class', 'class_exists'])]
     public static function isClassExists(mixed $value, ?string $message = null): string
@@ -70,8 +70,8 @@ trait ClassGuards
      *
      * @throws InvalidGuardArgumentException if `$value` is not a subclass of `$parentClass`
      *
-     * @see Alias: Guard::sub()
-     * @see Alias: Guard::subclass_of()
+     * @see Alias: {@see Guard::sub()}
+     * @see Alias: {@see Guard::subclass_of()}
      */
     #[Alias(['sub', 'subclass_of'])]
     public static function isSubClassOf(string|object $value, string|object $parentClass, ?string $message = null): string|object

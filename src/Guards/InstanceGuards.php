@@ -40,12 +40,12 @@ trait InstanceGuards
      *
      * @throws InvalidGuardArgumentException if the check fails.
      *
-     * @see Alias: Guard::ia()
-     * @see Alias: Guard::iio()
-     * @see Alias: Guard::is_a()
-     * @see Alias: Guard::isA()
-     * @see Alias: Guard::instanceOf()
-     * @see Alias: Guard::is_instance_of()
+     * @see Alias: {@see Guard::ia()}
+     * @see Alias: {@see Guard::iio()}
+     * @see Alias: {@see Guard::is_a()}
+     * @see Alias: {@see Guard::isA()}
+     * @see Alias: {@see Guard::instanceOf()}
+     * @see Alias: {@see Guard::is_instance_of()}
      */
     #[Alias(['ia', 'iio', 'is_a', 'isA', 'instanceOf', 'is_instance_of'])]
     public static function isInstanceOf(mixed $value, string $class, ?string $message = null): object
@@ -77,8 +77,8 @@ trait InstanceGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an instance of any of the given classes.
      *
-     * @see Alias: Guard::ioe()
-     * @see Alias: Guard::instanceOfAny()
+     * @see Alias: {@see Guard::ioe()}
+     * @see Alias: {@see Guard::instanceOfAny()}
      *
      * TODO: Consider moving this to OfAny Guards?
      */
@@ -116,8 +116,8 @@ trait InstanceGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an instance of the specified class or of one of its parents.
      *
-     * @see Alias: Guard::iao()
-     * @see Alias: Guard::a_of()
+     * @see Alias: {@see Guard::iao()}
+     * @see Alias: {@see Guard::a_of()}
      */
     #[Alias(['iao', 'a_of'])]
     public static function isAOf(mixed $value, mixed $class, ?string $message = null): mixed

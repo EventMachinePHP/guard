@@ -27,8 +27,8 @@ trait EmptyGuards
      *
      * @throws InvalidGuardArgumentException If the value is not empty.
      *
-     * @see Alias: Guard::ie()
-     * @see Alias: Guard::empty()
+     * @see Alias: {@see Guard::ie()}
+     * @see Alias: {@see Guard::empty()}
      */
     #[Alias(['ie', 'empty'])]
     public static function isEmpty(mixed $value, ?string $message = null): mixed

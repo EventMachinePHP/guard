@@ -53,10 +53,10 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an integer.
      *
-     * @see Alias: Guard::i()
-     * @see Alias: Guard::int()
-     * @see Alias: Guard::is_int()
-     * @see Alias: Guard::integer()
+     * @see Alias: {@see Guard::i()}
+     * @see Alias: {@see Guard::int()}
+     * @see Alias: {@see Guard::is_int()}
+     * @see Alias: {@see Guard::integer()}
      */
     #[Alias(['i', 'int', 'is_int', 'integer'])]
     public static function isInteger(mixed $value, ?string $message = null): int
@@ -85,8 +85,8 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a natural integer.
      *
-     * @see Alias: Guard::naturalInt()
-     * @see Alias: Guard::naturalInteger()
+     * @see Alias: {@see Guard::naturalInt()}
+     * @see Alias: {@see Guard::naturalInteger()}
      */
     #[Alias(['naturalInt', 'naturalInteger'])]
     public static function isNaturalInteger(mixed $value, ?string $message = null): int
@@ -117,8 +117,8 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a positive integer.
      *
-     * @see Alias: Guard::positiveInt()
-     * @see Alias: Guard::positiveInteger()
+     * @see Alias: {@see Guard::positiveInt()}
+     * @see Alias: {@see Guard::positiveInteger()}
      */
     #[Alias(['positiveInt', 'positiveInteger'])]
     public static function isPositiveInteger(mixed $value, ?string $message = null): int
@@ -148,8 +148,8 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a positive integer.
      *
-     * @see Alias: Guard::negativeInt()
-     * @see Alias: Guard::negativeInteger()
+     * @see Alias: {@see Guard::negativeInt()}
+     * @see Alias: {@see Guard::negativeInteger()}
      */
     #[Alias(['negativeInt', 'negativeInteger'])]
     public static function isNegativeInteger(mixed $value, ?string $message = null): int
@@ -177,9 +177,9 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not numeric.
      *
-     * @see Alias: Guard::nu()
-     * @see Alias: Guard::numeric()
-     * @see Alias: Guard::is_numeric()
+     * @see Alias: {@see Guard::nu()}
+     * @see Alias: {@see Guard::numeric()}
+     * @see Alias: {@see Guard::is_numeric()}
      */
     #[Alias(['nu', 'numeric', 'is_numeric'])]
     public static function isNumeric(mixed $value, ?string $message = null): string|int|float
@@ -205,9 +205,9 @@ trait NumericGuards
      * @throws InvalidGuardArgumentException If the value is not a numeric value or
      * not equal to its integer representation.
      *
-     * @see Alias: Guard::intVal()
-     * @see Alias: Guard::integerish()
-     * @see Alias: Guard::integerValue()
+     * @see Alias: {@see Guard::intVal()}
+     * @see Alias: {@see Guard::integerish()}
+     * @see Alias: {@see Guard::integerValue()}
      */
     #[Alias(['intVal', 'integerish', 'integerValue'])]
     public static function isIntegerValue(mixed $value, ?string $message = null): string|int|float
@@ -236,9 +236,9 @@ trait NumericGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a float.
      *
-     * @see Alias: Guard::fl()
-     * @see Alias: Guard::float()
-     * @see Alias: Guard::is_float()
+     * @see Alias: {@see Guard::fl()}
+     * @see Alias: {@see Guard::float()}
+     * @see Alias: {@see Guard::is_float()}
      */
     #[Alias(['fl', 'float', 'is_float'])]
     public static function isFloat(mixed $value, ?string $message = null): float
@@ -253,7 +253,7 @@ trait NumericGuards
     }
 
     /**
-     * @see Alias: Guard::positiveFloat()
+     * @see Alias: {@see Guard::positiveFloat()}
      */
     #[Alias(['positiveFloat'])]
     public static function isPositiveFloat(mixed $value, ?string $message = null): float
@@ -268,7 +268,7 @@ trait NumericGuards
     }
 
     /**
-     * @see Alias: Guard::negativeFloat()
+     * @see Alias: {@see Guard::negativeFloat()}
      */
     #[Alias(['negativeFloat'])]
     public static function isNegativeFloat(mixed $value, ?string $message = null): float
@@ -283,7 +283,7 @@ trait NumericGuards
     }
 
     /**
-     * @see Alias: Guard::digit()
+     * @see Alias: {@see Guard::digit()}
      */
     #[Alias(['digit'])]
     public static function isDigit(mixed $value, ?string $message = null): string|int|float

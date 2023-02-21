@@ -36,10 +36,10 @@ trait BooleanGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a boolean.
      *
-     * @see Alias: Guard::b()
-     * @see Alias: Guard::bool()
-     * @see Alias: Guard::is_bool()
-     * @see Alias: Guard::boolean()
+     * @see Alias: {@see Guard::b()}
+     * @see Alias: {@see Guard::bool()}
+     * @see Alias: {@see Guard::is_bool()}
+     * @see Alias: {@see Guard::boolean()}
      */
     #[Alias(['b', 'bool', 'is_bool', 'boolean'])]
     public static function isBoolean(mixed $value, ?string $message = null): bool
@@ -68,8 +68,8 @@ trait BooleanGuards
      *
      * @return bool             Returns `true` if the value is equal to `true`.
      *
-     * @see Alias: Guard::t()
-     * @see Alias: Guard::true()
+     * @see Alias: {@see Guard::t()}
+     * @see Alias: {@see Guard::true()}
      */
     #[Alias(['t', 'true'])]
     public static function isTrue(mixed $value, ?string $message = null): bool
@@ -98,8 +98,8 @@ trait BooleanGuards
      *
      * @return bool             Returns `true` if the value is equal to `true`.
      *
-     * @see Alias: Guard::f()
-     * @see Alias: Guard::false()
+     * @see Alias: {@see Guard::f()}
+     * @see Alias: {@see Guard::false()}
      */
     #[Alias(['f', 'false'])]
     public static function isFalse(mixed $value, ?string $message = null): bool

@@ -35,9 +35,9 @@ trait ResourceGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a resource or if the resource type does not match the specified type.
      *
-     * @see Alias: Guard::r()
-     * @see Alias: Guard::resource()
-     * @see Alias: Guard::is_resource()
+     * @see Alias: {@see Guard::r()}
+     * @see Alias: {@see Guard::resource()}
+     * @see Alias: {@see Guard::is_resource()}
      */
     #[Alias(['r', 'resource', 'is_resource'])]
     public static function isResource(mixed $value, ?string $type = null, ?string $message = null): mixed

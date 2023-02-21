@@ -31,9 +31,9 @@ trait ObjectGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an object.
      *
-     * @see Alias: Guard::o()
-     * @see Alias: Guard::object()
-     * @see Alias: Guard::is_object()
+     * @see Alias: {@see Guard::o()}
+     * @see Alias: {@see Guard::object()}
+     * @see Alias: {@see Guard::is_object()}
      */
     #[Alias(['o', 'object', 'is_object'])]
     public static function isObject(mixed $value, ?string $message = null): object

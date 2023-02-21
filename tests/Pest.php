@@ -88,7 +88,7 @@ function generateMethodDocBlockDefinitionErrorMessage(string $alias, string $tra
  */
 function generateMethodAliasSeeDefinition(string $alias): string
 {
-    return '@see Alias: Guard::'.$alias.'()';
+    return '@see Alias: {@see Guard::'.$alias.'()}';
 }
 
 /** @infection-ignore-all */

@@ -31,9 +31,9 @@ trait CallableGuards
      *
      * @throws InvalidGuardArgumentException If the value is not callable.
      *
-     * @see Alias: Guard::c()
-     * @see Alias: Guard::callable()
-     * @see Alias: Guard::is_callable()
+     * @see Alias: {@see Guard::c()}
+     * @see Alias: {@see Guard::callable()}
+     * @see Alias: {@see Guard::is_callable()}
      */
     #[Alias(['c', 'callable', 'is_callable'])]
     public static function isCallable(mixed $value, ?string $message = null): callable

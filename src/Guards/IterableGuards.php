@@ -30,9 +30,9 @@ trait IterableGuards
      *
      * @throws InvalidGuardArgumentException If the value is not iterable.
      *
-     * @see Alias: Guard::it()
-     * @see Alias: Guard::iterable()
-     * @see Alias: Guard::is_iterable()
+     * @see Alias: {@see Guard::it()}
+     * @see Alias: {@see Guard::iterable()}
+     * @see Alias: {@see Guard::is_iterable()}
      */
     #[Alias(['it', 'iterable', 'is_iterable'])]
     public static function isIterable(mixed $value, ?string $message = null): iterable

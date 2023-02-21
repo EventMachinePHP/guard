@@ -37,10 +37,10 @@ trait StringGuards
      *
      * @throws InvalidGuardArgumentException If the input value is not a string.
      *
-     * @see Alias: Guard::s()
-     * @see Alias: Guard::str()
-     * @see Alias: Guard::string()
-     * @see Alias: Guard::is_string()
+     * @see Alias: {@see Guard::s()}
+     * @see Alias: {@see Guard::str()}
+     * @see Alias: {@see Guard::string()}
+     * @see Alias: {@see Guard::is_string()}
      */
     #[Alias(['s', 'str', 'string', 'is_string'])]
     public static function isString(mixed $value, ?string $message = null): string
@@ -67,10 +67,10 @@ trait StringGuards
      *
      * @throws InvalidGuardArgumentException If the validation fails.
      *
-     * @see Alias: Guard::sne()
-     * @see Alias: Guard::strNonEmpty()
-     * @see Alias: Guard::stringNonEmpty()
-     * @see Alias: Guard::nonEmptyString()
+     * @see Alias: {@see Guard::sne()}
+     * @see Alias: {@see Guard::strNonEmpty()}
+     * @see Alias: {@see Guard::stringNonEmpty()}
+     * @see Alias: {@see Guard::nonEmptyString()}
      */
     #[Alias(['sne', 'strNonEmpty', 'stringNonEmpty', 'nonEmptyString'])]
     public static function isStringNonEmpty(mixed $value, ?string $message = null): string

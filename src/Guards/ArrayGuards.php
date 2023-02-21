@@ -40,9 +40,9 @@ trait ArrayGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an array.
      *
-     * @see Alias: Guard::a()
-     * @see Alias: Guard::array()
-     * @see Alias: Guard::is_array()
+     * @see Alias: {@see Guard::a()}
+     * @see Alias: {@see Guard::array()}
+     * @see Alias: {@see Guard::is_array()}
      */
     #[Alias(['a', 'array', 'is_array'])]
     public static function isArray(mixed $value, ?string $message = null): array
@@ -73,9 +73,9 @@ trait ArrayGuards
      *
      * @throws InvalidGuardArgumentException If the value is not an array or ArrayAccess.
      *
-     * @see Alias: Guard::aa()
-     * @see Alias: Guard::array_accessible()
-     * @see Alias: Guard::is_array_accessible()
+     * @see Alias: {@see Guard::aa()}
+     * @see Alias: {@see Guard::array_accessible()}
+     * @see Alias: {@see Guard::is_array_accessible()}
      */
     #[Alias(['aa', 'array_accessible', 'is_array_accessible'])]
     public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess
@@ -103,9 +103,9 @@ trait ArrayGuards
      *
      * @return iterable returns the original iterable if all values are unique
      *
-     * @see Alias: Guard::us()
-     * @see Alias: Guard::unique_strict()
-     * @see Alias: Guard::unique_strict_values()
+     * @see Alias: {@see Guard::us()}
+     * @see Alias: {@see Guard::unique_strict()}
+     * @see Alias: {@see Guard::unique_strict_values()}
      */
     #[Alias(['us', 'unique_strict', 'unique_strict_values'])]
     public static function hasUniqueStrictValues(iterable $values, ?string $message = null): iterable
@@ -144,9 +144,9 @@ trait ArrayGuards
      *
      * @return iterable returns the original iterable if all values are unique
      *
-     * @see Alias: Guard::ul()
-     * @see Alias: Guard::unique_loose()
-     * @see Alias: Guard::unique_loose_values()
+     * @see Alias: {@see Guard::ul()}
+     * @see Alias: {@see Guard::unique_loose()}
+     * @see Alias: {@see Guard::unique_loose_values()}
      */
     #[Alias(['ul', 'unique_loose', 'unique_loose_values'])]
     public static function hasUniqueLooseValues(iterable $values, ?string $message = null): iterable

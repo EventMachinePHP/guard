@@ -34,8 +34,8 @@ trait RangeGuards
      *
      * @throws InvalidGuardArgumentException If value is not between the min and max.
      *
-     * @see Alias: Guard::btw()
-     * @see Alias: Guard::between()
+     * @see Alias: {@see Guard::btw()}
+     * @see Alias: {@see Guard::between()}
      */
     #[Alias(['btw', 'between'])]
     public static function isBetween(mixed $value, mixed $min, mixed $max, ?string $message = null): mixed
@@ -67,8 +67,8 @@ trait RangeGuards
      *
      * @throws InvalidGuardArgumentException
      *
-     * @see Alias: Guard::wtn()
-     * @see Alias: Guard::within()
+     * @see Alias: {@see Guard::wtn()}
+     * @see Alias: {@see Guard::within()}
      */
     #[Alias(['wtn', 'within'])]
     public static function isWithin(mixed $value, mixed $min, mixed $max, ?string $message = null): mixed

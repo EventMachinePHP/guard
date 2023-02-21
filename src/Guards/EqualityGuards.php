@@ -36,8 +36,8 @@ trait EqualityGuards
      *
      * @throws InvalidGuardArgumentException If the value is not equal to the expected value.
      *
-     * @see Alias: Guard::eq()
-     * @see Alias: Guard::equalTo()
+     * @see Alias: {@see Guard::eq()}
+     * @see Alias: {@see Guard::equalTo()}
      */
     #[Alias(['eq', 'equalTo'])]
     public static function isEqualTo(mixed $value, mixed $expect, ?string $message = null): mixed
@@ -67,10 +67,10 @@ trait EqualityGuards
      *
      * @throws InvalidGuardArgumentException if the value is not identical to the specified value.
      *
-     * @see Alias: Guard::id()
-     * @see Alias: Guard::same()
-     * @see Alias: Guard::identical()
-     * @see Alias: Guard::identicalTo()
+     * @see Alias: {@see Guard::id()}
+     * @see Alias: {@see Guard::same()}
+     * @see Alias: {@see Guard::identical()}
+     * @see Alias: {@see Guard::identicalTo()}
      */
     #[Alias(['id', 'same', 'identical', 'identicalTo'])]
     public static function isIdenticalTo(mixed $value, mixed $expect, ?string $message = null): mixed

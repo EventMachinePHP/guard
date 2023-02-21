@@ -28,8 +28,8 @@ trait NullGuards
      *
      * @throws InvalidGuardArgumentException If the value is not `null`.
      *
-     * @see Alias: Guard::n()
-     * @see Alias: Guard::null()
+     * @see Alias: {@see Guard::n()}
+     * @see Alias: {@see Guard::null()}
      */
     #[Alias(['n', 'null'])]
     public static function isNull(mixed $value, ?string $message = null): mixed

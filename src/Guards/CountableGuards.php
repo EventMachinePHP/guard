@@ -36,9 +36,9 @@ trait CountableGuards
      *
      * @throws InvalidGuardArgumentException If the value is not countable.
      *
-     * @see Alias: Guard::co()
-     * @see Alias: Guard::countable()
-     * @see Alias: Guard::is_countable()
+     * @see Alias: {@see Guard::co()}
+     * @see Alias: {@see Guard::countable()}
+     * @see Alias: {@see Guard::is_countable()}
      */
     #[Alias(['co', 'countable', 'is_countable'])]
     public static function isCountable(mixed $value, ?string $message = null): Countable|array

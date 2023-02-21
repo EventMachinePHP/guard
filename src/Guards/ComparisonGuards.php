@@ -37,8 +37,8 @@ trait ComparisonGuards
      *
      * @throws InvalidGuardArgumentException If the value is less than or equal to the limit.
      *
-     * @see Alias: Guard::gt()
-     * @see Alias: Guard::greaterThan()
+     * @see Alias: {@see Guard::gt()}
+     * @see Alias: {@see Guard::greaterThan()}
      */
     #[Alias(['gt', 'greaterThan'])]
     public static function isGreaterThan(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -64,8 +64,8 @@ trait ComparisonGuards
      *
      *@throws InvalidGuardArgumentException If the value is not greater than or equal to the limit
      *
-     * @see Alias: Guard::gte()
-     * @see Alias: Guard::greaterThanOrEqual()
+     * @see Alias: {@see Guard::gte()}
+     * @see Alias: {@see Guard::greaterThanOrEqual()}
      */
     #[Alias(['gte', 'greaterThanOrEqual'])]
     public static function isGreaterThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -93,8 +93,8 @@ trait ComparisonGuards
      *
      * @throws InvalidGuardArgumentException If the value is greater than or equal to the limit.
      *
-     * @see Alias: Guard::lt()
-     * @see Alias: Guard::lessThan()
+     * @see Alias: {@see Guard::lt()}
+     * @see Alias: {@see Guard::lessThan()}
      */
     #[Alias(['lt', 'lessThan'])]
     public static function isLessThan(mixed $value, mixed $limit, ?string $message = null): mixed
@@ -126,8 +126,8 @@ trait ComparisonGuards
      *
      *@throws InvalidGuardArgumentException If the value is greater than the limit
      *
-     * @see Alias: Guard::lte()
-     * @see Alias: Guard::lessThanOrEqual()
+     * @see Alias: {@see Guard::lte()}
+     * @see Alias: {@see Guard::lessThanOrEqual()}
      */
     #[Alias(['lte', 'lessThanOrEqual'])]
     public static function isLessThanOrEqual(mixed $value, mixed $limit, ?string $message = null): mixed

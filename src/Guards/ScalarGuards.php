@@ -33,9 +33,9 @@ trait ScalarGuards
      *
      * @throws InvalidGuardArgumentException If the value is not a scalar value.
      *
-     * @see Alias: Guard::sc()
-     * @see Alias: Guard::scalar()
-     * @see Alias: Guard::is_scalar()
+     * @see Alias: {@see Guard::sc()}
+     * @see Alias: {@see Guard::scalar()}
+     * @see Alias: {@see Guard::is_scalar()}
      */
     #[Alias(['sc', 'scalar', 'is_scalar'])]
     public static function isScalar(mixed $value, ?string $message = null): string|int|float|bool
