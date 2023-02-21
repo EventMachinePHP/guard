@@ -19,6 +19,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static string strNonEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
  * @method static string stringNonEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
  * @method static string nonEmptyString(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
+ * @method static string stc(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
+ * @method static string str_contains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
+ * @method static string stringContains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  */
 trait StringGuards
 {
@@ -80,6 +83,42 @@ trait StringGuards
                 customMessage: $message,
                 defaultMessage: 'Expected a non-empty-string. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
+    }
+
+    /**
+     * Validates if the given string contains a substring and retuns it.
+     *
+     * This method checks if the input `$value` is a string and if it
+     * contains the `$subString`. If the input `$value` is not a
+     * string or if it does not contain the `$subString`, an
+     * {@see InvalidGuardArgumentException} will be thrown
+     * with the custom message, or the default message.
+     *
+     * @param  mixed  $value The input value to be checked
+     * @param  mixed  $subString The substring to check if it exists in the input value
+     * @param  string|null  $message The custom error message to use, or `null` to use the default message
+     *
+     * @return string The input value, if it is a string and contains the `$subString`
+     *
+     * @throws InvalidGuardArgumentException If the input value is not a string or does not contain the `$subString`
+     *
+     * @see Alias: {@see Guard::stc()}
+     * @see Alias: {@see Guard::str_contains()}
+     * @see Alias: {@see Guard::stringContains()}
+     */
+    #[Alias(['stc', 'str_contains', 'stringContains'])]
+    public static function isStringContains(mixed $value, mixed $subString, ?string $message = null): string
+    {
+        return
+            !is_string($value) ||
+            !is_string($subString) ||
+            !str_contains($value, $subString)
+            ? throw InvalidGuardArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a string containing "%s". Got: %s (%s)',
+                values: [$subString, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
     }
