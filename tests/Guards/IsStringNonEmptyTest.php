@@ -8,7 +8,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 test(description: passingCasesDescription(__FILE__))
     ->with(data: passingCasesDescription(__FILE__))
     ->expect(fn ($value) => (
-        Guard::isStringNotEmpty(
+        Guard::isStringNonEmpty(
             value: $value
         )
     ))
@@ -20,7 +20,7 @@ test(description: failingCasesDescription(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $message) => $message)
     ->expect(fn ($value, $message) => (
-        Guard::isStringNotEmpty(
+        Guard::isStringNonEmpty(
             value: $value
         )
     ));
@@ -30,7 +30,7 @@ test(description: errorMessagesDescription(__FILE__))
     ->expectExceptionObject(new InvalidGuardArgumentException(message: CUSTOM_ERROR_MESSAGE))
     ->expectException(InvalidGuardArgumentException::class)
     ->expect(fn ($value, $message) => (
-        Guard::isStringNotEmpty(
+        Guard::isStringNonEmpty(
             value: $value,
             message: CUSTOM_ERROR_MESSAGE
         )

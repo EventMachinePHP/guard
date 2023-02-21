@@ -15,14 +15,13 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static string str(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
  * @method static string string(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
  * @method static string is_string(mixed $value, ?string $message = null) Alias of {@see Guard::isString()}
- * @method static string sne(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
- * @method static string strNotEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
- * @method static string stringNotEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNotEmpty()}
+ * @method static string sne(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
+ * @method static string strNonEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
+ * @method static string stringNonEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
+ * @method static string nonEmptyString(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
  */
 trait StringGuards
 {
-    // TODO: Consider renaming to isStringNonEmpty()
-
     /**
      * Validates if the given value is a string and returns it.
      *
@@ -69,13 +68,12 @@ trait StringGuards
      * @throws InvalidGuardArgumentException If the validation fails.
      *
      * @see Alias: Guard::sne()
-     * @see Alias: Guard::strNotEmpty()
-     * @see Alias: Guard::stringNotEmpty()
-     *
-     * TODO: Rename this to isNonEmptyString() not to interfere with NotGuards
+     * @see Alias: Guard::strNonEmpty()
+     * @see Alias: Guard::stringNonEmpty()
+     * @see Alias: Guard::nonEmptyString()
      */
-    #[Alias(['sne', 'strNotEmpty', 'stringNotEmpty'])]
-    public static function isStringNotEmpty(mixed $value, ?string $message = null): string
+    #[Alias(['sne', 'strNonEmpty', 'stringNonEmpty', 'nonEmptyString'])]
+    public static function isStringNonEmpty(mixed $value, ?string $message = null): string
     {
         return (!is_string($value) || $value === '')
             ? throw InvalidGuardArgumentException::create(
