@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Pest\Datasets;
 use EventMachinePHP\Guard\Guard;
+use function Ozzie\Nest\describe;
 use EventMachinePHP\Guard\Helpers;
 use EventMachinePHP\Guard\Exceptions\NotGuardException;
-use function Ozzie\Nest\describe;
 
 describe('Not Guard: ', function (): void {
     $reflectionClass = new ReflectionClass(Guard::class);
