@@ -13,9 +13,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 /**
  * This trait contains methods for validating class values.
  *
- * @method static string cl(mixed $value, ?string $message = null) Alias of {@see Guard::isClassExists()}
- * @method static string class(mixed $value, ?string $message = null) Alias of {@see Guard::isClassExists()}
- * @method static string class_exists(mixed $value, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static string cl(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static string class(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static string class_exists(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
  * @method static object|string sub(object|string $value, object|string $parentClass, ?string $message = null) Alias of {@see Guard::isSubClassOf()}
  * @method static object|string subclass_of(object|string $value, object|string $parentClass, ?string $message = null) Alias of {@see Guard::isSubClassOf()}
  */
@@ -39,9 +39,9 @@ trait ClassGuards
      * @see Alias: {@see Guard::class_exists()}
      */
     #[Alias(['cl', 'class', 'class_exists'])]
-    public static function isClassExists(mixed $value, ?string $message = null): string
+    public static function isClassExists(mixed $value, bool $autoload = true, ?string $message = null): string
     {
-        return !is_string($value) || !class_exists($value)
+        return !is_string($value) || !class_exists($value, $autoload)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected an existing class name. Got: %s (%s)',
