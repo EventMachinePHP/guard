@@ -5,7 +5,8 @@ declare(strict_types=1);
 use EventMachinePHP\Guard\Guard;
 
 dataset(passingCasesDataset(filePath: __FILE__), [
-    '(Guard::class)' => [Guard::class],
+    '(Guard::class)'   => [Guard::class],
+    '(new stdClass())' => [new stdClass()],
 ]);
 
 dataset(failingCasesDataset(filePath: __FILE__), [

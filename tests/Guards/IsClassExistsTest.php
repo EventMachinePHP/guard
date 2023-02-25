@@ -15,8 +15,7 @@ test(description: passingCasesDescription(__FILE__))
             value: $value
         )
     ))
-    ->toHaveValue(fn ($value) => $value)
-    ->and(fn ($value) => class_exists($value));
+    ->toHaveValue(fn ($value) => $value);
 
 test(description: failingCasesDescription(__FILE__))
     ->with(data: failingCasesDataset(__FILE__))
