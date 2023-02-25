@@ -23,6 +23,7 @@ use EventMachinePHP\Guard\Guards\InstanceGuards;
 use EventMachinePHP\Guard\Guards\IterableGuards;
 use EventMachinePHP\Guard\Guards\ResourceGuards;
 use EventMachinePHP\Guard\Guards\CountableGuards;
+use EventMachinePHP\Guard\Guards\ExceptionGuards;
 use EventMachinePHP\Guard\Guards\ComparisonGuards;
 
 class Guard
@@ -34,6 +35,7 @@ class Guard
     use ComparisonGuards;
     use CountableGuards;
     use EmptyGuards;
+    use ExceptionGuards;
     use EqualityGuards;
     use InstanceGuards;
     use NumericGuards;
@@ -61,8 +63,6 @@ class Guard
     // TODO: Update type tests using IntegerTest cases
     // TODO: https://github.com/php-strictus/strictus
     // TODO: Consider isJsonSring?
-    // TODO: EmptyOr Guards?
-    // TODO: EmptyOrAll Guards?
     // TODO: ? OfAny Guards: --> is_istance_of_any, is_array_of_any, is_bool_of_any...
     // TODO: Guard::not()->emptyOr()->isString()->isClassString() ????
     // TODO: dataset's has duplicate test cases?
@@ -70,6 +70,8 @@ class Guard
     // TODO: Consider thatAll(): Validates all rules and then return the failed ones
     // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
     // TODO: https://github.com/spatie/pest-expectations
+    // TODO: Consider AllNullOr Guards
+    // TODO: isObjectOrClassString
 
     // region Aliases
 

@@ -7,7 +7,7 @@ use EventMachinePHP\Guard\Tests\TestCase;
 
 const PASSING_CASES  = '(pass)';
 const FAILING_CASES  = '(fail)';
-const ERROR_MESSAGES = '(error)';
+const ERROR_MESSAGES = '(message)';
 
 const CUSTOM_ERROR_MESSAGE = 'Custom Error Message';
 

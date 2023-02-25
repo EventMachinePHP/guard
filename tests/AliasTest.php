@@ -5,6 +5,7 @@ declare(strict_types=1);
 use function Ozzie\Nest\test;
 use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
+use EventMachinePHP\Guard\Guards\ExceptionGuards;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 test('no duplicate guard alias exists', function (): void {
@@ -88,7 +89,7 @@ describe('Alias Docblocks: ', function (): void {
 
         // If the trait does not have a docblock, fail the test
         if ($traitDocComment === false) {
-            $this->fail(generateTraitDocBlockForAliases($trait));
+            test()->fail(generateTraitDocBlockForAliases($trait));
         }
 
         // Iterate over each method in the trait
@@ -135,6 +136,10 @@ describe('Guard Alias: ', function (): void {
 
     // Iterate over each trait and its methods
     foreach ($traits as $trait) {
+        if ($trait->getName() === ExceptionGuards::class) {
+            continue;
+        }
+
         foreach ($trait->getMethods() as $method) {
             // Check if the method has any attributes
             foreach ($method->getAttributes() as $attribute) {

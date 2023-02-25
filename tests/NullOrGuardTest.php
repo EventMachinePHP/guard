@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use EventMachinePHP\Guard\Guard;
 use function Ozzie\Nest\describe;
+use EventMachinePHP\Guard\Guards\ExceptionGuards;
 use EventMachinePHP\Guard\Exceptions\NullOrGuardExceptionGuard;
 
 describe('NullOr Guard: ', function (): void {
@@ -11,6 +12,10 @@ describe('NullOr Guard: ', function (): void {
     $traits          = $reflectionClass->getTraits();
 
     foreach ($traits as $trait) {
+        if ($trait->getName() === ExceptionGuards::class) {
+            continue;
+        }
+
         foreach ($trait->getMethods(filter: ReflectionMethod::IS_PUBLIC) as $method) {
             test('nullOr()->'.$method->getName().'(null)', function () use ($method): void {
                 expect(Guard::nullOr()->{$method->getName()}(null))
