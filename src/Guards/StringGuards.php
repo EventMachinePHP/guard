@@ -22,6 +22,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static string stc(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  * @method static string str_contains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  * @method static string stringContains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
+ * @method static string stsw(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
+ * @method static string str_starts_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
+ * @method static string stringStartsWith(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
  */
 trait StringGuards
 {
@@ -118,6 +121,43 @@ trait StringGuards
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
                 defaultMessage: 'Expected a string containing "%s". Got: %s (%s)',
+                values: [$subString, self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
+    }
+
+    /**
+     * Validates that the given value starts with the specified substring
+     * and returns it.
+     *
+     * This method verifies that the provided value is a string and starts
+     * with the specified substring. If the value is not a string or does
+     * not start with the specified substring, an {@see InvalidGuardArgumentException}
+     * is thrown.
+     *
+     * @param  mixed  $value The value to check.
+     * @param  mixed  $subString The substring that the value should start with.
+     * @param  string|null  $message An optional custom error message.
+     *
+     * @return string The original value if it is a string and starts with the specified substring.
+     *
+     *@throws InvalidGuardArgumentException If the value is not a string or does not start with
+     *     the specified substring.
+     *
+     * @see Alias: {@see Guard::stsw()}
+     * @see Alias: {@see Guard::str_starts_with()}
+     * @see Alias: {@see Guard::stringStartsWith()}
+     */
+    #[Alias(['stsw', 'str_starts_with', 'stringStartsWith'])]
+    public static function isStringStartsWith(mixed $value, mixed $subString, ?string $message = null): string
+    {
+        return
+            !is_string($value) ||
+            !is_string($subString) ||
+            !str_starts_with($value, $subString)
+            ? throw InvalidGuardArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected a string starting with "%s". Got: %s (%s)',
                 values: [$subString, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
