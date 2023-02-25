@@ -20,11 +20,17 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static string stringNonEmpty(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
  * @method static string nonEmptyString(mixed $value, ?string $message = null) Alias of {@see Guard::isStringNonEmpty()}
  * @method static string stc(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
+ * @method static string contains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  * @method static string str_contains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  * @method static string stringContains(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringContains()}
  * @method static string stsw(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
+ * @method static string starts_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
  * @method static string str_starts_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
  * @method static string stringStartsWith(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringStartsWith()}
+ * @method static string stew(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
+ * @method static string ends_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
+ * @method static string str_ends_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
+ * @method static string stringEndsWith(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
  */
 trait StringGuards
 {
@@ -108,10 +114,11 @@ trait StringGuards
      * @throws InvalidGuardArgumentException If the input value is not a string or does not contain the `$subString`
      *
      * @see Alias: {@see Guard::stc()}
+     * @see Alias: {@see Guard::contains()}
      * @see Alias: {@see Guard::str_contains()}
      * @see Alias: {@see Guard::stringContains()}
      */
-    #[Alias(['stc', 'str_contains', 'stringContains'])]
+    #[Alias(['stc', 'contains', 'str_contains', 'stringContains'])]
     public static function isStringContains(mixed $value, mixed $subString, ?string $message = null): string
     {
         return
@@ -145,10 +152,11 @@ trait StringGuards
      *     the specified substring.
      *
      * @see Alias: {@see Guard::stsw()}
+     * @see Alias: {@see Guard::starts_with()}
      * @see Alias: {@see Guard::str_starts_with()}
      * @see Alias: {@see Guard::stringStartsWith()}
      */
-    #[Alias(['stsw', 'str_starts_with', 'stringStartsWith'])]
+    #[Alias(['stsw', 'starts_with', 'str_starts_with', 'stringStartsWith'])]
     public static function isStringStartsWith(mixed $value, mixed $subString, ?string $message = null): string
     {
         return
@@ -161,5 +169,43 @@ trait StringGuards
                 values: [$subString, self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
+    }
+
+    /**
+     * Validates that the given value ends with the specified substring
+     * and returns it.
+     *
+     * This method verifies that the provided value is a string and ends
+     * with the specified substring. If the value is not a string or does
+     * not end with the specified substring, an {@see InvalidGuardArgumentException}
+     * is thrown.
+     *
+     * @param  mixed  $value The value to check.
+     * @param  mixed  $subString The substring that the value should start with.
+     * @param  string|null  $message An optional custom error message.
+     *
+     * @return string The original value if it is a string and ends with the specified substring.
+     *
+     *@throws InvalidGuardArgumentException If the value is not a string or does not end with
+     *     the specified substring.
+     *
+     * @see Alias: {@see Guard::stew()}
+     * @see Alias: {@see Guard::ends_with()}
+     * @see Alias: {@see Guard::str_ends_with()}
+     * @see Alias: {@see Guard::stringEndsWith()}
+     */
+    #[Alias(['stew', 'ends_with', 'str_ends_with', 'stringEndsWith'])]
+    public static function isStringEndsWith(mixed $value, mixed $subString, ?string $message = null): string
+    {
+        return
+            !is_string($value) ||
+            !is_string($subString) ||
+            !str_ends_with($value, $subString)
+                ? throw InvalidGuardArgumentException::create(
+                    customMessage: $message,
+                    defaultMessage: 'Expected a string ending with "%s". Got: %s (%s)',
+                    values: [$subString, self::valueToString(value: $value), self::valueToType(value: $value)],
+                )
+                : $value;
     }
 }
