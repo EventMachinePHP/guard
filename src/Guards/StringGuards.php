@@ -208,4 +208,17 @@ trait StringGuards
                 )
                 : $value;
     }
+
+    public static function isStringStartsWithLetter(mixed $value, ?string $message = null): string
+    {
+        return
+            !is_string($value) ||
+            !preg_match('/^\p{L}/u', $value)
+                ? throw InvalidGuardArgumentException::create(
+                    customMessage: $message,
+                    defaultMessage: 'Expected a string starting with a letter. Got: %s (%s)',
+                    values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+                )
+                : $value;
+    }
 }
