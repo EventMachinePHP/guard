@@ -31,6 +31,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static string ends_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
  * @method static string str_ends_with(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
  * @method static string stringEndsWith(mixed $value, mixed $subString, ?string $message = null) Alias of {@see Guard::isStringEndsWith()}
+ * @method static string stswl(mixed $value, ?string $message = null) Alias of {@see Guard::isStringStartsWithLetter()}
+ * @method static string starts_with_letter(mixed $value, ?string $message = null) Alias of {@see Guard::isStringStartsWithLetter()}
+ * @method static string str_starts_with_letter(mixed $value, ?string $message = null) Alias of {@see Guard::isStringStartsWithLetter()}
+ * @method static string stringStartsWithLetter(mixed $value, ?string $message = null) Alias of {@see Guard::isStringStartsWithLetter()}
  */
 trait StringGuards
 {
@@ -209,6 +213,27 @@ trait StringGuards
                 : $value;
     }
 
+    /**
+     * Validates if the given value is a string that starts with a letter
+     * and returns it.
+     *
+     * This method asserts that the provided value is a string and starts
+     * with a letter (unicode category "L"). It throws an exception if
+     * the value does not satisfy these conditions.
+     *
+     * @param  mixed  $value The value to check.
+     * @param  string|null  $message Custom error message.
+     *
+     * @return string The value if it is a string that starts with a letter.
+     *
+     * @throws InvalidGuardArgumentException If the value is not a string that starts with a letter.
+     *
+     * @see Alias: {@see Guard::stswl()}
+     * @see Alias: {@see Guard::starts_with_letter()}
+     * @see Alias: {@see Guard::str_starts_with_letter()}
+     * @see Alias: {@see Guard::stringStartsWithLetter()}
+     */
+    #[Alias(['stswl', 'starts_with_letter', 'str_starts_with_letter', 'stringStartsWithLetter'])]
     public static function isStringStartsWithLetter(mixed $value, ?string $message = null): string
     {
         return
