@@ -13,9 +13,10 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 /**
  * This trait contains methods for validating class values.
  *
- * @method static string cl(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
- * @method static string class(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
- * @method static string class_exists(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static object|string cl(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static object|string class(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static object|string class_exists(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
+ * @method static object|string object_or_class(mixed $value, bool $autoload = true, ?string $message = null) Alias of {@see Guard::isClassExists()}
  * @method static object|string sub(object|string $value, object|string $parentClass, ?string $message = null) Alias of {@see Guard::isSubClassOf()}
  * @method static object|string subclass_of(object|string $value, object|string $parentClass, ?string $message = null) Alias of {@see Guard::isSubClassOf()}
  */
@@ -32,13 +33,14 @@ trait ClassGuards
      * @param  mixed  $value    The input value to validate.
      * @param  string|null  $message  Custom error message to use.
      *
-     * @return string           The input value if it is a valid existing class name.
+     * @return object|string The input value if it is a valid existing class name.
      *
      * @see Alias: {@see Guard::cl()}
      * @see Alias: {@see Guard::class()}
      * @see Alias: {@see Guard::class_exists()}
+     * @see Alias: {@see Guard::object_or_class()}
      */
-    #[Alias(['cl', 'class', 'class_exists'])]
+    #[Alias(['cl', 'class', 'class_exists', 'object_or_class'])]
     public static function isClassExists(mixed $value, bool $autoload = true, ?string $message = null): object|string
     {
         if (is_object($value)) {

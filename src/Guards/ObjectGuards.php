@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use function is_object;
+use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
