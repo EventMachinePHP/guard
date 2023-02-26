@@ -281,19 +281,4 @@ trait NumericGuards
             )
             : $value;
     }
-
-    /**
-     * @see Alias: {@see Guard::digit()}
-     */
-    #[Alias(['digit'])]
-    public static function isDigit(mixed $value, ?string $message = null): string|int|float
-    {
-        return !is_numeric($value) || $value < 0 || $value > 9
-            ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
-                defaultMessage: 'Expected a digit. Got: %s (%s)',
-                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
-    }
 }
