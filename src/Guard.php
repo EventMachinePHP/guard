@@ -10,6 +10,7 @@ use BadMethodCallException;
 use EventMachinePHP\Guard\Guards\NullGuards;
 use EventMachinePHP\Guard\Guards\ArrayGuards;
 use EventMachinePHP\Guard\Guards\ClassGuards;
+use EventMachinePHP\Guard\Guards\CtypeGuards;
 use EventMachinePHP\Guard\Guards\EmptyGuards;
 use EventMachinePHP\Guard\Guards\RangeGuards;
 use EventMachinePHP\Guard\Guards\ObjectGuards;
@@ -34,6 +35,7 @@ class Guard
     use ClassGuards;
     use ComparisonGuards;
     use CountableGuards;
+    use CtypeGuards;
     use EmptyGuards;
     use ExceptionGuards;
     use EqualityGuards;
