@@ -23,7 +23,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 trait ClassGuards
 {
     /**
-     * Validates if the given input is an existing class name and returns it.
+     * Validates if the given value is an existing class name and returns it.
      *
      * This method checks if the input string is a valid class name and
      * class exists in the current environment. If the input is not a
