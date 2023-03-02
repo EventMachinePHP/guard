@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Guards;
 
+use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
@@ -56,6 +57,8 @@ trait CtypeGuards
     #[Alias(['alnum', 'alphanumeric'])]
     public static function isAlphanumeric(mixed $value, ?string $message = null): mixed
     {
+        Guard::isString($value, $message);
+
         return !ctype_alnum($value)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
