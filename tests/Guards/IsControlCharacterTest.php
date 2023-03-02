@@ -6,18 +6,15 @@ use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
- * This test file contains tests for the {@see Guard::isDigit()} method.
+ * This test file contains tests for the {@see Guard::isControlCharacter()} method.
  */
 test(description: passingCasesDescription(__FILE__))
     ->with(data: passingCasesDataset(__FILE__))
     ->expect(fn ($value) => (
-        Guard::isDigit(
-            value: $value,
+        Guard::isControlCharacter(
+            value: $value
         )
     ))
-    ->toBeInt()
-    ->toBeGreaterThanOrEqual(0)
-    ->toBeLessThanOrEqual(9)
     ->toHaveValue(fn ($value) => $value);
 
 test(description: failingCasesDescription(__FILE__))
@@ -25,8 +22,8 @@ test(description: failingCasesDescription(__FILE__))
     ->expectException(InvalidGuardArgumentException::class)
     ->expectExceptionMessage(fn ($value, $message) => $message)
     ->expect(fn ($value, $message) => (
-        Guard::isDigit(
-            value: $value,
+        Guard::isControlCharacter(
+            value: $value
         )
     ));
 
@@ -35,8 +32,8 @@ test(description: errorMessagesDescription(__FILE__))
     ->expectExceptionObject(new InvalidGuardArgumentException(message: CUSTOM_ERROR_MESSAGE))
     ->expectException(InvalidGuardArgumentException::class)
     ->expect(fn ($value, $message) => (
-        Guard::isDigit(
+        Guard::isControlCharacter(
             value: $value,
-            message: CUSTOM_ERROR_MESSAGE,
+            message: CUSTOM_ERROR_MESSAGE
         )
     ));

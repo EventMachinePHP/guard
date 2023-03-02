@@ -122,6 +122,8 @@ trait CtypeGuards
     #[Alias(['cntrl', 'controlCharacter'])]
     public static function isControlCharacter(mixed $value, ?string $message = null): mixed
     {
+        Guard::isString($value, $message);
+
         return !ctype_cntrl($value)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
