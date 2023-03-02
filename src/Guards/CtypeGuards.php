@@ -89,6 +89,8 @@ trait CtypeGuards
     #[Alias(['alpha', 'alphabetic'])]
     public static function isAlphabetic(mixed $value, ?string $message = null): mixed
     {
+        Guard::isString($value, $message);
+
         return !ctype_alpha($value)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
