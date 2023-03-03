@@ -55,7 +55,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::alphanumeric()}
      */
     #[Alias(['alnum', 'alphanumeric'])]
-    public static function isAlphanumeric(mixed $value, ?string $message = null): mixed
+    public static function isAlphanumeric(mixed $value, ?string $message = null): string
     {
         Guard::isString($value, $message);
 
@@ -87,7 +87,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::alphabetic()}
      */
     #[Alias(['alpha', 'alphabetic'])]
-    public static function isAlphabetic(mixed $value, ?string $message = null): mixed
+    public static function isAlphabetic(mixed $value, ?string $message = null): string
     {
         Guard::isString($value, $message);
 
@@ -120,7 +120,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::controlCharacter()}
      */
     #[Alias(['cntrl', 'controlCharacter'])]
-    public static function isControlCharacter(mixed $value, ?string $message = null): mixed
+    public static function isControlCharacter(mixed $value, ?string $message = null): string
     {
         Guard::isString($value, $message);
 
@@ -151,8 +151,10 @@ trait CtypeGuards
      * @see Alias: {@see Guard::digitCharacter()}
      */
     #[Alias(['digit', 'digitCharacter'])]
-    public static function isDigitCharacter(mixed $value, ?string $message = null): mixed
+    public static function isDigitCharacter(mixed $value, ?string $message = null): string
     {
+        Guard::isString($value, $message);
+
         return !ctype_digit($value)
             ? throw InvalidGuardArgumentException::create(
                 customMessage: $message,
@@ -181,7 +183,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::lowercase()}
      */
     #[Alias(['lower', 'lowercase'])]
-    public static function isLowercase(mixed $value, ?string $message = null): mixed
+    public static function isLowercase(mixed $value, ?string $message = null): string
     {
         return !ctype_lower($value)
             ? throw InvalidGuardArgumentException::create(
@@ -207,7 +209,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::print()}
      */
     #[Alias(['graph', 'graphicCharacter'])]
-    public static function isGraphicCharacter(mixed $value, ?string $message = null): mixed
+    public static function isGraphicCharacter(mixed $value, ?string $message = null): string
     {
         return !ctype_graph($value)
             ? throw InvalidGuardArgumentException::create(
@@ -240,7 +242,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::printableCharacter()}
      */
     #[Alias(['print', 'printableCharacter'])]
-    public static function isPrintableCharacter(mixed $value, ?string $message = null): mixed
+    public static function isPrintableCharacter(mixed $value, ?string $message = null): string
     {
         return !ctype_print($value)
             ? throw InvalidGuardArgumentException::create(
@@ -269,7 +271,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::punctuationCharacter()}
      */
     #[Alias(['punct', 'punctuationCharacter'])]
-    public static function isPunctuation(mixed $value, ?string $message = null): mixed
+    public static function isPunctuation(mixed $value, ?string $message = null): string
     {
         return !ctype_punct($value)
             ? throw InvalidGuardArgumentException::create(
@@ -298,7 +300,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::whitespace()}
      */
     #[Alias(['space', 'whitespace'])]
-    public static function isWhiteSpace(mixed $value, ?string $message = null): mixed
+    public static function isWhiteSpace(mixed $value, ?string $message = null): string
     {
         return !ctype_space($value)
             ? throw InvalidGuardArgumentException::create(
@@ -329,7 +331,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::uppercase()}
      */
     #[Alias(['upper', 'uppercase'])]
-    public static function isUppercase(mixed $value, ?string $message = null): mixed
+    public static function isUppercase(mixed $value, ?string $message = null): string
     {
         return !ctype_upper($value)
             ? throw InvalidGuardArgumentException::create(
@@ -358,7 +360,7 @@ trait CtypeGuards
      * @see Alias: {@see Guard::hexadecimalDigit()}
      */
     #[Alias(['xdigit', 'hexadecimalDigit'])]
-    public static function isHexadecimalDigit(mixed $value, ?string $message = null): mixed
+    public static function isHexadecimalDigit(mixed $value, ?string $message = null): string
     {
         return !ctype_xdigit($value)
             ? throw InvalidGuardArgumentException::create(
