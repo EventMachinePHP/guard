@@ -3,34 +3,41 @@
 declare(strict_types=1);
 
 dataset('standard_type_variations', [
-    'null value'                                         => [null],
-    '-null value'                                        => [-null],
-    'true value as boolean'                              => [true],
-    '-true value as boolean'                             => [-true],
-    'false value as boolean'                             => [false],
-    '-false value as boolean'                            => [-false],
-    'very big negative integer value'                    => [-9999999999999999999999999999999999999],
-    'very big positive integer value'                    => [9999999999999999999999999999999999999],
-    '1337 as positive integer value'                     => [1337],
-    '1 as positive integer value'                        => [1],
-    '2 as positive integer value'                        => [2],
-    '0 as integer value'                                 => [0],
-    '-0 as integer value'                                => [-0],
-    '-1337 as negative integer value'                    => [-1337],
-    '-1337.43057 as negative float value'                => [1337.43057],
-    '1.0 as positive float value'                        => [1.0],
-    '0.0 as float value'                                 => [0.0],
-    '-0.0 as float value'                                => [-0.0],
-    '-1337.43057 as negative float value'                => [-1337.43057],
+    // Nulls
+    'null value'  => [null],
+    '-null value' => [-null],
+    // Booleans
+    'true value as boolean'   => [true],
+    '-true value as boolean'  => [-true],
+    'false value as boolean'  => [false],
+    '-false value as boolean' => [-false],
+    // Integers
+    'very big negative integer value' => [-9999999999999999999999999999999999999],
+    'very big positive integer value' => [9999999999999999999999999999999999999],
+    '1337 as positive integer value'  => [1337],
+    '1 as positive integer value'     => [1],
+    '2 as positive integer value'     => [2],
+    '0 as integer value'              => [0],
+    '-0 as integer value'             => [-0],
+    '-1337 as negative integer value' => [-1337],
+    // Floats
+    '-1337.43057 as negative float value' => [1337.43057],
+    '1.0 as positive float value'         => [1.0],
+    '0.0 as float value'                  => [0.0],
+    '-0.0 as float value'                 => [-0.0],
+    '-1337.43057 as negative float value' => [-1337.43057],
+    // Strings
     'null as string value'                               => ['null'],
     'true as string value'                               => ['true'],
     'false as string value'                              => ['false'],
     '1337 as string value'                               => ['1337'],
+    '0001337 as string value'                            => ['0001337'],
     '1 as string value'                                  => ['1'],
     '0 as string value'                                  => ['0'],
     '-0 as string value'                                 => ['-0'],
     '2 as string value'                                  => ['2'],
     '-1337 as string value'                              => ['-1337'],
+    '-0001337 as string value'                           => ['-0001337'],
     '1337.43057 as string value'                         => ['1337.43057'],
     '1.0 as string value'                                => ['1.0'],
     '0.0 as string value'                                => ['0.0'],
@@ -49,11 +56,21 @@ dataset('standard_type_variations', [
     'string value contains numbers'                      => ['B1ff'],
     'string value contains special characters'           => ['B1!!f0'],
     'string value around spaces'                         => [' l33t '],
+    'string value with newline characters'               => ["Hello\nworld!"],
+    'string with basic UTF-8 characters'                 => ['Hello, 世界!'],
+    'string with extended UTF-8 characters'              => ['The quick brôwn fôx jumped over the lazy dôg.'],
+    'string with emojis'                                 => ['😀😂🤣😊😍'],
+    'string with accented characters'                    => ['áéíóúñ'],
+    'string with HTML entities'                          => ['&lt;b&gt;Bold&lt;/b&gt;'],
+    'string value with leading/trailing spaces and tabs' => ["  \tleet\t\n"],
+    'empty string with control characters'               => ["\n\t\r"],
+    'empty string with null byte'                        => ["\0"],
     'long string value'                                  => ['A String longer than 300 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquet massa, nec lacin, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquet massa, nec lacin'],
     '[] as string value'                                 => ['[]'],
     '[1, 2, 3] as string value'                          => ['[1, 2, 3]'],
     'valid json as string value'                         => ['{"name1": "Alice", "name2": "Bob"}'],
     'invalid json as string value'                       => ['{"name": "Alice", "name": "Bob"}'],
+    // Arrays
     'empty array'                                        => [[]],
     'empty indexed array'                                => [[0 => []]],
     'empty negative indexed array'                       => [[-0 => []]],
@@ -81,8 +98,10 @@ dataset('standard_type_variations', [
     'indexed array with 3 positive integers'             => [[1, 2, 3]],
     'indexed array with 3 negative integers'             => [[-1, -2, -3]],
     'indexed array with 3 negative floats'               => [[-1.1, -2.2, -3.3]],
-    'closure'                                            => [fn (): Closure => function (): void {}],
-    'closure that returns closure'                       => [fn (): Closure => function (): Closure {
+    'indexed array with objects'                         => [[new stdClass(), new DateTime()]],
+    // Objects
+    'closure'                      => [fn (): Closure => function (): void {}],
+    'closure that returns closure' => [fn (): Closure => function (): Closure {
         return function (): string {
             return 'foo';
         };
@@ -105,6 +124,7 @@ dataset('standard_type_variations', [
     }],
     'anonyomous class that extends from stdClass' => [new class extends stdClass {}],
     'anonyomus class that extends from Exception' => [new class extends Exception {}],
-    'resource tmpfile()'                          => [tmpfile()],
-    'resource xml_parser_create()'                => [xml_parser_create()],
+    // Resources
+    'resource tmpfile()'           => [tmpfile()],
+    'resource xml_parser_create()' => [xml_parser_create()],
 ]);
