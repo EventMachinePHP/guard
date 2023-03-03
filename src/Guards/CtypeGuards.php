@@ -11,28 +11,28 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 /**
  * This trait contains methods for validating ctype checkable values.
  *
- * @method static mixed alnum(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphanumeric()}
- * @method static mixed alphanumeric(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphanumeric()}
- * @method static mixed alpha(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphabetic()}
- * @method static mixed alphabetic(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphabetic()}
- * @method static mixed cntrl(mixed $value, ?string $message = null) Alias of {@see Guard::isControlCharacter()}
- * @method static mixed controlCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isControlCharacter()}
- * @method static mixed digit(mixed $value, ?string $message = null) Alias of {@see Guard::isDigitCharacter()}
- * @method static mixed digitCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isDigitCharacter()}
- * @method static mixed lower(mixed $value, ?string $message = null) Alias of {@see Guard::isLowercase()}
- * @method static mixed lowercase(mixed $value, ?string $message = null) Alias of {@see Guard::isLowercase()}
- * @method static mixed graph(mixed $value, ?string $message = null) Alias of {@see Guard::isGraphicCharacter()}
- * @method static mixed graphicCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isGraphicCharacter()}
- * @method static mixed print(mixed $value, ?string $message = null) Alias of {@see Guard::isPrintableCharacter()}
- * @method static mixed printableCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isPrintableCharacter()}
- * @method static mixed punct(mixed $value, ?string $message = null) Alias of {@see Guard::isPunctuation()}
- * @method static mixed punctuationCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isPunctuation()}
- * @method static mixed space(mixed $value, ?string $message = null) Alias of {@see Guard::isWhiteSpace()}
- * @method static mixed whitespace(mixed $value, ?string $message = null) Alias of {@see Guard::isWhiteSpace()}
- * @method static mixed upper(mixed $value, ?string $message = null) Alias of {@see Guard::isUppercase()}
- * @method static mixed uppercase(mixed $value, ?string $message = null) Alias of {@see Guard::isUppercase()}
- * @method static mixed xdigit(mixed $value, ?string $message = null) Alias of {@see Guard::isHexadecimalDigit()}
- * @method static mixed hexadecimalDigit(mixed $value, ?string $message = null) Alias of {@see Guard::isHexadecimalDigit()}
+ * @method static string alnum(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphanumeric()}
+ * @method static string alphanumeric(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphanumeric()}
+ * @method static string alpha(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphabetic()}
+ * @method static string alphabetic(mixed $value, ?string $message = null) Alias of {@see Guard::isAlphabetic()}
+ * @method static string cntrl(mixed $value, ?string $message = null) Alias of {@see Guard::isControlCharacter()}
+ * @method static string controlCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isControlCharacter()}
+ * @method static string digit(mixed $value, ?string $message = null) Alias of {@see Guard::isDigitCharacter()}
+ * @method static string digitCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isDigitCharacter()}
+ * @method static string lower(mixed $value, ?string $message = null) Alias of {@see Guard::isLowercase()}
+ * @method static string lowercase(mixed $value, ?string $message = null) Alias of {@see Guard::isLowercase()}
+ * @method static string graph(mixed $value, ?string $message = null) Alias of {@see Guard::isGraphicCharacter()}
+ * @method static string graphicCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isGraphicCharacter()}
+ * @method static string print(mixed $value, ?string $message = null) Alias of {@see Guard::isPrintableCharacter()}
+ * @method static string printableCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isPrintableCharacter()}
+ * @method static string punct(mixed $value, ?string $message = null) Alias of {@see Guard::isPunctuation()}
+ * @method static string punctuationCharacter(mixed $value, ?string $message = null) Alias of {@see Guard::isPunctuation()}
+ * @method static string space(mixed $value, ?string $message = null) Alias of {@see Guard::isWhiteSpace()}
+ * @method static string whitespace(mixed $value, ?string $message = null) Alias of {@see Guard::isWhiteSpace()}
+ * @method static string upper(mixed $value, ?string $message = null) Alias of {@see Guard::isUppercase()}
+ * @method static string uppercase(mixed $value, ?string $message = null) Alias of {@see Guard::isUppercase()}
+ * @method static string xdigit(mixed $value, ?string $message = null) Alias of {@see Guard::isHexadecimalDigit()}
+ * @method static string hexadecimalDigit(mixed $value, ?string $message = null) Alias of {@see Guard::isHexadecimalDigit()}
  */
 trait CtypeGuards
 {
@@ -207,8 +207,8 @@ trait CtypeGuards
      *
      * @throws InvalidGuardArgumentException
      *
-     * @see Alias: {@see Guard::printable()}
-     * @see Alias: {@see Guard::print()}
+     * @see Alias: {@see Guard::graph()}
+     * @see Alias: {@see Guard::graphicCharacter()}
      */
     #[Alias(['graph', 'graphicCharacter'])]
     public static function isGraphicCharacter(mixed $value, ?string $message = null): string
