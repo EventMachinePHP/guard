@@ -73,7 +73,6 @@ class Guard
     // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
     // TODO: https://github.com/spatie/pest-expectations
     // TODO: Consider AllNullOr Guards
-    // TODO: isObjectOrClassString
 
     // region Aliases
 
