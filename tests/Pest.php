@@ -242,3 +242,25 @@ function testCases(array $caseNames): array
 
     return $cases;
 }
+
+/**
+ * Retrieves all guard test cases except the ones provided in the $except array.
+ *
+ * @param  array  $except  An array of guard test cases to exclude.
+ *
+ * @return array The filtered array of guard test cases, indexed by their values.
+ */
+function allCases(array $except = []): array
+{
+    $except = array_map(fn ($case) => $case->name, $except);
+
+    $cases = [];
+
+    foreach (GuardTestCase::cases() as $case) {
+        if (!in_array($case->name, $except, true)) {
+            $cases[$case->value] = [GuardTestCase::case($case)];
+        }
+    }
+
+    return $cases;
+}
