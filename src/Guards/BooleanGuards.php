@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use function is_bool;
+
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
@@ -29,8 +30,8 @@ trait BooleanGuards
      * is thrown. The exception message can be customized by providing
      * the `$message` parameter.
      *
-     * @param  mixed  $value Value to validate.
-     * @param  string|null  $message Custom exception message.
+     * @param  mixed  $value  Value to validate.
+     * @param  string|null  $message  Custom exception message.
      *
      * @return bool The validated boolean value.
      *
@@ -46,8 +47,8 @@ trait BooleanGuards
     {
         return !is_bool($value)
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected a boolean value. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
@@ -63,10 +64,10 @@ trait BooleanGuards
      * used depending on the availability of the
      * custom message.
      *
-     * @param  mixed  $value    The value to validate.
+     * @param  mixed  $value  The value to validate.
      * @param  string|null  $message  [optional] The custom error message.
      *
-     * @return bool             Returns `true` if the value is equal to `true`.
+     * @return bool Returns `true` if the value is equal to `true`.
      *
      * @see Alias: {@see Guard::t()}
      * @see Alias: {@see Guard::true()}
@@ -76,8 +77,8 @@ trait BooleanGuards
     {
         return $value !== true
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected a value to be true. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : true;
@@ -93,10 +94,10 @@ trait BooleanGuards
      * used depending on the availability of the
      * custom message.
      *
-     * @param  mixed  $value    The value to validate.
+     * @param  mixed  $value  The value to validate.
      * @param  string|null  $message  [optional] The custom error message.
      *
-     * @return bool             Returns `true` if the value is equal to `true`.
+     * @return bool Returns `true` if the value is equal to `true`.
      *
      * @see Alias: {@see Guard::f()}
      * @see Alias: {@see Guard::false()}
@@ -106,8 +107,8 @@ trait BooleanGuards
     {
         return $value !== false
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected a value to be false. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : false;
