@@ -224,3 +224,21 @@ function failingCasesDataset(string $filePath): string
 {
     return guardNameFromFile($filePath).FAILING_CASES;
 }
+
+/**
+ * Retrieves the test cases for the given case names.
+ *
+ * @param  array  $caseNames  An array of case names.
+ *
+ * @return array An array containing the test cases.
+ */
+function testCases(array $caseNames): array
+{
+    $cases = [];
+
+    foreach ($caseNames as $case) {
+        $cases[$case->value] = [GuardTestCase::case($case)];
+    }
+
+    return $cases;
+}
