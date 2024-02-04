@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Guards;
 
+use EventMachinePHP\Guard\ExceptionMessage;
 use function is_bool;
 
 use EventMachinePHP\Guard\Attributes\Alias;
@@ -47,7 +48,7 @@ trait BooleanGuards
     {
         return !is_bool($value)
             ? throw InvalidGuardArgumentException::create(
-                defaultMessage: 'Expected a boolean value. Got: %s (%s)',
+                defaultMessage: ExceptionMessage::IsBoolean,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
