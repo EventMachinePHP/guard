@@ -75,6 +75,9 @@ class Guard
     // TODO: Consider ThatAny(): Validates and returns the value if any rule passed
     // TODO: https://github.com/spatie/pest-expectations
     // TODO: Consider AllNullOr Guards
+    // TODO: Consider (StringBacked)EnumOrString
+    // TODO: Consider (IntBacked)EnumOrInteger
+    // TODO: Consider https://github.com/lezhnev74/pasvl
 
     // region Aliases
 
