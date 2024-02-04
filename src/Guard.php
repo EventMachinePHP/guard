@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard;
 
 use ReflectionClass;
+
 use function is_array;
+
 use BadMethodCallException;
 use EventMachinePHP\Guard\Guards\NullGuards;
 use EventMachinePHP\Guard\Guards\ArrayGuards;
@@ -37,12 +39,12 @@ class Guard
     use CountableGuards;
     use CtypeGuards;
     use EmptyGuards;
-    use ExceptionGuards;
     use EqualityGuards;
+    use ExceptionGuards;
     use InstanceGuards;
-    use NumericGuards;
     use IterableGuards;
     use NullGuards;
+    use NumericGuards;
     use ObjectGuards;
     use RangeGuards;
     use ResourceGuards;
@@ -82,12 +84,12 @@ class Guard
      * method attributes.
      *
      * @param  string  $calledAlias  The name of the alias.
-     * @param  array  $arguments    The arguments passed to the alias.
+     * @param  array  $arguments  The arguments passed to the alias.
      *
      * @return mixed The result of the corresponding defined method.
      *
      * @throws BadMethodCallException if the called alias does not have
-     * a corresponding defined method.
+     *                                a corresponding defined method.
      */
     public static function __callStatic(string $calledAlias, array $arguments)
     {
@@ -155,15 +157,15 @@ class Guard
      */
     public static function valueToString(mixed $value): string
     {
-        if (null === $value) {
+        if ($value === null) {
             return 'null';
         }
 
-        if (true === $value) {
+        if ($value === true) {
             return 'true';
         }
 
-        if (false === $value) {
+        if ($value === false) {
             return 'false';
         }
 
@@ -197,7 +199,7 @@ class Guard
      * Returns the type name of the provided value using the
      * {@see get_debug_type()} function.
      *
-     * @param  mixed  $value The value to convert to a type name.
+     * @param  mixed  $value  The value to convert to a type name.
      *
      * @return string The type name of the provided value.
      */
