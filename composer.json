@@ -19,7 +19,7 @@
     },
     "require-dev": {
         "infection/infection": "^0.26.19",
-        "laravel/pint": "^1.2",
+        "laravel/pint": "^1.13",
         "pestphp/pest": "^2.0",
         "phpbench/phpbench": "^1.2",
         "symfony/var-dumper": "^6.2"
