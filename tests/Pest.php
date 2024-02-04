@@ -264,3 +264,27 @@ function allCases(array $except = []): array
 
     return $cases;
 }
+
+/**
+ * Generates an array of randomly selected Guard Test Cases, with the exception of specified cases.
+ *
+ * @param  array  $except  An array of cases to be excluded from the random selection
+ *
+ * @return array An array of randomly selected Guard Test Cases
+ */
+function randomCase(array $except = []): array
+{
+    $exceptNames = array_flip(array_map(fn ($case) => $case->name, $except));
+
+    $cases = GuardTestCase::cases();
+
+    shuffle($cases);
+
+    foreach ($cases as $case) {
+        if (!isset($exceptNames[$case->name])) {
+            return [GuardTestCase::case($case)];
+        }
+    }
+
+    return [];
+}
