@@ -6,6 +6,7 @@ namespace EventMachinePHP\Guard\Guards;
 
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
@@ -61,8 +62,8 @@ trait CtypeGuards
 
         return !ctype_alnum($value)
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected alphanumeric characters only. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
@@ -89,12 +90,12 @@ trait CtypeGuards
     #[Alias(['alpha', 'alphabetic'])]
     public static function isAlphabetic(mixed $value, ?string $message = null): string
     {
-        Guard::isString($value, $message);
+        Guard::isString($value, message: $message ?? ExceptionMessage::IsAlphabetic->value);
 
         return !ctype_alpha($value)
             ? throw InvalidGuardArgumentException::create(
+                defaultMessage: ExceptionMessage::IsAlphabetic,
                 customMessage: $message,
-                defaultMessage: 'Expected alphabetic characters only. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
