@@ -11,6 +11,7 @@ enum ExceptionMessage: string
     // region BooleanGuards
     case IsBoolean = 'Expected a boolean value.';
     case IsTrue    = 'Expected a value to be true.';
+    case IsFalse   = 'Expected a value to be false.';
     // endregion
 
     // region StringGuards

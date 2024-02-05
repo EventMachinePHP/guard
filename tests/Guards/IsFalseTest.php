@@ -2,39 +2,38 @@
 
 declare(strict_types=1);
 
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\Tests\GuardTestCase;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
+
+const PASSING_CASES = [
+    GuardTestCase::B002_BOOLEAN_FALSE,
+];
 
 /**
  * This test file contains tests for the {@see Guard::isFalse()} method.
  */
-test(description: passingCasesDescription(__FILE__))
-    ->with(data: passingCasesDataset(__FILE__))
-    ->expect(fn ($value) => (
-        Guard::isFalse(
-            value: $value
-        )
-    ))
-    ->toBeFalse()
-    ->toHaveValue(fn ($value) => $value);
+test('isFalse(passing)', function (mixed $value): void {
+    $result = Guard::isFalse(value: $value);
 
-test(description: failingCasesDescription(__FILE__))
-    ->with(data: failingCasesDataset(__FILE__))
-    ->expectException(InvalidGuardArgumentException::class)
-    ->expectExceptionMessage(fn ($value, $message) => $message)
-    ->expect(fn ($value, $message) => (
-        Guard::isFalse(
-            value: $value
-        )
-    ));
+    expect($result)
+        ->toBeBool()
+        ->toBe($value);
+})->with(testCases(PASSING_CASES));
 
-test(description: errorMessagesDescription(__FILE__))
-    ->with(data: randomFailingCase(__FILE__))
-    ->expectExceptionObject(new InvalidGuardArgumentException(message: CUSTOM_ERROR_MESSAGE))
-    ->expectException(InvalidGuardArgumentException::class)
-    ->expect(fn ($value, $message) => (
-        Guard::isFalse(
-            value: $value,
-            message: CUSTOM_ERROR_MESSAGE,
-        )
-    ));
+test('isFalse(failing)', function (mixed $value): void {
+    expect(fn () => Guard::isFalse(value: $value))
+        ->toThrow(
+            exception: InvalidGuardArgumentException::class,
+            exceptionMessage: ExceptionMessage::IsFalse->value
+        );
+})->with(allCases(except: PASSING_CASES));
+
+test('isFalse(message)', function (mixed $value): void {
+    expect(fn () => Guard::isFalse(value: $value, message: CUSTOM_ERROR_MESSAGE))
+        ->toThrow(
+            exception: InvalidGuardArgumentException::class,
+            exceptionMessage: CUSTOM_ERROR_MESSAGE
+        );
+})->with(randomCase(except: PASSING_CASES));
