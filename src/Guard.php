@@ -78,6 +78,7 @@ class Guard
     // TODO: Consider (StringBacked)EnumOrString
     // TODO: Consider (IntBacked)EnumOrInteger
     // TODO: Consider https://github.com/lezhnev74/pasvl
+    // TODO: Consider: Guard::isBoolean()->orReturn()
 
     // region Aliases
 
