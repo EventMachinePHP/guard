@@ -81,7 +81,7 @@ trait BooleanGuards
     {
         return $value !== true
             ? throw InvalidGuardArgumentException::create(
-                defaultMessage: 'Expected a value to be true. Got: %s (%s)',
+                defaultMessage: ExceptionMessage::IsTrue,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
