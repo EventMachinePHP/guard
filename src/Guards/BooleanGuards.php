@@ -19,6 +19,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static bool boolean(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool t(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
  * @method static bool true(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
+ * @method static bool is_true(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
  * @method static bool f(mixed $value, ?string $message = null) Alias of {@see Guard::isFalse()}
  * @method static bool false(mixed $value, ?string $message = null) Alias of {@see Guard::isFalse()}
  */
@@ -72,8 +73,9 @@ trait BooleanGuards
      *
      * @see Alias: {@see Guard::t()}
      * @see Alias: {@see Guard::true()}
+     * @see Alias: {@see Guard::is_true()}
      */
-    #[Alias(['t', 'true'])]
+    #[Alias(['t', 'true', 'is_true'])]
     public static function isTrue(mixed $value, ?string $message = null): bool
     {
         return $value !== true
