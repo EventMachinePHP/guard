@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace EventMachinePHP\Guard\Guards;
 
-use EventMachinePHP\Guard\ExceptionMessage;
 use function is_bool;
 
 use EventMachinePHP\Guard\Attributes\Alias;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
