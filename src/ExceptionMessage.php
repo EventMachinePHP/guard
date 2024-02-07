@@ -8,6 +8,13 @@ enum ExceptionMessage: string
 {
     case ValueMessage = 'Got: %s (%s).';
 
+    // region Array Guards
+    case IsArray               = 'Expected an array.';
+    case IsArrayAccessible     = 'Expected an array or an object implementing ArrayAccess.';
+    case HasUniqueStrictValues = 'Expected strict unique values. Got duplicate values.';
+    case HasUniqueLooseValues  = 'Expected loose unique values. Got duplicate values.';
+    // endregion
+
     // region Boolean Guards
     case IsBoolean = 'Expected a boolean value.';
     case IsTrue    = 'Expected a value to be true.';

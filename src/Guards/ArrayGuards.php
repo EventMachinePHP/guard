@@ -9,6 +9,7 @@ use ArrayAccess;
 use function is_array;
 
 use EventMachinePHP\Guard\Attributes\Alias;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
@@ -51,7 +52,7 @@ trait ArrayGuards
     {
         return !is_array($value)
             ? throw InvalidGuardArgumentException::create(
-                defaultMessage: 'Expected an array. Got: %s (%s)',
+                defaultMessage: ExceptionMessage::IsArray,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
@@ -84,7 +85,7 @@ trait ArrayGuards
     {
         return !(is_array($value) || $value instanceof ArrayAccess)
             ? throw InvalidGuardArgumentException::create(
-                defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
+                defaultMessage: ExceptionMessage::IsArrayAccessible,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
@@ -122,7 +123,7 @@ trait ArrayGuards
 
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
-                    defaultMessage: 'Expected strict unique values. Got duplicate values',
+                    defaultMessage: ExceptionMessage::HasUniqueStrictValues, // TODO: ?
                     customMessage: $message,
                     values: []
                 );
@@ -163,7 +164,7 @@ trait ArrayGuards
 
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
-                    defaultMessage: 'Expected loose unique values. Got duplicate values',
+                    defaultMessage: ExceptionMessage::HasUniqueLooseValues,
                     customMessage: $message,
                     values: []
                 );
