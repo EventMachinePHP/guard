@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use function is_callable;
+
 use EventMachinePHP\Guard\Attributes\Alias;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
@@ -21,11 +23,11 @@ trait CallableGuards
      * Validates if the given value is callable and returns it.
      *
      * This function checks whether a value is callable. If the value is
-     * not callable, it throws an `{@see InvalidGuardArgumentException}` with
+     * not callable, it throws an {@see InvalidGuardArgumentException} with
      * a custom or default error message.
      *
-     * @param  mixed  $value The value to check.
-     * @param  string|null  $message The error message to use.
+     * @param  mixed  $value  The value to check.
+     * @param  string|null  $message  The error message to use.
      *
      * @return callable The callable value.
      *
@@ -40,8 +42,8 @@ trait CallableGuards
     {
         return !is_callable($value)
             ? throw InvalidGuardArgumentException::create(
+                defaultMessage: ExceptionMessage::IsCallable,
                 customMessage: $message,
-                defaultMessage: 'Expected a callable. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
