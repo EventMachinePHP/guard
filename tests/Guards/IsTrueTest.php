@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Tests\GuardTestCase;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
@@ -23,7 +23,7 @@ test('isTrue(passing)', function (mixed $value): void {
 })->with(testCases(PASSING_CASES));
 
 test('isTrue(failing)', function (mixed $value): void {
-    expect(fn () => Guard::isTrue(value: $value))
+    expect(fn() => Guard::isTrue(value: $value))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: ExceptionMessage::IsTrue->value
@@ -31,7 +31,7 @@ test('isTrue(failing)', function (mixed $value): void {
 })->with(allCases(except: PASSING_CASES));
 
 test('isTrue(message)', function (mixed $value): void {
-    expect(fn () => Guard::isTrue(value: $value, message: CUSTOM_ERROR_MESSAGE))
+    expect(fn() => Guard::isTrue(value: $value, message: CUSTOM_ERROR_MESSAGE))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: CUSTOM_ERROR_MESSAGE
