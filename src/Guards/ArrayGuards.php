@@ -83,13 +83,13 @@ trait ArrayGuards
     #[Alias(['aa', 'array_accessible', 'is_array_accessible'])]
     public static function isArrayAccessible(mixed $value, ?string $message = null): array|ArrayAccess
     {
-        return !(is_array($value) || $value instanceof ArrayAccess)
-            ? throw InvalidGuardArgumentException::create(
+        return is_array($value) || $value instanceof ArrayAccess
+            ? $value
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsArrayAccessible,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
+            );
     }
 
     /**
