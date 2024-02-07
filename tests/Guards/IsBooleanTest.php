@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
-use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Tests\GuardTestCase;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
+
+const PASSING_CASES = [
+    GuardTestCase::B001_BOOLEAN_TRUE,
+    GuardTestCase::B002_BOOLEAN_FALSE,
+];
 
 /**
  * This test file contains tests for the {@see Guard::isBoolean()} method.
@@ -16,10 +21,7 @@ test('isBoolean(passing)', function (mixed $value): void {
     expect($result)
         ->toBeBool()
         ->toBe($value);
-})->with(testCases([
-    GuardTestCase::B001_BOOLEAN_TRUE,
-    GuardTestCase::B002_BOOLEAN_FALSE,
-]));
+})->with(testCases(PASSING_CASES));
 
 test('isBoolean(failing)', function (mixed $value): void {
     expect(fn () => Guard::isBoolean(value: $value))
@@ -27,10 +29,7 @@ test('isBoolean(failing)', function (mixed $value): void {
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: ExceptionMessage::IsBoolean->value
         );
-})->with(allCases(except: [
-    GuardTestCase::B001_BOOLEAN_TRUE,
-    GuardTestCase::B002_BOOLEAN_FALSE,
-]));
+})->with(allCases(except: PASSING_CASES));
 
 test('isBoolean(message)', function (mixed $value): void {
     expect(fn () => Guard::isBoolean(value: $value, message: CUSTOM_ERROR_MESSAGE))
@@ -38,7 +37,4 @@ test('isBoolean(message)', function (mixed $value): void {
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: CUSTOM_ERROR_MESSAGE
         );
-})->with(randomCase(except: [
-    GuardTestCase::B001_BOOLEAN_TRUE,
-    GuardTestCase::B002_BOOLEAN_FALSE,
-]));
+})->with(randomCase(except: PASSING_CASES));
