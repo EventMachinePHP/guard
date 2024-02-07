@@ -14,6 +14,10 @@ enum ExceptionMessage: string
     case IsFalse   = 'Expected a value to be false.';
     // endregion
 
+    // region Callable Guards
+    case IsCallable = 'Expected a callable.';
+    // endregion
+
     // region StringGuards
     case IsString                 = 'Expected a string.';
     case IsStringNonEmpty         = 'Expected a non-empty-string.';
