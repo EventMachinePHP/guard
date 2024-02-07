@@ -49,8 +49,8 @@ trait ArrayGuards
     {
         return !is_array($value)
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected an array. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
@@ -82,8 +82,8 @@ trait ArrayGuards
     {
         return !(is_array($value) || $value instanceof ArrayAccess)
             ? throw InvalidGuardArgumentException::create(
-                customMessage: $message,
                 defaultMessage: 'Expected an array or an object implementing ArrayAccess. Got: %s (%s)',
+                customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
             )
             : $value;
@@ -120,8 +120,8 @@ trait ArrayGuards
 
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
-                    customMessage: $message,
                     defaultMessage: 'Expected strict unique values. Got duplicate values',
+                    customMessage: $message,
                     values: []
                 );
             }
@@ -161,8 +161,8 @@ trait ArrayGuards
 
             if ($count > 1) {
                 throw InvalidGuardArgumentException::create(
-                    customMessage: $message,
                     defaultMessage: 'Expected loose unique values. Got duplicate values',
+                    customMessage: $message,
                     values: []
                 );
             }
