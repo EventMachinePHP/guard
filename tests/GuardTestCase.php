@@ -23,25 +23,27 @@ enum GuardTestCase: string
     // endregion
 
     // region Booleans
-    case B001_BOOLEAN_TRUE           = 'B001|Boolean: true';
-    case B002_BOOLEAN_TRUE_NEGATIVE  = 'B002|Boolean: -true';
-    case B003_BOOLEAN_FALSE          = 'B003|Boolean: false';
-    case B004_BOOLEAN_FALSE_NEGATIVE = 'B004|Boolean: -false';
+    case B001_BOOLEAN_TRUE  = 'B001|Boolean: true';
+    case B002_BOOLEAN_FALSE = 'B002|Boolean: false';
     // endregion
 
     // region Integers
-    case I001_INTEGER_MAX           = 'I001|Integer: MAX';
-    case I002_INTEGER_MIN           = 'I002|Integer: MIN';
-    case I003_INTEGER_BIG           = 'I003|Integer: Big Positive';
-    case I004_INTEGER_BIG_NEGATIVE  = 'I004|Integer: Big Negative';
-    case I005_INTEGER_1337          = 'I005|Integer: 1337';
-    case I006_INTEGER_1337_NEGATIVE = 'I006|Integer: -1337';
-    case I007_INTEGER_1             = 'I007|Integer: 1';
-    case I008_INTEGER_1_NEGATIVE    = 'I008|Integer: -1';
-    case I009_INTEGER_2             = 'I009|Integer: 2';
-    case I010_INTEGER_2_NEGATIVE    = 'I010|Integer: -2';
-    case I011_INTEGER_0             = 'I011|Integer: 0';
-    case I012_INTEGER_0_NEGATIVE    = 'I012|Integer: -0';
+    case I001_INTEGER_MAX                    = 'I001|Integer: MAX';
+    case I002_INTEGER_MIN                    = 'I002|Integer: MIN';
+    case I003_INTEGER_BIG                    = 'I003|Integer: Big Positive';
+    case I004_INTEGER_BIG_NEGATIVE           = 'I004|Integer: Big Negative';
+    case I005_INTEGER_1337                   = 'I005|Integer: 1337';
+    case I006_INTEGER_1337_NEGATIVE          = 'I006|Integer: -1337';
+    case I007_INTEGER_1                      = 'I007|Integer: 1';
+    case I008_INTEGER_1_NEGATIVE             = 'I008|Integer: -1';
+    case I009_INTEGER_2                      = 'I009|Integer: 2';
+    case I010_INTEGER_2_NEGATIVE             = 'I010|Integer: -2';
+    case I011_INTEGER_0                      = 'I011|Integer: 0';
+    case I012_INTEGER_0_NEGATIVE             = 'I012|Integer: -0';
+    case I013_INTEGER_BOOLEAN_TRUE_NEGATIVE  = 'I013|Integer: Boolean -true';
+    case I014_INTEGER_BOOLEAN_TRUE_POSTIVE   = 'I014|Integer: Boolean +true';
+    case I015_INTEGER_BOOLEAN_FALSE_NEGATIVE = 'I015|Integer: Boolean -false';
+    case I016_INTEGER_BOOLEAN_FALSE_POSITIVE = 'I016|Integer: Boolean +false';
     // endregion
 
     // region Floats
@@ -193,25 +195,27 @@ enum GuardTestCase: string
             // endregion
 
             // region Booleans
-            self::B001_BOOLEAN_TRUE           => true,
-            self::B002_BOOLEAN_TRUE_NEGATIVE  => -true,
-            self::B003_BOOLEAN_FALSE          => false,
-            self::B004_BOOLEAN_FALSE_NEGATIVE => -false,
+            self::B001_BOOLEAN_TRUE  => true,
+            self::B002_BOOLEAN_FALSE => false,
             // endregion
 
             // region Integers
-            self::I001_INTEGER_MAX           => PHP_INT_MAX,
-            self::I002_INTEGER_MIN           => PHP_INT_MIN,
-            self::I003_INTEGER_BIG           => 9999999999999999999999999999999999999,
-            self::I004_INTEGER_BIG_NEGATIVE  => -9999999999999999999999999999999999999,
-            self::I005_INTEGER_1337          => 1337,
-            self::I006_INTEGER_1337_NEGATIVE => -1337,
-            self::I007_INTEGER_1             => 1,
-            self::I008_INTEGER_1_NEGATIVE    => -1,
-            self::I009_INTEGER_2             => 2,
-            self::I010_INTEGER_2_NEGATIVE    => -2,
-            self::I011_INTEGER_0             => 0,
-            self::I012_INTEGER_0_NEGATIVE    => -0,
+            self::I001_INTEGER_MAX                    => PHP_INT_MAX,
+            self::I002_INTEGER_MIN                    => PHP_INT_MIN,
+            self::I003_INTEGER_BIG                    => 9999999999999999999999999999999999999,
+            self::I004_INTEGER_BIG_NEGATIVE           => -9999999999999999999999999999999999999,
+            self::I005_INTEGER_1337                   => 1337,
+            self::I006_INTEGER_1337_NEGATIVE          => -1337,
+            self::I007_INTEGER_1                      => 1,
+            self::I008_INTEGER_1_NEGATIVE             => -1,
+            self::I009_INTEGER_2                      => 2,
+            self::I010_INTEGER_2_NEGATIVE             => -2,
+            self::I011_INTEGER_0                      => 0,
+            self::I012_INTEGER_0_NEGATIVE             => -0,
+            self::I013_INTEGER_BOOLEAN_TRUE_NEGATIVE  => -true,
+            self::I014_INTEGER_BOOLEAN_TRUE_POSTIVE   => +true,
+            self::I015_INTEGER_BOOLEAN_FALSE_NEGATIVE => -false,
+            self::I016_INTEGER_BOOLEAN_FALSE_POSITIVE => +false,
             // endregion
 
             // region Floats
