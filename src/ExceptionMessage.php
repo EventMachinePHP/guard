@@ -8,7 +8,7 @@ enum ExceptionMessage: string
 {
     case ValueMessage = 'Got: %s (%s).';
 
-    // region BooleanGuards
+    // region Boolean Guards
     case IsBoolean = 'Expected a boolean value.';
     case IsTrue    = 'Expected a value to be true.';
     case IsFalse   = 'Expected a value to be false.';
