@@ -36,8 +36,8 @@ trait ArrayGuards
      * Throws an {@see InvalidGuardArgumentException} if the value
      * is not an array.
      *
-     * @param  mixed  $value  The value to validate.
-     * @param  string|null  $message  Custom error message.
+     * @param mixed $value The value to validate.
+     * @param string|null $message Custom error message.
      *
      * @return array The value as an array.
      *
@@ -50,13 +50,13 @@ trait ArrayGuards
     #[Alias(['a', 'array', 'is_array'])]
     public static function isArray(mixed $value, ?string $message = null): array
     {
-        return !is_array($value)
-            ? throw InvalidGuardArgumentException::create(
+        return is_array($value)
+            ? $value
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsArray,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
+            );
     }
 
     /**
@@ -69,8 +69,8 @@ trait ArrayGuards
      * throws an {@see InvalidGuardArgumentException} with a
      * custom or default error message.
      *
-     * @param  mixed  $value  The value to be checked.
-     * @param  string|null  $message  Optional custom error message.
+     * @param mixed $value The value to be checked.
+     * @param string|null $message Optional custom error message.
      *
      * @return array|ArrayAccess The value if it is either an array or implements ArrayAccess.
      *
@@ -101,8 +101,8 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param  iterable  $values  the iterable to check for unique values
-     * @param  string|null  $message  optional error message to use instead of the default
+     * @param iterable $values the iterable to check for unique values
+     * @param string|null $message optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
      *
@@ -142,8 +142,8 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param  iterable  $values  the iterable to check for unique values
-     * @param  string|null  $message  optional error message to use instead of the default
+     * @param iterable $values the iterable to check for unique values
+     * @param string|null $message optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
      *
