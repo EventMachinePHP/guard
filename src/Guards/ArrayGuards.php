@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use ArrayAccess;
+
 use function is_array;
+
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
@@ -33,8 +35,8 @@ trait ArrayGuards
      * Throws an {@see InvalidGuardArgumentException} if the value
      * is not an array.
      *
-     * @param  mixed  $value The value to validate.
-     * @param  string|null  $message Custom error message.
+     * @param  mixed  $value  The value to validate.
+     * @param  string|null  $message  Custom error message.
      *
      * @return array The value as an array.
      *
@@ -66,8 +68,8 @@ trait ArrayGuards
      * throws an {@see InvalidGuardArgumentException} with a
      * custom or default error message.
      *
-     * @param  mixed  $value The value to be checked.
-     * @param  string|null  $message Optional custom error message.
+     * @param  mixed  $value  The value to be checked.
+     * @param  string|null  $message  Optional custom error message.
      *
      * @return array|ArrayAccess The value if it is either an array or implements ArrayAccess.
      *
@@ -98,7 +100,7 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param  iterable  $values   the iterable to check for unique values
+     * @param  iterable  $values  the iterable to check for unique values
      * @param  string|null  $message  optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
@@ -139,7 +141,7 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param  iterable  $values   the iterable to check for unique values
+     * @param  iterable  $values  the iterable to check for unique values
      * @param  string|null  $message  optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
