@@ -21,12 +21,12 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static ArrayAccess|array aa(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array is_array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
- * @method static iterable us(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
- * @method static iterable unique_strict(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
- * @method static iterable unique_strict_values(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
- * @method static iterable ul(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
- * @method static iterable unique_loose(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
- * @method static iterable unique_loose_values(iterable $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
+ * @method static iterable us(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable unique_strict(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable unique_strict_values(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
+ * @method static iterable ul(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
+ * @method static iterable unique_loose(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
+ * @method static iterable unique_loose_values(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueLooseValues()}
  */
 trait ArrayGuards
 {
@@ -101,7 +101,7 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param iterable $values the iterable to check for unique values
+     * @param mixed $values the iterable to check for unique values
      * @param string|null $message optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
@@ -111,7 +111,7 @@ trait ArrayGuards
      * @see Alias: {@see Guard::unique_strict_values()}
      */
     #[Alias(['us', 'unique_strict', 'unique_strict_values'])]
-    public static function hasUniqueStrictValues(iterable $values, ?string $message = null): iterable
+    public static function hasUniqueStrictValues(mixed $values, ?string $message = null): iterable
     {
         foreach ($values as $value1) {
             $count = 0;
@@ -142,7 +142,7 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param iterable $values the iterable to check for unique values
+     * @param mixed $values the iterable to check for unique values
      * @param string|null $message optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
@@ -152,7 +152,7 @@ trait ArrayGuards
      * @see Alias: {@see Guard::unique_loose_values()}
      */
     #[Alias(['ul', 'unique_loose', 'unique_loose_values'])]
-    public static function hasUniqueLooseValues(iterable $values, ?string $message = null): iterable
+    public static function hasUniqueLooseValues(mixed $values, ?string $message = null): iterable
     {
         foreach ($values as $value1) {
             $count = 0;
