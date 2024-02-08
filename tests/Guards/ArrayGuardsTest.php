@@ -7,124 +7,37 @@ use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Tests\GuardTestCase;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
-describe('isArray', function () {
+describe('hasUniqueStrictValues', function () {
     /**
-     * This test file contains tests for the {@see Guard::isArray()} method.
+     * This test file contains tests for the {@see Guard::hasUniqueStrictValues()} method.
      */
 
-    define('IS_ARRAY_PASSING_CASES', [
+    define('HAS_UNIQUE_STRICT_VALUES_PASSING_CASES', [
         GuardTestCase::A001_ARRAY_EMPTY,
-        GuardTestCase::A002_ARRAY_INTEGER_INDEXED,
-        GuardTestCase::A003_ARRAY_INGEGER_NEGATIVE_INDEXED,
-        GuardTestCase::A004_ARRAY_FLOAT_INDEXED,
-        GuardTestCase::A005_ARRAY_FLOAT_NEGATIVE_INDEXED,
-        GuardTestCase::A006_ARRAY_BOOLEAN_TRUE_INDEXED,
-        GuardTestCase::A007_ARRAY_BOOLEAN_FALSE_INDEXED,
-        GuardTestCase::A008_ARRAY_ASSOCIATIVE_NULL_WITH_EMPTY_KEY,
-        GuardTestCase::A009_ARRAY_ASSOCIATIVE_EMPTY_WITH_EMPTY_KEY,
-        GuardTestCase::A010_ARRAY_ASSOCIATIVE_EMPTY,
-        GuardTestCase::A011_ARRAY_NULL_VALUE,
-        GuardTestCase::A012_ARRAY_ASSOCIATIVE_NULL_VALUE,
-        GuardTestCase::A013_ARRAY_FALSE_VALUE,
-        GuardTestCase::A014_ARRAY_ASSOCIATIVE_FALSE_VALUE,
-        GuardTestCase::A015_ARRAY_TRUE_AND_FALSE,
-        GuardTestCase::A016_ARRAY_ASSOCIATIVE_TRUE_AND_FALSE,
-        GuardTestCase::A017_ARRAY_NULL_TRUE_FALSE,
-        GuardTestCase::A018_ARRAY_ASSOCIATIVE_NULL_TRUE_FALSE,
-        GuardTestCase::A019_ARRAY_ZERO,
-        GuardTestCase::A020_ARRAY_ASSOCIATIVE_ZERO,
-        GuardTestCase::A021_ARRAY_NEGATIVE_ZERO,
-        GuardTestCase::A022_ARRAY_FLOAT_ZER0,
-        GuardTestCase::A023_ARRAY_FLOAT_ZER0_NEGATIVE,
-        GuardTestCase::A024_ARRAY_POSITIVE_INTEGERS,
-        GuardTestCase::A025_ARRAY_NEGATIVE_INTEGERS,
-        GuardTestCase::A026_ARRAY_NEGATIVE_FLOATS,
-        GuardTestCase::A027_ARRAY_OBJECTS,
     ]);
 
-    test('isArray(passing)', function (mixed $value): void {
-        $result = Guard::isArray(value: $value);
-
-        expect($result)
-            ->toBeArray()
-            ->toBe($value);
-    })->with(testCases(IS_ARRAY_PASSING_CASES));
-
-    test('isArray(failing)', function (mixed $value): void {
-        expect(fn() => Guard::isArray(value: $value))
-            ->toThrow(
-                exception: InvalidGuardArgumentException::class,
-                exceptionMessage: ExceptionMessage::IsArray->value
-            );
-    })->with(allCases(except: IS_ARRAY_PASSING_CASES));
-
-    test('isArray(message)', function (mixed $value): void {
-        expect(fn() => Guard::isArray(value: $value, message: CUSTOM_ERROR_MESSAGE))
-            ->toThrow(
-                exception: InvalidGuardArgumentException::class,
-                exceptionMessage: CUSTOM_ERROR_MESSAGE
-            );
-    })->with(randomCase(except: IS_ARRAY_PASSING_CASES));
-});
-
-describe('isArrayAccessible', function () {
-    /**
-     * This test file contains tests for the {@see Guard::isArrayAccessible()} method.
-     */
-
-    define('IS_ARRAY_ACCESSIBLE_PASSING_CASES', [
-        GuardTestCase::A001_ARRAY_EMPTY,
-        GuardTestCase::A002_ARRAY_INTEGER_INDEXED,
-        GuardTestCase::A003_ARRAY_INGEGER_NEGATIVE_INDEXED,
-        GuardTestCase::A004_ARRAY_FLOAT_INDEXED,
-        GuardTestCase::A005_ARRAY_FLOAT_NEGATIVE_INDEXED,
-        GuardTestCase::A006_ARRAY_BOOLEAN_TRUE_INDEXED,
-        GuardTestCase::A007_ARRAY_BOOLEAN_FALSE_INDEXED,
-        GuardTestCase::A008_ARRAY_ASSOCIATIVE_NULL_WITH_EMPTY_KEY,
-        GuardTestCase::A009_ARRAY_ASSOCIATIVE_EMPTY_WITH_EMPTY_KEY,
-        GuardTestCase::A010_ARRAY_ASSOCIATIVE_EMPTY,
-        GuardTestCase::A011_ARRAY_NULL_VALUE,
-        GuardTestCase::A012_ARRAY_ASSOCIATIVE_NULL_VALUE,
-        GuardTestCase::A013_ARRAY_FALSE_VALUE,
-        GuardTestCase::A014_ARRAY_ASSOCIATIVE_FALSE_VALUE,
-        GuardTestCase::A015_ARRAY_TRUE_AND_FALSE,
-        GuardTestCase::A016_ARRAY_ASSOCIATIVE_TRUE_AND_FALSE,
-        GuardTestCase::A017_ARRAY_NULL_TRUE_FALSE,
-        GuardTestCase::A018_ARRAY_ASSOCIATIVE_NULL_TRUE_FALSE,
-        GuardTestCase::A019_ARRAY_ZERO,
-        GuardTestCase::A020_ARRAY_ASSOCIATIVE_ZERO,
-        GuardTestCase::A021_ARRAY_NEGATIVE_ZERO,
-        GuardTestCase::A022_ARRAY_FLOAT_ZER0,
-        GuardTestCase::A023_ARRAY_FLOAT_ZER0_NEGATIVE,
-        GuardTestCase::A024_ARRAY_POSITIVE_INTEGERS,
-        GuardTestCase::A025_ARRAY_NEGATIVE_INTEGERS,
-        GuardTestCase::A026_ARRAY_NEGATIVE_FLOATS,
-        GuardTestCase::A027_ARRAY_OBJECTS,
-        GuardTestCase::O010_OBJECT_ANONYMOUS_ARRAY_ACCESS_CLASS,
-    ]);
-
-    test('isArrayAccessible(passing)', function (mixed $value): void {
-        $result = Guard::isArrayAccessible(value: $value);
+    test('hasUniqueStrictValues(passing)', function (mixed $value): void {
+        $result = Guard::hasUniqueStrictValues(values: $value);
 
         $isArrayOrArrayAccessible = is_array($result) || $result instanceof ArrayAccess;
 
         expect($isArrayOrArrayAccessible)->toBeTrue();
-    })->with(testCases(IS_ARRAY_ACCESSIBLE_PASSING_CASES));
+    })->with(testCases(HAS_UNIQUE_STRICT_VALUES_PASSING_CASES));
 
-    test('isArrayAccessible(failing)', function (mixed $value): void {
-        expect(fn() => Guard::isArrayAccessible(value: $value))
+    test('hasUniqueStrictValues(failing)', function (mixed $value): void {
+        expect(fn() => Guard::hasUniqueStrictValues(values: $value))
             ->toThrow(
                 exception: InvalidGuardArgumentException::class,
-                exceptionMessage: ExceptionMessage::IsArrayAccessible->value
+                exceptionMessage: ExceptionMessage::HasUniqueStrictValues->value
             );
-    })->with(allCases(except: IS_ARRAY_ACCESSIBLE_PASSING_CASES));
+    })->with(allCases(except: HAS_UNIQUE_STRICT_VALUES_PASSING_CASES));
 
-    test('isArrayAccessible(message)', function (mixed $value): void {
-        expect(fn() => Guard::isArrayAccessible(value: $value, message: CUSTOM_ERROR_MESSAGE))
+    test('hasUniqueStrictValues(message)', function (mixed $value): void {
+        expect(fn() => Guard::hasUniqueStrictValues(values: $value, message: CUSTOM_ERROR_MESSAGE))
             ->toThrow(
                 exception: InvalidGuardArgumentException::class,
                 exceptionMessage: CUSTOM_ERROR_MESSAGE
             );
-    })->with(randomCase(except: IS_ARRAY_ACCESSIBLE_PASSING_CASES));
+    })->with(randomCase(except: HAS_UNIQUE_STRICT_VALUES_PASSING_CASES));
 });
 
