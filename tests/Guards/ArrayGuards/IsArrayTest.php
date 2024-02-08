@@ -1,13 +1,13 @@
 <?php
 
-/**
- * This test file contains tests for the {@see Guard::isArray()} method.
- */
-
 use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Tests\GuardTestCase;
+
+/**
+ * This test file contains tests for the {@see Guard::isArray()} method.
+ */
 
 const IS_ARRAY_PASSING_CASES = [
     GuardTestCase::A001_ARRAY_EMPTY,
