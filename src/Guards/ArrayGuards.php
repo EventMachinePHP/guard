@@ -69,8 +69,8 @@ trait ArrayGuards
      * throws an {@see InvalidGuardArgumentException} with a
      * custom or default error message.
      *
-     * @param mixed $value The value to be checked.
-     * @param string|null $message Optional custom error message.
+     * @param  mixed  $value  The value to be checked.
+     * @param  string|null  $message  Optional custom error message.
      *
      * @return array|ArrayAccess The value if it is either an array or implements ArrayAccess.
      *
