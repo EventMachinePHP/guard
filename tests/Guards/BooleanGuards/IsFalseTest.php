@@ -23,7 +23,7 @@ test('isFalse(passing)', function (mixed $value): void {
 })->with(testCases(PASSING_CASES));
 
 test('isFalse(failing)', function (mixed $value): void {
-    expect(fn() => Guard::isFalse(value: $value))
+    expect(fn () => Guard::isFalse(value: $value))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: ExceptionMessage::IsFalse->value
@@ -31,7 +31,7 @@ test('isFalse(failing)', function (mixed $value): void {
 })->with(allCases(except: PASSING_CASES));
 
 test('isFalse(message)', function (mixed $value): void {
-    expect(fn() => Guard::isFalse(value: $value, message: CUSTOM_ERROR_MESSAGE))
+    expect(fn () => Guard::isFalse(value: $value, message: CUSTOM_ERROR_MESSAGE))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: CUSTOM_ERROR_MESSAGE
