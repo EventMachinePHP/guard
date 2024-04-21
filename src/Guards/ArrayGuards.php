@@ -36,8 +36,8 @@ trait ArrayGuards
      * Throws an {@see InvalidGuardArgumentException} if the value
      * is not an array.
      *
-     * @param mixed $value The value to validate.
-     * @param string|null $message Custom error message.
+     * @param  mixed  $value  The value to validate.
+     * @param  string|null  $message  Custom error message.
      *
      * @return array The value as an array.
      *

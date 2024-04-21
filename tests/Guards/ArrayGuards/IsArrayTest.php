@@ -1,14 +1,15 @@
 <?php
 
-use EventMachinePHP\Guard\ExceptionMessage;
-use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
+declare(strict_types=1);
+
 use EventMachinePHP\Guard\Guard;
+use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Tests\GuardTestCase;
+use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
 /**
  * This test file contains tests for the {@see Guard::isArray()} method.
  */
-
 const IS_ARRAY_PASSING_CASES = [
     GuardTestCase::A001_ARRAY_EMPTY,
     GuardTestCase::A002_ARRAY_INTEGER_INDEXED,
@@ -36,7 +37,17 @@ const IS_ARRAY_PASSING_CASES = [
     GuardTestCase::A024_ARRAY_POSITIVE_INTEGERS,
     GuardTestCase::A025_ARRAY_NEGATIVE_INTEGERS,
     GuardTestCase::A026_ARRAY_NEGATIVE_FLOATS,
-    GuardTestCase::A027_ARRAY_OBJECTS,
+    GuardTestCase::A027_ARRAY_STRINGS,
+    GuardTestCase::A028_ARRAY_STRINGS_AND_INTEGERS,
+    GuardTestCase::A029_ARRAY_STRING_AND_NUMERIC_ONE,
+    GuardTestCase::A030_ARRAY_BOOLEAN_AND_STRING_ONE,
+    GuardTestCase::A031_ARRAY_NULL_AND_FALSE,
+    GuardTestCase::A032_ARRAY_REPEATED_STRINGS,
+    GuardTestCase::A033_ARRAY_REPEATED_INTEGERS,
+    GuardTestCase::A034_ARRAY_REPEATED_FLOATS,
+    GuardTestCase::A035_ARRAY_REPEATED_BOOLEANS,
+    GuardTestCase::A036_ARRAY_REPEATED_OBJECTS,
+    GuardTestCase::A037_ARRAY_OBJECTS,
 ];
 
 test('isArray(passing)', function (mixed $value): void {
@@ -48,7 +59,7 @@ test('isArray(passing)', function (mixed $value): void {
 })->with(testCases(IS_ARRAY_PASSING_CASES));
 
 test('isArray(failing)', function (mixed $value): void {
-    expect(fn() => Guard::isArray(value: $value))
+    expect(fn () => Guard::isArray(value: $value))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: ExceptionMessage::IsArray->value
@@ -56,7 +67,7 @@ test('isArray(failing)', function (mixed $value): void {
 })->with(allCases(except: IS_ARRAY_PASSING_CASES));
 
 test('isArray(message)', function (mixed $value): void {
-    expect(fn() => Guard::isArray(value: $value, message: CUSTOM_ERROR_MESSAGE))
+    expect(fn () => Guard::isArray(value: $value, message: CUSTOM_ERROR_MESSAGE))
         ->toThrow(
             exception: InvalidGuardArgumentException::class,
             exceptionMessage: CUSTOM_ERROR_MESSAGE
