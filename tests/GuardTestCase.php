@@ -161,7 +161,17 @@ enum GuardTestCase: string
     case A024_ARRAY_POSITIVE_INTEGERS                = 'A024|Array: Positive Integers';
     case A025_ARRAY_NEGATIVE_INTEGERS                = 'A025|Array: Negative Integers';
     case A026_ARRAY_NEGATIVE_FLOATS                  = 'A026|Array: Negative Floats';
-    case A027_ARRAY_OBJECTS                          = 'A027|Array: Objects';
+    case A027_ARRAY_STRINGS                          = 'A027|Array: Array with Strings';
+    case A028_ARRAY_STRINGS_AND_INTEGERS             = 'A028|Array: Array with Strings and Integers';
+    case A029_ARRAY_STRING_AND_NUMERIC_ONE           = 'A029|Array: Array with String and Numeric One';
+    case A030_ARRAY_BOOLEAN_AND_STRING_ONE           = 'A030|Array: Array with Boolean and String One';
+    case A031_ARRAY_NULL_AND_FALSE                   = 'A031|Array: Array with Null and False';
+    case A032_ARRAY_REPEATED_STRINGS                 = 'A032|Array: Array with Repeated Strings';
+    case A033_ARRAY_REPEATED_INTEGERS                = 'A033|Array: Array with Repeated Integers';
+    case A034_ARRAY_REPEATED_FLOATS                  = 'A034|Array: Array with Repeated Floats';
+    case A035_ARRAY_REPEATED_BOOLEANS                = 'A035|Array: Array with Repeated Booleans';
+    case A036_ARRAY_REPEATED_OBJECTS                 = 'A036|Array: Array with Repeated Objects';
+    case A037_ARRAY_OBJECTS                          = 'A037|Array: Objects';
     // endregion
 
     // region Objects
@@ -333,20 +343,32 @@ enum GuardTestCase: string
             self::A024_ARRAY_POSITIVE_INTEGERS                => [1, 2, 3],
             self::A025_ARRAY_NEGATIVE_INTEGERS                => [-1, -2, -3],
             self::A026_ARRAY_NEGATIVE_FLOATS                  => [-1.1, -2.2, -3.3],
-            self::A027_ARRAY_OBJECTS                          => [new stdClass(), new DateTime()],
+            self::A027_ARRAY_STRINGS                          => ['a', 'b', 'c'],
+            self::A028_ARRAY_STRINGS_AND_INTEGERS             => ['a', 'b', 'c', 1, 2, 3],
+            self::A029_ARRAY_STRING_AND_NUMERIC_ONE           => [1, '1'],
+            self::A030_ARRAY_BOOLEAN_AND_STRING_ONE           => [true, '1'],
+            self::A031_ARRAY_NULL_AND_FALSE                   => [null, false],
+            self::A032_ARRAY_REPEATED_STRINGS                 => ['a', 'a', 'a'],
+            self::A033_ARRAY_REPEATED_INTEGERS                => [1, 1, 1],
+            self::A034_ARRAY_REPEATED_FLOATS                  => [1.0, 1.0, 1.0],
+            self::A035_ARRAY_REPEATED_BOOLEANS                => [true, true, true],
+            self::A036_ARRAY_REPEATED_OBJECTS                 => [new DateTime(), new DateTime(), new DateTime()],
+            self::A037_ARRAY_OBJECTS                          => [new stdClass(), new DateTime()],
             // endregion
 
             // region Objects
-            self::O001_OBJECT_CLOSURE                 => fn (): Closure => function (): void {},
+            self::O001_OBJECT_CLOSURE => fn (): Closure => function (): void {
+            },
             self::O002_OBJECT_CLOSURE_RETURNS_CLOSURE => fn (): Closure => function (): Closure {
                 return function (): string {
                     return 'foo';
                 };
             },
-            self::O003_OBJECT_STDCLASS                   => new stdClass(),
-            self::O004_OBJECT_DATETIME                   => new DateTime(),
-            self::O005_OBJECT_EXCEPTION                  => new Exception(),
-            self::O006_OBJECT_ANONYMOUS_CLASS            => new class {},
+            self::O003_OBJECT_STDCLASS        => new stdClass(),
+            self::O004_OBJECT_DATETIME        => new DateTime(),
+            self::O005_OBJECT_EXCEPTION       => new Exception(),
+            self::O006_OBJECT_ANONYMOUS_CLASS => new class {
+            },
             self::O007_OBJECT_ANONYMOUS_STRINGABLE_CLASS => new class implements Stringable {
                 public function __toString(): string
                 {
@@ -396,9 +418,12 @@ enum GuardTestCase: string
                     return 'foo';
                 }
             },
-            self::O013_OBJECT_ANONYMOUS_CLASS_EXTENDS_STDCLASS  => new class extends stdClass {},
-            self::O014_OBJECT_ANONYMOUS_CLASS_EXTENDS_DATETIME  => new class extends DateTime {},
-            self::O015_OBJECT_ANONYMOUS_CLASS_EXTENDS_EXCEPTION => new class extends Exception {},
+            self::O013_OBJECT_ANONYMOUS_CLASS_EXTENDS_STDCLASS => new class extends stdClass {
+            },
+            self::O014_OBJECT_ANONYMOUS_CLASS_EXTENDS_DATETIME => new class extends DateTime {
+            },
+            self::O015_OBJECT_ANONYMOUS_CLASS_EXTENDS_EXCEPTION => new class extends Exception {
+            },
             // endregion
 
             // region Resources
