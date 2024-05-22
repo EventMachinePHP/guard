@@ -8,6 +8,7 @@ use ArrayAccess;
 
 use function is_array;
 
+use EventMachinePHP\Guard\Guard;
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\ExceptionMessage;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
@@ -21,6 +22,9 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static ArrayAccess|array aa(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
  * @method static ArrayAccess|array is_array_accessible(mixed $value, ?string $message = null) Alias of {@see Guard::isArrayAccessible()}
+ * @method static iterable it(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
+ * @method static iterable iterable(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
+ * @method static iterable is_iterable(mixed $value, ?string $message = null) Alias of {@see Guard::isIterable()}
  * @method static iterable us(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
  * @method static iterable unique_strict(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
  * @method static iterable unique_strict_values(mixed $values, ?string $message = null) Alias of {@see Guard::hasUniqueStrictValues()}
@@ -93,16 +97,45 @@ trait ArrayGuards
     }
 
     /**
+     * Validates if the given value is iterable and returns it.
+     *
+     * If the value is not iterable, the method throws an
+     * {@see InvalidGuardArgumentException}
+     *
+     * @param  mixed  $value  The value to be checked.
+     * @param  string|null  $message  The custom exception message.
+     *
+     * @return iterable The iterable value if it is iterable.
+     *
+     * @throws InvalidGuardArgumentException If the value is not iterable.
+     *
+     * @see Alias: {@see Guard::it()}
+     * @see Alias: {@see Guard::iterable()}
+     * @see Alias: {@see Guard::is_iterable()}
+     */
+    #[Alias(['it', 'iterable', 'is_iterable'])]
+    public static function isIterable(mixed $value, ?string $message = null): iterable
+    {
+        return !is_iterable($value)
+            ? throw InvalidGuardArgumentException::create(
+                customMessage: $message,
+                defaultMessage: 'Expected an iterable. Got: %s (%s)',
+                values: [self::valueToString(value: $value), self::valueToType(value: $value)],
+            )
+            : $value;
+    }
+
+    /**
      * Validates if the given values in the iterable are unique
      * using strict comparison and return them.
      *
-     * Given an iterable, this method will loop over the values
+     * Given an iterable object, this method will loop over the values
      * and perform a strict comparison between each pair of
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param mixed $values the iterable to check for unique values
-     * @param string|null $message optional error message to use instead of the default
+     * @param  mixed  $values  the iterable to check for unique values
+     * @param  string|null  $message  optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
      *
@@ -113,20 +146,25 @@ trait ArrayGuards
     #[Alias(['us', 'unique_strict', 'unique_strict_values'])]
     public static function hasUniqueStrictValues(mixed $values, ?string $message = null): iterable
     {
-        foreach ($values as $value1) {
-            $count = 0;
-            foreach ($values as $value2) {
-                if ($value1 === $value2) {
-                    $count++;
-                }
-            }
+        Guard::isArrayAccessible(
+            value: $values,
+            message: $message ?? ExceptionMessage::HasUniqueStrictValues->value // TODO: Is this the best way?
+        );
 
-            if ($count > 1) {
-                throw InvalidGuardArgumentException::create(
-                    defaultMessage: ExceptionMessage::HasUniqueStrictValues, // TODO: ?
-                    customMessage: $message,
-                    values: []
-                );
+        foreach ($values as $currentValue) {
+            $duplicateCount = 0;
+            foreach ($values as $comparisonValue) {
+                if ($currentValue === $comparisonValue) {
+                    $duplicateCount++;
+                }
+
+                if ($duplicateCount > 1) {
+                    throw InvalidGuardArgumentException::create(
+                        defaultMessage: ExceptionMessage::HasUniqueStrictValues,
+                        customMessage: $message,
+                        values: $values
+                    );
+                }
             }
         }
 
@@ -142,8 +180,8 @@ trait ArrayGuards
      * values to ensure that no duplicate values exist. If
      * a duplicate is found, an exception will be thrown.
      *
-     * @param mixed $values the iterable to check for unique values
-     * @param string|null $message optional error message to use instead of the default
+     * @param  mixed  $values  the iterable to check for unique values
+     * @param  string|null  $message  optional error message to use instead of the default
      *
      * @return iterable returns the original iterable if all values are unique
      *

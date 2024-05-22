@@ -42,7 +42,6 @@ class Guard
     use EqualityGuards;
     use ExceptionGuards;
     use InstanceGuards;
-    use IterableGuards;
     use NullGuards;
     use NumericGuards;
     use ObjectGuards;
