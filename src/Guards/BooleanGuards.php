@@ -17,6 +17,7 @@ use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
  * @method static bool bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool is_bool(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool boolean(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
+ * @method static bool is_boolean(mixed $value, ?string $message = null) Alias of {@see Guard::isBoolean()}
  * @method static bool t(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
  * @method static bool true(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
  * @method static bool is_true(mixed $value, ?string $message = null) Alias of {@see Guard::isTrue()}
@@ -44,17 +45,18 @@ trait BooleanGuards
      * @see Alias: {@see Guard::bool()}
      * @see Alias: {@see Guard::is_bool()}
      * @see Alias: {@see Guard::boolean()}
+     * @see Alias: {@see Guard::is_boolean()}
      */
-    #[Alias(['b', 'bool', 'is_bool', 'boolean'])]
+    #[Alias(['b', 'bool', 'is_bool', 'boolean', 'is_boolean'])]
     public static function isBoolean(mixed $value, ?string $message = null): bool
     {
-        return !is_bool($value)
-            ? throw InvalidGuardArgumentException::create(
+        return is_bool($value)
+            ? $value
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsBoolean,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
+            );
     }
 
     /**
