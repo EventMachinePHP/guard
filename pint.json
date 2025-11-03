@@ -68,10 +68,6 @@
         "void_return": true,
         "explicit_string_variable": true,
         "method_chaining_indentation": true,
-        "statement_indentation": {
-            "stick_comment_to_next_continuous_control_statement": true
-        },
-        "indentation_type": true,
         "curly_braces_position": {
             "control_structures_opening_brace": "same_line",
             "functions_opening_brace": "next_line_unless_newline_at_signature_end",
@@ -88,6 +84,7 @@
                 "property": "none",
                 "trait_import": "none"
             }
-        }
+        },
+        "new_with_parentheses": true
     }
 }
