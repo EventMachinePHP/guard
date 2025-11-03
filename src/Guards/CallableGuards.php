@@ -40,12 +40,12 @@ trait CallableGuards
     #[Alias(['c', 'callable', 'is_callable'])]
     public static function isCallable(mixed $value, ?string $message = null): callable
     {
-        return !is_callable($value)
-            ? throw InvalidGuardArgumentException::create(
+        return is_callable($value)
+            ? $value
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsCallable,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
+            );
     }
 }
