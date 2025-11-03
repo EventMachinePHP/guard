@@ -81,13 +81,13 @@ trait BooleanGuards
     #[Alias(['t', 'true', 'is_true'])]
     public static function isTrue(mixed $value, ?string $message = null): bool
     {
-        return $value !== true
-            ? throw InvalidGuardArgumentException::create(
+        return $value === true
+            ? true
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsTrue,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : true;
+            );
     }
 
     /**
@@ -112,12 +112,12 @@ trait BooleanGuards
     #[Alias(['f', 'false', 'is_false'])]
     public static function isFalse(mixed $value, ?string $message = null): bool
     {
-        return $value !== false
-            ? throw InvalidGuardArgumentException::create(
+        return $value === false
+            ? false
+            : throw InvalidGuardArgumentException::create(
                 defaultMessage: ExceptionMessage::IsFalse,
                 customMessage: $message,
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : false;
+            );
     }
 }
