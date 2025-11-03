@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace EventMachinePHP\Guard\Guards;
 
 use Countable;
+
+use EventMachinePHP\Guard\ExceptionMessage;
 use function is_countable;
+
 use EventMachinePHP\Guard\Attributes\Alias;
 use EventMachinePHP\Guard\Exceptions\InvalidGuardArgumentException;
 
@@ -29,8 +32,8 @@ trait CountableGuards
      * type and the received value and type. If a custom
      * message is provided, it will be used instead.
      *
-     * @param  mixed  $value The value to check.
-     * @param  string|null  $message A custom error message.
+     * @param  mixed  $value  The value to check.
+     * @param  string|null  $message  A custom error message.
      *
      * @return Countable|array The countable value.
      *
@@ -43,12 +46,12 @@ trait CountableGuards
     #[Alias(['co', 'countable', 'is_countable'])]
     public static function isCountable(mixed $value, ?string $message = null): Countable|array
     {
-        return !is_countable($value)
-            ? throw InvalidGuardArgumentException::create(
+        return is_countable($value)
+            ? $value
+            : throw InvalidGuardArgumentException::create(
+                defaultMessage: ExceptionMessage::IsCountable,
                 customMessage: $message,
-                defaultMessage: 'Expected a countable value. Got: %s (%s)',
                 values: [self::valueToString(value: $value), self::valueToType(value: $value)],
-            )
-            : $value;
+            );
     }
 }
